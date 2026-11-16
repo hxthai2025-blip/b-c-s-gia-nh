@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Family Doctor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: a calm clinic-like reading site — sticky nav, one view per section via #hash, content in readable columns, cards only where items are comparable. */
+:root{
+  --bg:#f4f7f6;
+  --surface:#ffffff;
+  --ink:#16262b;
+  --muted:#56686d;
+  --line:#dbe4e2;
+  --brand:#0e5a4c;
+  --brand-soft:#e2f0ec;
+  --accent:#d9902b;
+  --accent-soft:#fbf0de;
+  --danger:#b4322a;
+  --danger-soft:#fbe6e3;
+  --font-display:"Lora", Georgia, "Times New Roman", serif;
+  --font-body:"Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --radius:12px;
+  --shadow:0 1px 2px rgba(14,40,36,.06),0 6px 20px rgba(14,40,36,.06);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1716;--surface:#16211f;--ink:#e6eeec;--muted:#9fb2ae;--line:#26332f;
+    --brand:#5cc2a8;--brand-soft:#1b3430;--accent:#e9ad55;--accent-soft:#3a2d18;
+    --danger:#f08a80;--danger-soft:#3c1d1a;--shadow:0 1px 2px rgba(0,0,0,.3);color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1716;--surface:#16211f;--ink:#e6eeec;--muted:#9fb2ae;--line:#26332f;
+  --brand:#5cc2a8;--brand-soft:#1b3430;--accent:#e9ad55;--accent-soft:#3a2d18;
+  --danger:#f08a80;--danger-soft:#3c1d1a;--shadow:0 1px 2px rgba(0,0,0,.3);color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.6}
+h1,h2,h3{font-family:var(--font-display);line-height:1.25;text-wrap:balance;margin:0}
+h1{font-size:clamp(1.9rem,5vw,2.9rem)}
+h2{font-size:clamp(1.45rem,3.4vw,1.9rem)}
+h3{font-size:1.15rem}
+p{margin:0}
+a{color:var(--brand)}
+button,input,textarea,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.prose{max-width:68ch}
+.muted{color:var(--muted)}
+.stack{display:flex;flex-direction:column;gap:14px}
+
+/* Header */
+.topbar{background:var(--brand);color:#fff;font-size:.85rem}
+.topbar .wrap{display:flex;justify-content:space-between;gap:12px;padding-top:6px;padding-bottom:6px;flex-wrap:wrap}
+.topbar strong{font-weight:600}
+header.site{position:sticky;top:0;z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+header.site .wrap{display:flex;align-items:center;gap:16px;min-height:64px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);flex-shrink:0}
+.logo-mark{width:36px;height:36px;border-radius:10px;background:var(--brand);display:grid;place-items:center}
+.logo b{font-family:var(--font-display);font-size:1.2rem;letter-spacing:.02em}
+.logo small{display:block;font-size:.72rem;color:var(--muted);line-height:1.1}
+nav.main{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;margin-left:auto}
+nav.main::-webkit-scrollbar{display:none}
+nav.main a{white-space:nowrap;text-decoration:none;color:var(--ink);padding:8px 11px;border-radius:8px;font-size:.92rem;font-weight:500}
+nav.main a:hover{background:var(--brand-soft)}
+nav.main a[aria-current="page"]{background:var(--brand);color:#fff}
+.menu-btn{display:none;margin-left:auto;background:none;border:1px solid var(--line);border-radius:8px;padding:6px 12px;cursor:pointer}
+@media (max-width:900px){
+  .menu-btn{display:block}
+  nav.main{display:none;position:absolute;left:0;right:0;top:100%;background:var(--surface);flex-direction:column;padding:10px 20px 16px;border-bottom:1px solid var(--line)}
+  nav.main.open{display:flex}
+  header.site .wrap{position:relative}
+}
+
+/* Views */
+main{padding-bottom:56px}
+.view{display:none}
+.view.active{display:block}
+.page-head{padding:40px 0 24px;border-bottom:1px solid var(--line);margin-bottom:28px}
+.page-head .crumb{font-size:.85rem;color:var(--muted);margin-bottom:8px}
+.page-head p{margin-top:10px;color:var(--muted);max-width:62ch}
+section.block{margin-top:44px}
+section.block > h2{margin-bottom:16px}
+
+/* Hero */
+.hero{padding:48px 0 36px}
+.hero-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:36px;align-items:center}
+@media (max-width:820px){.hero-grid{grid-template-columns:1fr}}
+.eyebrow{display:inline-block;font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--brand);background:var(--brand-soft);padding:4px 10px;border-radius:99px;margin-bottom:14px}
+.hero h1 span{color:var(--brand)}
+.hero .sub{font-size:1.15rem;margin-top:12px;color:var(--muted)}
+.search{display:flex;gap:8px;margin-top:24px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:6px;box-shadow:var(--shadow)}
+.search input{flex:1;border:0;background:transparent;padding:10px 12px;min-width:0}
+.search input:focus{outline:none}
+.search:focus-within{outline:3px solid var(--accent);outline-offset:2px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:0;border-radius:10px;padding:10px 18px;font-weight:600;cursor:pointer;text-decoration:none;background:var(--brand);color:#fff}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;color:var(--brand);border:1px solid var(--brand)}
+.quick{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;font-size:.9rem}
+.quick span{color:var(--muted)}
+.chip-link{background:none;border:1px solid var(--line);border-radius:99px;padding:4px 12px;cursor:pointer;color:var(--ink)}
+.chip-link:hover{border-color:var(--brand);color:var(--brand)}
+.promise{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+.promise h3{margin-bottom:12px}
+.promise ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+.promise li{display:flex;gap:12px}
+.tick{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-weight:700;font-size:.8rem}
+
+/* Grids & cards */
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;display:flex;flex-direction:column;gap:8px}
+button.card{text-align:left;cursor:pointer;font:inherit;color:inherit;transition:border-color .15s,transform .15s}
+button.card:hover{border-color:var(--brand);transform:translateY(-2px)}
+.card .tag{align-self:flex-start;font-size:.75rem;font-weight:600;padding:2px 9px;border-radius:99px;background:var(--brand-soft);color:var(--brand)}
+.card .tag.warn{background:var(--accent-soft);color:var(--accent)}
+.card p{color:var(--muted);font-size:.95rem}
+.card .more{margin-top:auto;font-weight:600;color:var(--brand);font-size:.9rem}
+.nav-tiles{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+.nav-tile{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--brand);border-radius:10px;padding:16px;text-decoration:none;color:var(--ink)}
+.nav-tile:hover{border-color:var(--brand)}
+.nav-tile b{display:block;font-size:1rem}
+.nav-tile span{font-size:.88rem;color:var(--muted)}
+.section-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+
+/* Filters */
+.filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px;align-items:center}
+.filters input[type=search]{flex:1;min-width:220px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:6px 14px;cursor:pointer;font-size:.9rem}
+.seg button[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#fff}
+
+/* Symptom checker */
+.checker{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+@media (max-width:820px){.checker{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+.sym-group{margin-top:14px}
+.sym-group h4{margin:0 0 8px;font-size:.82rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{border:1px solid var(--line);background:var(--bg);border-radius:99px;padding:6px 13px;cursor:pointer;font-size:.92rem}
+.chips button[aria-pressed="true"]{background:var(--brand);color:#fff;border-color:var(--brand)}
+.chips button.red[aria-pressed="true"]{background:var(--danger);border-color:var(--danger)}
+.alert{border-radius:10px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start}
+.alert.danger{background:var(--danger-soft);color:var(--danger);border:1px solid var(--danger)}
+.alert.info{background:var(--accent-soft);border:1px solid var(--accent);color:var(--ink)}
+.alert b{display:block}
+.result{border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;background:var(--bg)}
+.result-top{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.meter{height:6px;border-radius:99px;background:var(--line);overflow:hidden}
+.meter i{display:block;height:100%;background:var(--brand)}
+.result button{align-self:flex-start;background:none;border:0;padding:0;color:var(--brand);font-weight:600;cursor:pointer}
+
+/* Age tabs */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid var(--line);margin-bottom:22px}
+.tabs button{border:0;background:none;padding:10px 14px;cursor:pointer;font-weight:600;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-1px}
+.tabs button[aria-selected="true"]{color:var(--brand);border-bottom-color:var(--brand)}
+.age-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media (max-width:820px){.age-grid{grid-template-columns:1fr}}
+.list{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.age-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+@media (max-width:820px){.age-strip{grid-template-columns:repeat(2,1fr)}}
+.age-strip a{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;text-decoration:none;color:var(--ink);text-align:center}
+.age-strip a:hover{border-color:var(--brand)}
+.age-strip b{display:block;font-family:var(--font-display);font-size:1.05rem}
+.age-strip span{font-size:.82rem;color:var(--muted)}
+
+/* Numbers table */
+table{width:100%;border-collapse:collapse;font-size:.95rem}
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;background:var(--bg)}
+tr:last-child td{border-bottom:0}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:600}
+
+/* Plate */
+.plate-row{display:grid;grid-template-columns:260px 1fr;gap:28px;align-items:center}
+@media (max-width:720px){.plate-row{grid-template-columns:1fr;justify-items:center}}
+.legend{display:flex;flex-direction:column;gap:12px}
+.legend div{display:flex;gap:12px;align-items:flex-start}
+.sw{width:16px;height:16px;border-radius:4px;flex-shrink:0;margin-top:4px}
+
+/* Process */
+.steps{counter-reset:s;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.step::before{counter-increment:s;content:"Bước " counter(s);display:block;font-size:.78rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+
+/* Form */
+form.ask{display:grid;gap:14px}
+form.ask label{font-weight:600;font-size:.92rem;display:block;margin-bottom:4px}
+form.ask input,form.ask textarea,form.ask select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.form-note{font-size:.88rem}
+
+/* Article */
+.article-grid{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:32px;align-items:start}
+@media (max-width:860px){.article-grid{grid-template-columns:1fr}}
+.article section{display:flex;flex-direction:column;gap:10px}
+.article{gap:28px;max-width:70ch}
+.side-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.side-list a{text-decoration:none;font-weight:600}
+.back{display:inline-block;margin-top:8px;font-weight:600;text-decoration:none}
+/* Tools */
+.tool{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+@media (max-width:720px){.tool{grid-template-columns:1fr}}
+.tool form{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end}
+.tool label{font-weight:600;font-size:.9rem;display:block;margin-bottom:4px}
+.tool input{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);font-variant-numeric:tabular-nums}
+.tool .btn{grid-column:1/-1}
+.out{border-radius:10px;padding:16px;background:var(--bg);border:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
+.out .big{font-family:var(--font-display);font-size:2rem;font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums}
+.out.ok{border-color:var(--brand);background:var(--brand-soft)}
+.out.warn{border-color:var(--accent);background:var(--accent-soft)}
+.out.bad{border-color:var(--danger);background:var(--danger-soft)}
+
+/* Footer */
+.disclaimer{background:var(--accent-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;font-size:.9rem}
+footer{background:var(--surface);padding:36px 0;font-size:.9rem}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:28px}
+@media (max-width:720px){.foot-grid{grid-template-columns:1fr}}
+footer h4{margin:0 0 10px;font-size:.95rem}
+footer ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
+footer a{color:var(--muted);text-decoration:none}
+footer a:hover{color:var(--brand)}
+.empty{padding:24px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:10px}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap">
+  <span>Cấp cứu: gọi <strong>115</strong> nếu khó thở, đau ngực, yếu liệt hoặc lơ mơ</span>
+  <span>Hỏi bác sĩ qua Zalo: <a href="https://zalo.me/0935498866" style="color:#fff;font-weight:600">0935 498 866</a></span>
+</div></div>
+
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="#trang-chu" aria-label="Family Doctor – Trang chủ">
+      <span class="logo-mark" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/><path d="M12 11.5v5M9.5 14h5"/></svg>
+      </span>
+      <span><b>FAMILY DOCTOR</b><small>Bác sĩ gia đình</small></span>
+    </a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mainNav">Menu</button>
+    <nav class="main" id="mainNav" aria-label="Điều hướng chính">
+      <a href="#trang-chu">Trang chủ</a>
+      <a href="#benh-thuong-gap">Bệnh thường gặp</a>
+      <a href="#trieu-chung">Triệu chứng</a>
+      <a href="#phong-benh">Phòng bệnh</a>
+      <a href="#suc-khoe-theo-tuoi">Sức khỏe theo tuổi</a>
+      <a href="#benh-man-tinh">Bệnh mạn tính</a>
+      <a href="#dinh-duong">Dinh dưỡng &amp; lối sống</a>
+      <a href="#hoi-bac-si">Hỏi bác sĩ</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= TRANG CHỦ ================= -->
+<div class="view" id="v-trang-chu">
+  <div class="wrap">
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow">Thông tin y khoa cho cả nhà</span>
+          <h1>Chăm sóc sức khỏe, <span>bắt đầu từ gia đình.</span></h1>
+          <p class="sub">Hiểu đúng bệnh – Sống khỏe mỗi ngày. Tra cứu bệnh, triệu chứng và cách phòng bệnh bằng ngôn ngữ dễ hiểu.</p>
+          <form class="search" id="homeSearch" role="search">
+            <input id="homeQ" type="search" placeholder="Tìm bệnh, ví dụ: sốt xuất huyết, tăng huyết áp…" aria-label="Tìm bệnh">
+            <button class="btn" type="submit">Tìm</button>
+          </form>
+          <div class="quick"><span>Hay tìm:</span>
+            <button class="chip-link" data-q="Sốt xuất huyết">Sốt xuất huyết</button>
+            <button class="chip-link" data-q="Tăng huyết áp">Tăng huyết áp</button>
+            <button class="chip-link" data-q="Tay chân miệng">Tay chân miệng</button>
+            <button class="chip-link" data-q="Đái tháo đường">Đái tháo đường</button>
+          </div>
+        </div>
+        <aside class="promise" aria-labelledby="promiseH">
+          <h3 id="promiseH">Lời hứa của chúng tôi</h3>
+          <ul>
+            <li><span class="tick">1</span><div><b>Dễ hiểu</b><br><span class="muted">Viết cho người bệnh và gia đình, giải thích thuật ngữ khi cần.</span></div></li>
+            <li><span class="tick">2</span><div><b>Có cơ sở khoa học</b><br><span class="muted">Mỗi bài dựa trên hướng dẫn của Bộ Y tế, WHO và tài liệu chuyên ngành.</span></div></li>
+            <li><span class="tick">3</span><div><b>Vì lợi ích người bệnh</b><br><span class="muted">Không quảng cáo thuốc. Luôn nói rõ khi nào cần đi khám.</span></div></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>Bạn đang cần gì?</h2>
+      <div class="nav-tiles">
+        <a class="nav-tile" href="#benh-thuong-gap"><b>Bệnh thường gặp</b><span>Tra cứu bệnh lý</span></a>
+        <a class="nav-tile" href="#trieu-chung"><b>Triệu chứng</b><span>Tra cứu theo dấu hiệu</span></a>
+        <a class="nav-tile" href="#phong-benh"><b>Phòng bệnh</b><span>Chủ động bảo vệ sức khỏe</span></a>
+        <a class="nav-tile" href="#suc-khoe-theo-tuoi"><b>Sức khỏe theo tuổi</b><span>Chăm sóc từng giai đoạn</span></a>
+        <a class="nav-tile" href="#benh-man-tinh"><b>Bệnh mạn tính</b><span>Sống chung và kiểm soát</span></a>
+        <a class="nav-tile" href="#dinh-duong"><b>Dinh dưỡng &amp; lối sống</b><span>Ăn, ngủ, vận động</span></a>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="section-head"><h2>Bệnh thường gặp trong gia đình</h2><a href="#benh-thuong-gap">Xem tất cả →</a></div>
+      <div class="grid" id="homeDiseases"></div>
+    </section>
+
+    <section class="block">
+      <h2>Công cụ sức khỏe</h2>
+      <div class="nav-tiles">
+        <a class="nav-tile" href="#trieu-chung"><b>Tra triệu chứng</b><span>Chọn dấu hiệu, xem bệnh liên quan</span></a>
+        <a class="nav-tile" href="#dinh-duong"><b>Tính BMI</b><span>Theo ngưỡng người châu Á</span></a>
+        <a class="nav-tile" href="#benh-man-tinh"><b>Đọc chỉ số huyết áp</b><span>Hiểu kết quả đo tại nhà</span></a>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="section-head"><h2>Sức khỏe theo tuổi</h2><a href="#suc-khoe-theo-tuoi">Xem chi tiết →</a></div>
+      <div class="age-strip" id="homeAges"></div>
+    </section>
+
+    <section class="block">
+      <div class="alert info">
+        <div><b>Thông tin trên website không thay thế việc khám bệnh.</b>
+        Nếu triệu chứng nặng lên, kéo dài hoặc bạn lo lắng, hãy đến cơ sở y tế gần nhất. <a href="#trieu-chung">Xem các dấu hiệu cần đi khám ngay</a>.</div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================= BỆNH THƯỜNG GẶP ================= -->
+<div class="view" id="v-benh-thuong-gap">
+  <div class="wrap">
+    <div class="page-head">
+      <div class="crumb">Trang chủ / Bệnh thường gặp</div>
+      <h1>Bệnh thường gặp</h1>
+      <p>Tra cứu bệnh lý: nguyên nhân, triệu chứng, chăm sóc tại nhà và khi nào cần đi khám.</p>
+    </div>
+    <div class="filters">
+      <input type="search" id="dzQ" placeholder="Gõ tên bệnh hoặc triệu chứng…" aria-label="Lọc bệnh">
+      <div class="seg" id="dzSeg" role="group" aria-label="Nhóm bệnh"></div>
+    </div>
+    <div class="grid" id="dzList"></div>
+  </div>
+</div>
+
+<!-- ================= TRIỆU CHỨNG ================= -->
+<div class="view" id="v-trieu-chung">
+  <div class="wrap">
+    <div class="page-head">
+      <div class="crumb">Trang chủ / Triệu chứng</div>
+      <h1>Tra cứu theo dấu hiệu</h1>
+      <p>Chọn các triệu chứng bạn hoặc người nhà đang gặp. Công cụ gợi ý các bệnh có thể liên quan để bạn đọc thêm. Đây không phải chẩn đoán.</p>
+    </div>
+    <div class="checker">
+      <div class="panel">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+          <h3>Triệu chứng đang gặp</h3>
+          <button class="chip-link" id="symClear">Bỏ chọn</button>
+        </div>
+        <div id="symGroups"></div>
+      </div>
+      <div class="stack" aria-live="polite">
+        <div id="redFlag"></div>
+        <div class="panel stack" id="symResults"></div>
+        <div class="panel">
+          <h3 style="margin-bottom:10px">Đi cấp cứu ngay (gọi 115) nếu có</h3>
+          <ul class="list">
+            <li>Khó thở, thở nhanh, môi tím tái</li>
+            <li>Đau thắt ngực, đau lan ra tay trái, hàm hoặc lưng</li>
+            <li>Méo miệng, yếu hoặc tê một bên người, nói khó đột ngột</li>
+            <li>Lơ mơ, li bì, co giật</li>
+            <li>Nôn ra máu, đi ngoài phân đen</li>
+            <li>Trẻ dưới 3 tháng tuổi sốt từ 38°C trở lên</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= PHÒNG BỆNH ================= -->
+<div class="view" id="v-phong-benh">
+  <div class="wrap">
+    <div class="page-head">
+      <div class="crumb">Trang chủ / Phòng bệnh</div>
+      <h1>Chủ động bảo vệ sức khỏe</h1>
+      <p>Phần lớn bệnh thường gặp có thể phòng được bằng vài thói quen đơn giản, làm đều đặn cả nhà.</p>
+    </div>
+    <div class="grid" id="prevList"></div>
+    <section class="block">
+      <h2>Lịch khám và tầm soát nên nhớ</h2>
+      <p class="muted prose" style="margin-bottom:14px">Mốc tham khảo cho người không có triệu chứng. Bác sĩ có thể khuyên khám sớm hoặc dày hơn nếu bạn có yếu tố nguy cơ.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Nội dung</th><th>Ai nên làm</th><th>Bao lâu một lần</th></tr></thead>
+        <tbody id="screenTable"></tbody>
+      </table></div>
+    </section>
+  </div>
+</div>
+
+<!-- ================= SỨC KHỎE THEO TUỔI ================= -->
+<div class="view" id="v-suc-khoe-theo-tuoi">
+  <div class="wrap">
+    <div class="page-head">
+      <div class="crumb">Trang chủ / Sức khỏe theo tuổi</div>
+      <h1>Chăm sóc từng giai đoạn</h1>
+      <p>Mỗi độ tuổi có những vấn đề sức khỏe riêng. Chọn giai đoạn để xem điều cần chú ý.</p>
+    </div>
+    <div class="tabs" role="tablist" id="ageTabs"></div>
+    <div id="agePanel" role="tabpanel"></div>
+  </div>
+</div>
+
+<!-- ================= BỆNH MẠN TÍNH ================= -->
+<div class="view" id="v-benh-man-tinh">
+  <div class="wrap">
+    <div class="page-head">
+      <div class="crumb">Trang chủ / Bệnh mạn tính</div>
+      <h1>Bệnh mạn tính</h1>
+      <p>Bệnh kéo dài cần theo dõi lâu dài. Hiểu các con số của mình là bước đầu để kiểm soát tốt.</p>
+    </div>
+    <div class="grid" id="chronicList"></div>
+    <section class="block">
+      <h2>Đọc chỉ số huyết áp</h2>
+      <div class="panel tool">
+        <form id="bpForm" novalidate>
+          <div><label for="bpSys">Tâm thu (số trên)</label><input id="bpSys" type="number" inputmode="numeric" min="60" max="260" value="128"></div>
+          <div><label for="bpDia">Tâm trương (số dưới)</label><input id="bpDia" type="number" inputmode="numeric" min="30" max="160" value="82"></div>
+          <button class="btn" type="submit">Xem kết quả</button>
+          <p class="muted" style="grid-column:1/-1;font-size:.88rem">Đo sau khi ngồi nghỉ 5 phút, không uống cà phê hay hút thuốc trong 30 phút trước đó. Một lần đo không đủ để chẩn đoán.</p>
+        </form>
+        <div class="out" id="bpOut" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>Những con số cần biết</h2>
+      <p class="muted prose" style="margin-bottom:14px">Ngưỡng chẩn đoán thường dùng ở người trưởng thành. Chỉ bác sĩ mới chẩn đoán dựa trên nhiều lần đo và xét nghiệm.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Chỉ số</th><th>Bình thường</th><th>Cần chú ý</th><th>Ngưỡng bệnh</th></tr></thead>
+        <tbody>
+          <tr><td>Huyết áp đo tại phòng khám (mmHg)</td><td class="num">&lt; 120/80</td><td class="num">130–139 / 85–89</td><td class="num">≥ 140/90</td></tr>
+          <tr><td>Đường huyết lúc đói (mmol/L)</td><td class="num">&lt; 5,6</td><td class="num">5,6–6,9</td><td class="num">≥ 7,0</td></tr>
+          <tr><td>HbA1c (%)</td><td class="num">&lt; 5,7</td><td class="num">5,7–6,4</td><td class="num">≥ 6,5</td></tr>
+          <tr><td>BMI người châu Á (kg/m²)</td><td class="num">18,5–22,9</td><td class="num">23–24,9 (thừa cân)</td><td class="num">≥ 25 (béo phì)</td></tr>
+          <tr><td>Vòng eo (cm)</td><td class="num">Nam &lt; 90 · Nữ &lt; 80</td><td colspan="2">Vượt mức này làm tăng nguy cơ tim mạch, đái tháo đường</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+  </div>
+</div>
+
+<!-- ================= DINH DƯỠNG & LỐI SỐNG ================= -->
+<div class="view" id="v-dinh-duong">
+  <div class="wrap">
+    <div class="page-head">
+      <div class="crumb">Trang chủ / Dinh dưỡng &amp; lối sống</div>
+      <h1>Dinh dưỡng &amp; lối sống</h1>
+      <p>Ăn uống, vận động và giấc ngủ là “thuốc” rẻ nhất và dùng được cho cả nhà.</p>
+    </div>
+    <div class="panel">
+      <div class="plate-row">
+        <svg viewBox="0 0 200 200" width="240" height="240" role="img" aria-label="Đĩa ăn cân bằng: một nửa rau và trái cây, một phần tư chất đạm, một phần tư tinh bột">
+          <circle cx="100" cy="100" r="96" fill="var(--bg)" stroke="var(--line)" stroke-width="4"/>
+          <path d="M100 100 L100 14 A86 86 0 0 0 100 186 Z" fill="#4f9d69"/>
+          <path d="M100 100 L100 14 A86 86 0 0 1 186 100 Z" fill="#d9902b"/>
+          <path d="M100 100 L186 100 A86 86 0 0 1 100 186 Z" fill="#c9b07a"/>
+          <text x="55" y="105" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Be Vietnam Pro, sans-serif">Rau, quả</text>
+          <text x="138" y="70" text-anchor="middle" fill="#fff" font-size="12" font-weight="700" font-family="Be Vietnam Pro, sans-serif">Đạm</text>
+          <text x="138" y="140" text-anchor="middle" fill="#3a2d18" font-size="12" font-weight="700" font-family="Be Vietnam Pro, sans-serif">Tinh bột</text>
+        </svg>
+        <div class="legend">
+          <h2>Đĩa ăn cân bằng</h2>
+          <div><span class="sw" style="background:#4f9d69"></span><p><b>½ đĩa rau và trái cây.</b> <span class="muted">Ưu tiên rau xanh đậm, ăn đa dạng màu sắc.</span></p></div>
+          <div><span class="sw" style="background:#d9902b"></span><p><b>¼ chất đạm.</b> <span class="muted">Cá, đậu, trứng, thịt nạc. Hạn chế thịt chế biến sẵn.</span></p></div>
+          <div><span class="sw" style="background:#c9b07a"></span><p><b>¼ tinh bột.</b> <span class="muted">Gạo lứt, khoai, ngô, bánh mì nguyên cám thay một phần cơm trắng.</span></p></div>
+        </div>
+      </div>
+    </div>
+    <section class="block">
+      <h2>Tính chỉ số BMI</h2>
+      <div class="panel tool">
+        <form id="bmiForm" novalidate>
+          <div><label for="bmiH">Chiều cao (cm)</label><input id="bmiH" type="number" inputmode="decimal" min="100" max="230" value="165"></div>
+          <div><label for="bmiW">Cân nặng (kg)</label><input id="bmiW" type="number" inputmode="decimal" min="25" max="250" value="62"></div>
+          <button class="btn" type="submit">Tính BMI</button>
+          <p class="muted" style="grid-column:1/-1;font-size:.88rem">Dùng cho người từ 18 tuổi, không áp dụng cho phụ nữ mang thai và vận động viên. Trẻ em cần biểu đồ tăng trưởng riêng.</p>
+        </form>
+        <div class="out" id="bmiOut" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>Thói quen mỗi ngày</h2>
+      <div class="grid" id="lifeList"></div>
+    </section>
+  </div>
+</div>
+
+<!-- ================= BÀI VIẾT ================= -->
+<div class="view" id="v-bai"></div>
+
+<!-- ================= HỎI BÁC SĨ / VỀ CHÚNG TÔI ================= -->
+<div class="view" id="v-hoi-bac-si">
+  <div class="wrap">
+    <div class="page-head">
+      <div class="crumb">Trang chủ / Hỏi bác sĩ</div>
+      <h1>Hỏi bác sĩ &amp; về chúng tôi</h1>
+      <p>Gửi câu hỏi để đội ngũ bác sĩ trả lời, và xem cách chúng tôi viết và kiểm duyệt từng bài.</p>
+    </div>
+    <div class="checker">
+      <div class="panel">
+        <h3 style="margin-bottom:14px">Gửi câu hỏi</h3>
+        <form class="ask" id="askForm" novalidate>
+          <div><label for="askName">Họ tên</label><input id="askName" required></div>
+          <div><label for="askFor">Câu hỏi dành cho</label>
+            <select id="askFor"><option>Bản thân</option><option>Con nhỏ</option><option>Cha mẹ lớn tuổi</option><option>Người nhà khác</option></select></div>
+          <div><label for="askQ">Câu hỏi của bạn</label><textarea id="askQ" rows="5" required placeholder="Mô tả triệu chứng, thời gian bắt đầu, thuốc đang dùng…"></textarea></div>
+          <button class="btn" type="submit">Soạn câu hỏi gửi qua Zalo</button>
+          <div id="askOut"></div>
+          <p class="form-note muted" id="askMsg">Câu hỏi được gửi tới BS. Thái Hoàng qua Zalo số <b>0935 498 866</b>. Không dùng cho trường hợp khẩn cấp. Gọi 115.</p>
+        </form>
+      </div>
+      <div class="stack">
+        <div class="panel">
+          <h3 style="margin-bottom:10px">Câu hỏi thường gặp</h3>
+          <div class="stack" id="faqList"></div>
+        </div>
+      </div>
+    </div>
+
+    <section class="block">
+      <h2>Cách chúng tôi làm nội dung</h2>
+      <div class="steps">
+        <div class="step"><b>Bác sĩ biên soạn</b><p class="muted">BS. Thái Hoàng biên soạn bằng ngôn ngữ phổ thông, dễ hiểu cho người bệnh.</p></div>
+        <div class="step"><b>Đối chiếu hướng dẫn</b><p class="muted">Kiểm tra từng nội dung với hướng dẫn chẩn đoán, điều trị hiện hành.</p></div>
+        <div class="step"><b>Ghi nguồn</b><p class="muted">Dẫn hướng dẫn của Bộ Y tế, WHO và tài liệu chuyên ngành ở cuối bài.</p></div>
+        <div class="step"><b>Cập nhật định kỳ</b><p class="muted">Xem lại ít nhất mỗi năm. Ngày cập nhật hiển thị trên từng bài.</p></div>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>Bác sĩ phụ trách</h2>
+      <div class="panel" style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+        <div style="width:72px;height:72px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-family:var(--font-display);font-size:1.6rem;font-weight:700" aria-hidden="true">TH</div>
+        <div class="stack" style="gap:4px;flex:1;min-width:220px">
+          <h3>BS. Thái Hoàng</h3>
+          <p class="muted">Phụ trách chuyên môn và trả lời câu hỏi của người bệnh</p>
+          <p>Zalo / Điện thoại: <b>0935 498 866</b></p>
+        </div>
+        <a class="btn" href="https://zalo.me/0935498866" target="_blank" rel="noopener">Nhắn Zalo cho bác sĩ</a>
+      </div>
+    </section>
+  </div>
+</div>
+
+</main>
+
+<div class="disclaimer"><div class="wrap">Thông tin trên Family Doctor chỉ nhằm mục đích tham khảo, không thay thế chẩn đoán và điều trị của bác sĩ.</div></div>
+<footer>
+  <div class="wrap foot-grid">
+    <div>
+      <a class="logo" href="#trang-chu"><span class="logo-mark" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/><path d="M12 11.5v5M9.5 14h5"/></svg></span><span><b>FAMILY DOCTOR</b><small>Chăm sóc sức khỏe, bắt đầu từ gia đình.</small></span></a>
+      <p class="muted" style="margin-top:12px;max-width:44ch">Thông tin y khoa dễ hiểu, có cơ sở khoa học và hướng đến lợi ích người bệnh.</p>
+      <p style="margin-top:10px">BS. Thái Hoàng · Zalo <a href="https://zalo.me/0935498866">0935 498 866</a></p>
+    </div>
+    <div><h4>Tra cứu</h4><ul>
+      <li><a href="#benh-thuong-gap">Bệnh thường gặp</a></li><li><a href="#trieu-chung">Triệu chứng</a></li><li><a href="#benh-man-tinh">Bệnh mạn tính</a></li></ul></div>
+    <div><h4>Sống khỏe</h4><ul>
+      <li><a href="#phong-benh">Phòng bệnh</a></li><li><a href="#suc-khoe-theo-tuoi">Sức khỏe theo tuổi</a></li><li><a href="#dinh-duong">Dinh dưỡng &amp; lối sống</a></li><li><a href="#hoi-bac-si">Hỏi bác sĩ</a></li></ul></div>
+  </div>
+</footer>
+
+
+<script>
+const DISEASES = [
+  {id:"cum",name:"Cúm mùa",group:"Hô hấp",who:"Mọi lứa tuổi",
+   sum:"Bệnh do virus cúm, lây qua giọt bắn khi ho, hắt hơi. Thường tự khỏi sau 5–7 ngày.",
+   sym:["sot","ho","dau-hong","so-mui","dau-dau","met-moi","dau-co"],
+   signs:["Sốt cao đột ngột 38,5–40°C","Đau mỏi người, đau đầu","Ho khan, đau họng, sổ mũi","Mệt nhiều"],
+   home:["Nghỉ ngơi, uống đủ nước, ăn đồ mềm","Hạ sốt bằng paracetamol theo liều trên nhãn (theo cân nặng với trẻ em)","Đeo khẩu trang, rửa tay để tránh lây cho người nhà"],
+   red:["Khó thở, thở nhanh, đau ngực","Sốt trên 3 ngày không giảm","Người trên 65 tuổi, phụ nữ mang thai, người có bệnh nền bị cúm","Trẻ bỏ bú, li bì"],
+   prev:["Tiêm vắc xin cúm mỗi năm","Rửa tay bằng xà phòng"]},
+  {id:"sxh",name:"Sốt xuất huyết",group:"Truyền nhiễm",who:"Mọi lứa tuổi",
+   sum:"Bệnh do virus Dengue, lây qua muỗi vằn. Giai đoạn nguy hiểm thường rơi vào ngày 3–7, khi bắt đầu hạ sốt.",
+   sym:["sot","dau-dau","dau-co","phat-ban","chay-mau","met-moi","non","dau-bung"],
+   signs:["Sốt cao liên tục 2–7 ngày","Đau đầu, đau sau hốc mắt, đau cơ khớp","Chấm xuất huyết dưới da, chảy máu cam, chảy máu chân răng"],
+   home:["Hạ sốt chỉ bằng paracetamol. Không dùng aspirin, ibuprofen","Uống nhiều nước: oresol, nước trái cây, nước cháo","Theo dõi sát, nhất là khi sốt vừa giảm"],
+   red:["Đau bụng nhiều, nôn liên tục","Chảy máu cam, chân răng, nôn ra máu","Li bì, vật vã, tay chân lạnh","Tiểu ít"],
+   prev:["Diệt lăng quăng, đậy kín dụng cụ chứa nước","Ngủ màn, mặc áo dài tay"]},
+  {id:"tcm",name:"Tay chân miệng",group:"Trẻ em",who:"Trẻ dưới 5 tuổi",
+   sum:"Bệnh do virus đường ruột, lây qua tiếp xúc. Phần lớn nhẹ, nhưng có thể biến chứng thần kinh, tim mạch.",
+   sym:["sot","phat-ban","dau-hong","met-moi","bo-an"],
+   signs:["Sốt nhẹ","Loét miệng, chảy nước bọt, biếng ăn","Bóng nước ở lòng bàn tay, bàn chân, mông, gối"],
+   home:["Cho trẻ ăn đồ nguội, mềm, uống đủ nước","Vệ sinh răng miệng, rửa tay cho trẻ và người chăm sóc","Cho trẻ nghỉ học đến khi khỏi"],
+   red:["Giật mình chới với, nhất là khi ngủ","Sốt cao khó hạ hoặc sốt trên 2 ngày","Nôn nhiều, quấy khóc liên tục, đi loạng choạng","Thở nhanh, da nổi vân tím"],
+   prev:["Rửa tay bằng xà phòng","Lau rửa đồ chơi, sàn nhà"]},
+  {id:"vh",name:"Viêm họng",group:"Hô hấp",who:"Mọi lứa tuổi",
+   sum:"Đa số do virus và tự khỏi. Một số trường hợp do liên cầu khuẩn cần kháng sinh theo đơn bác sĩ.",
+   sym:["dau-hong","sot","ho","so-mui"],
+   signs:["Đau rát họng, nuốt đau","Có thể sốt, nổi hạch cổ"],
+   home:["Súc miệng nước muối ấm","Uống nước ấm, mật ong (trẻ trên 1 tuổi)","Không tự ý dùng kháng sinh"],
+   red:["Khó nuốt đến mức không uống được nước","Khó thở, chảy nước dãi, há miệng khó","Sốt cao kèm mủ trắng ở họng"],
+   prev:["Rửa tay, tránh khói thuốc"]},
+  {id:"tc",name:"Tiêu chảy cấp",group:"Tiêu hóa",who:"Mọi lứa tuổi",
+   sum:"Đi ngoài phân lỏng từ 3 lần/ngày trở lên. Nguy hiểm nhất là mất nước, đặc biệt ở trẻ nhỏ và người già.",
+   sym:["tieu-chay","non","dau-bung","sot"],
+   signs:["Phân lỏng nhiều lần","Có thể nôn, đau bụng, sốt"],
+   home:["Bù nước bằng oresol pha đúng hướng dẫn","Tiếp tục ăn uống, trẻ bú mẹ vẫn bú","Trẻ em: bổ sung kẽm theo hướng dẫn của nhân viên y tế"],
+   red:["Phân có máu","Khát nhiều, mắt trũng, tiểu ít","Nôn liên tục, không uống được","Li bì, khó đánh thức"],
+   prev:["Ăn chín uống sôi","Rửa tay trước khi ăn và sau đi vệ sinh"]},
+  {id:"dd",name:"Viêm dạ dày",group:"Tiêu hóa",who:"Người trưởng thành",
+   sum:"Niêm mạc dạ dày bị viêm do vi khuẩn H. pylori, thuốc giảm đau, rượu bia hoặc ăn uống thất thường.",
+   sym:["dau-bung","non","met-moi"],
+   signs:["Đau, nóng rát vùng thượng vị","Đầy bụng, ợ hơi, buồn nôn"],
+   home:["Ăn đúng bữa, chia nhỏ bữa","Hạn chế rượu bia, cà phê, đồ cay","Tránh tự dùng thuốc giảm đau nhóm NSAID"],
+   red:["Nôn ra máu hoặc dịch như bã cà phê","Đi ngoài phân đen","Sụt cân không rõ lý do, nuốt nghẹn","Trên 50 tuổi mới bắt đầu đau"],
+   prev:["Ăn uống điều độ","Điều trị H. pylori nếu được chỉ định"]},
+  {id:"vmda",name:"Viêm mũi dị ứng",group:"Hô hấp",who:"Mọi lứa tuổi",
+   sum:"Phản ứng của niêm mạc mũi với bụi nhà, phấn hoa, lông thú. Không lây, hay tái đi tái lại.",
+   sym:["so-mui","hat-hoi","ngua-mat"],
+   signs:["Hắt hơi từng tràng, chảy nước mũi trong","Ngứa mũi, ngứa mắt, nghẹt mũi"],
+   home:["Rửa mũi bằng nước muối sinh lý","Giặt chăn ga nước nóng, giữ nhà khô thoáng","Tránh tác nhân đã biết"],
+   red:["Kèm khò khè, khó thở (có thể là hen)","Chảy mũi đặc xanh, đau mặt trên 10 ngày"],
+   prev:["Giảm bụi, nấm mốc trong nhà"]},
+  {id:"ddct",name:"Đau đầu do căng thẳng",group:"Thần kinh",who:"Người trưởng thành",
+   sum:"Loại đau đầu phổ biến nhất, liên quan căng thẳng, thiếu ngủ, ngồi sai tư thế.",
+   sym:["dau-dau","met-moi"],
+   signs:["Đau âm ỉ như bó chặt quanh đầu","Mỏi cổ vai gáy"],
+   home:["Nghỉ ngơi, ngủ đủ giấc","Thư giãn cổ vai, giảm thời gian nhìn màn hình","Paracetamol khi cần, không dùng quá 10–15 ngày/tháng"],
+   red:["Đau đầu dữ dội đột ngột, “đau nhất từ trước tới nay”","Kèm sốt, cứng cổ, nôn","Kèm yếu liệt, nói khó, nhìn mờ","Sau chấn thương đầu"],
+   prev:["Ngủ đủ, vận động đều"]}
+,
+  {id:"thuy-dau",name:"Thủy đậu",group:"Truyền nhiễm",who:"Trẻ em, người chưa có miễn dịch",
+   sum:"Bệnh do virus Varicella zoster, lây rất mạnh qua đường hô hấp và tiếp xúc với dịch bóng nước.",
+   sym:["sot","phat-ban","met-moi","bo-an"],
+   signs:["Sốt nhẹ, mệt, chán ăn","Ban đỏ rồi thành bóng nước ngứa, mọc nhiều đợt từ thân mình lan ra mặt, tay chân","Các nốt ở nhiều giai đoạn khác nhau cùng lúc"],
+   home:["Cách ly tại nhà đến khi tất cả nốt đóng vảy","Cắt ngắn móng tay, tắm nhẹ bằng nước sạch, mặc đồ thoáng","Hạ sốt bằng paracetamol. Không dùng aspirin cho trẻ"],
+   red:["Sốt cao kéo dài, bóng nước có mủ, sưng đỏ lan rộng","Khó thở, ho nhiều","Đau đầu nhiều, lơ mơ, đi loạng choạng","Phụ nữ mang thai, trẻ sơ sinh, người suy giảm miễn dịch mắc bệnh"],
+   prev:["Tiêm vắc xin thủy đậu","Tránh tiếp xúc với người đang mắc"]},
+  {id:"mat-do",name:"Đau mắt đỏ",group:"Truyền nhiễm",who:"Mọi lứa tuổi",
+   sum:"Viêm kết mạc, thường do virus, dễ lây thành dịch trong gia đình và trường học. Đa số khỏi sau 1–2 tuần.",
+   sym:["do-mat","ngua-mat"],
+   signs:["Mắt đỏ, cộm như có cát","Chảy nước mắt, nhiều ghèn, mi dính khi ngủ dậy","Thường bắt đầu một mắt rồi lan sang mắt kia"],
+   home:["Rửa tay thường xuyên, không dụi mắt","Dùng khăn mặt riêng, giặt và phơi nắng","Lau ghèn bằng bông sạch và nước muối sinh lý","Không tự ý nhỏ thuốc có corticoid"],
+   red:["Đau nhức mắt nhiều, nhìn mờ, sợ ánh sáng","Mi mắt sưng to, có màng trắng","Không đỡ sau 7 ngày","Trẻ sơ sinh bị đỏ mắt, chảy mủ"],
+   prev:["Rửa tay bằng xà phòng","Không dùng chung khăn, gối, thuốc nhỏ mắt"]},
+  {id:"gerd",name:"Trào ngược dạ dày thực quản",group:"Tiêu hóa",who:"Người trưởng thành",
+   sum:"Dịch dạ dày trào lên thực quản gây ợ nóng, ợ chua. Hay gặp ở người thừa cân, ăn khuya, hút thuốc.",
+   sym:["o-nong","ho","dau-hong","non"],
+   signs:["Nóng rát sau xương ức, nặng hơn sau ăn hoặc khi nằm","Ợ chua, đắng miệng","Ho khan, khàn tiếng kéo dài"],
+   home:["Ăn bữa nhỏ, không nằm trong 3 giờ sau ăn","Kê cao đầu giường 15–20 cm","Giảm cân nếu thừa cân, bỏ thuốc lá","Hạn chế rượu bia, cà phê, đồ chiên rán nếu thấy làm nặng triệu chứng"],
+   red:["Nuốt nghẹn, nuốt đau","Sụt cân không rõ lý do","Nôn ra máu, đi ngoài phân đen","Đau ngực lan ra tay, hàm, kèm khó thở hoặc vã mồ hôi (gọi 115)"],
+   prev:["Giữ cân nặng hợp lý","Ăn tối sớm"]},
+  {id:"dau-lung",name:"Đau thắt lưng cấp",group:"Cơ xương khớp",who:"Người trưởng thành",
+   sum:"Đau vùng lưng dưới, thường do căng cơ hoặc sai tư thế. Phần lớn cải thiện trong vài tuần mà không cần chụp chiếu.",
+   sym:["dau-lung"],
+   signs:["Đau, cứng vùng thắt lưng, tăng khi cúi hoặc xoay người","Có thể lan xuống mông"],
+   home:["Tiếp tục vận động nhẹ nhàng, tránh nằm bất động nhiều ngày","Chườm ấm, đổi tư thế thường xuyên","Thuốc giảm đau theo hướng dẫn của dược sĩ hoặc bác sĩ nếu cần"],
+   red:["Tê vùng quanh hậu môn, bí tiểu hoặc không kiểm soát được đại tiểu tiện","Yếu chân, tê lan xuống chân tăng dần","Đau sau ngã hoặc chấn thương","Kèm sốt, sụt cân, hoặc có tiền sử ung thư"],
+   prev:["Tập cơ lưng bụng, ngồi đúng tư thế","Nâng vật nặng bằng cách gập gối, giữ lưng thẳng"]}
+];
+
+const CHRONIC = [
+  {id:"tha",name:"Tăng huyết áp",group:"Mạn tính",who:"Người từ 18 tuổi",
+   sum:"“Kẻ giết người thầm lặng”: thường không có triệu chứng nhưng làm tăng nguy cơ đột quỵ, nhồi máu cơ tim, suy thận.",
+   sym:["dau-dau"],
+   signs:["Thường không có triệu chứng","Có thể đau đầu, chóng mặt khi huyết áp rất cao"],
+   home:["Đo huyết áp tại nhà, ghi lại kết quả mang theo khi tái khám","Ăn nhạt: dưới 5 g muối/ngày","Uống thuốc đều, không tự ngưng khi thấy huyết áp ổn"],
+   red:["Huyết áp ≥ 180/120 kèm đau ngực, khó thở, yếu liệt, nhìn mờ"],
+   prev:["Giữ cân nặng hợp lý, vận động 150 phút/tuần","Hạn chế rượu bia, bỏ thuốc lá"]},
+  {id:"dtd",name:"Đái tháo đường type 2",group:"Mạn tính",who:"Người trưởng thành",
+   sum:"Đường huyết tăng cao kéo dài do cơ thể dùng insulin kém hiệu quả. Liên quan chặt với thừa cân và ít vận động.",
+   sym:["khat-nhieu","met-moi"],
+   signs:["Khát nhiều, tiểu nhiều, sụt cân","Vết thương lâu lành","Nhiều người không có triệu chứng"],
+   home:["Theo dõi đường huyết theo chỉ định","Giảm đồ ngọt, nước ngọt, tinh bột tinh chế","Kiểm tra bàn chân mỗi ngày"],
+   red:["Lơ mơ, thở nhanh sâu, nôn nhiều","Run, vã mồ hôi, đói cồn cào (hạ đường huyết)","Vết loét bàn chân sưng đỏ, có mủ"],
+   prev:["Xét nghiệm đường huyết định kỳ nếu thừa cân","Giảm 5–7% cân nặng nếu thừa cân"]},
+  {id:"mm",name:"Rối loạn mỡ máu",group:"Mạn tính",who:"Người trưởng thành",
+   sum:"Cholesterol hoặc triglycerid trong máu bất thường, góp phần gây xơ vữa động mạch.",
+   sym:[],
+   signs:["Hầu như không có triệu chứng, phát hiện qua xét nghiệm máu"],
+   home:["Giảm mỡ động vật, đồ chiên rán","Tăng rau, cá, các loại đậu","Dùng thuốc theo đơn nếu được chỉ định"],
+   red:["Đau ngực, khó thở khi gắng sức"],
+   prev:["Xét nghiệm mỡ máu định kỳ"]},
+  {id:"hen",name:"Hen phế quản",group:"Mạn tính",who:"Mọi lứa tuổi",
+   sum:"Đường thở viêm mạn tính, co thắt khi gặp tác nhân như bụi, khói, thay đổi thời tiết.",
+   sym:["ho","kho-tho"],
+   signs:["Khò khè, nặng ngực, khó thở từng cơn","Ho về đêm hoặc gần sáng"],
+   home:["Dùng thuốc dự phòng (dạng hít) đều đặn theo đơn","Học cách dùng bình hít đúng kỹ thuật","Có kế hoạch xử trí cơn hen bằng văn bản"],
+   red:["Khó thở nặng, nói không thành câu","Dùng thuốc cắt cơn không đỡ","Môi, đầu ngón tím"],
+   prev:["Tránh khói thuốc, bụi","Tiêm vắc xin cúm hằng năm"]},
+  {id:"gout",name:"Gút (Gout)",group:"Mạn tính",who:"Nam giới trung niên",
+   sum:"Tinh thể acid uric lắng đọng ở khớp gây viêm, thường ở ngón chân cái.",
+   sym:["dau-khop"],
+   signs:["Sưng nóng đỏ đau dữ dội một khớp, hay khởi phát ban đêm"],
+   home:["Hạn chế bia rượu, nội tạng, hải sản, nước ngọt có đường","Uống đủ nước","Dùng thuốc hạ acid uric lâu dài nếu bác sĩ chỉ định"],
+   red:["Sưng đau khớp kèm sốt cao (cần loại trừ nhiễm trùng khớp)"],
+   prev:["Giữ cân nặng hợp lý"]}
+];
+
+const SYMPTOMS = [
+  {g:"Toàn thân",items:[["sot","Sốt"],["met-moi","Mệt mỏi"],["dau-co","Đau mỏi cơ"],["khat-nhieu","Khát, tiểu nhiều"],["bo-an","Biếng ăn"]]},
+  {g:"Đầu – mũi – họng",items:[["dau-dau","Đau đầu"],["dau-hong","Đau họng"],["so-mui","Sổ mũi"],["hat-hoi","Hắt hơi"],["ngua-mat","Ngứa mắt"],["do-mat","Đỏ mắt, nhiều ghèn"],["ho","Ho"]]},
+  {g:"Tiêu hóa",items:[["dau-bung","Đau bụng"],["tieu-chay","Tiêu chảy"],["non","Buồn nôn, nôn"],["o-nong","Ợ nóng, ợ chua"]]},
+  {g:"Da – khớp",items:[["phat-ban","Phát ban, nổi bóng nước"],["chay-mau","Chảy máu cam, chân răng"],["dau-khop","Sưng đau khớp"],["dau-lung","Đau thắt lưng"]]},
+  {g:"Dấu hiệu nặng",red:true,items:[["kho-tho","Khó thở"],["dau-nguc","Đau ngực"],["yeu-liet","Yếu, tê một bên người"],["li-bi","Li bì, lơ mơ"]]}
+];
+const RED = ["kho-tho","dau-nguc","yeu-liet","li-bi"];
+
+const PREV = [
+  {t:"Tiêm chủng đầy đủ",d:"Theo lịch tiêm chủng mở rộng cho trẻ. Người lớn: cúm hằng năm, viêm gan B, uốn ván; người cao tuổi thêm phế cầu."},
+  {t:"Rửa tay đúng cách",d:"Xà phòng và nước sạch ít nhất 20 giây, trước khi ăn, sau vệ sinh, sau khi chăm người ốm."},
+  {t:"Diệt muỗi, lăng quăng",d:"Mỗi tuần thay nước, đậy kín dụng cụ chứa nước, bỏ vật đọng nước quanh nhà để phòng sốt xuất huyết."},
+  {t:"Ăn chín, uống sôi",d:"Bảo quản thực phẩm riêng sống chín, dùng nước sạch để phòng bệnh đường tiêu hóa."},
+  {t:"Không khói thuốc",d:"Bỏ thuốc lá và giữ nhà không khói thuốc, nhất là khi có trẻ nhỏ, người hen."},
+  {t:"Khám sức khỏe định kỳ",d:"Phát hiện sớm tăng huyết áp, đái tháo đường, mỡ máu khi chưa có triệu chứng."}
+];
+const SCREEN = [
+  ["Đo huyết áp","Người từ 18 tuổi","Ít nhất mỗi năm từ 40 tuổi hoặc có nguy cơ; 3–5 năm/lần nếu 18–39 tuổi và bình thường"],
+  ["Đường huyết hoặc HbA1c","Người 35–70 tuổi thừa cân, béo phì","Mỗi 3 năm nếu bình thường"],
+  ["Mỡ máu","Người trưởng thành, nhất là từ 40 tuổi","Theo chỉ định, thường 1–5 năm/lần"],
+  ["Tầm soát ung thư cổ tử cung","Phụ nữ 21–65 tuổi","Pap mỗi 3 năm, hoặc xét nghiệm HPV mỗi 5 năm từ 30 tuổi"],
+  ["Chụp nhũ ảnh","Phụ nữ từ 40 tuổi","1–2 năm/lần, trao đổi với bác sĩ"],
+  ["Tầm soát ung thư đại trực tràng","Người 45–75 tuổi","Xét nghiệm máu ẩn trong phân mỗi năm hoặc nội soi 10 năm/lần"],
+  ["Khám mắt, răng","Mọi người","Khám răng 6 tháng/lần; khám mắt định kỳ, nhất là người đái tháo đường"]
+];
+const AGES = [
+  {id:"tre-nho",name:"Trẻ nhỏ",range:"0–5 tuổi",
+   focus:["Tiêm chủng đúng lịch","Theo dõi cân nặng, chiều cao trên biểu đồ tăng trưởng","Bú mẹ hoàn toàn 6 tháng đầu, ăn dặm đúng cách","Phòng tai nạn: đuối nước, ngã, bỏng, hóc dị vật"],
+   watch:["Tiêu chảy, viêm phổi, tay chân miệng, sốt xuất huyết","Sốt cao co giật","Trẻ dưới 3 tháng sốt cần đi khám ngay"]},
+  {id:"hoc-duong",name:"Tuổi học đường",range:"6–17 tuổi",
+   focus:["Khám mắt phát hiện cận thị","Ăn sáng đầy đủ, hạn chế nước ngọt, đồ ăn nhanh","Vận động ít nhất 60 phút mỗi ngày","Giới hạn thời gian dùng màn hình giải trí"],
+   watch:["Thừa cân, béo phì","Cong vẹo cột sống","Căng thẳng học tập, thay đổi tâm lý tuổi dậy thì"]},
+  {id:"truong-thanh",name:"Người trưởng thành",range:"18–39 tuổi",
+   focus:["Đo huyết áp định kỳ","Khám sức khỏe trước khi mang thai","Ngủ 7–9 giờ, quản lý căng thẳng","Tầm soát ung thư cổ tử cung cho phụ nữ từ 21 tuổi"],
+   watch:["Thừa cân, ít vận động khi ngồi văn phòng","Rượu bia, thuốc lá","Đau dạ dày, đau đầu do căng thẳng"]},
+  {id:"trung-nien",name:"Trung niên",range:"40–64 tuổi",
+   focus:["Đo huyết áp mỗi năm","Xét nghiệm đường huyết, mỡ máu","Tầm soát ung thư vú, đại trực tràng theo tuổi","Giữ vòng eo trong giới hạn"],
+   watch:["Tăng huyết áp, đái tháo đường, mỡ máu","Gút, thoái hóa khớp","Mãn kinh ở phụ nữ"]},
+  {id:"cao-tuoi",name:"Người cao tuổi",range:"từ 65 tuổi",
+   focus:["Tiêm vắc xin cúm, phế cầu","Phòng té ngã: nhà đủ sáng, có tay vịn, sàn khô","Rà soát toàn bộ thuốc đang dùng cùng bác sĩ","Giữ kết nối xã hội, vận động nhẹ hằng ngày"],
+   watch:["Loãng xương, té ngã","Suy giảm trí nhớ","Dùng nhiều thuốc cùng lúc gây tương tác"]}
+];
+const LIFE = [
+  {t:"Vận động 150 phút/tuần",d:"Đi bộ nhanh, đạp xe, bơi ở mức hơi thở nhanh nhưng vẫn nói được. Chia 30 phút × 5 ngày."},
+  {t:"Ăn nhạt",d:"Dưới 5 g muối/ngày, khoảng một thìa cà phê, tính cả nước mắm, bột canh."},
+  {t:"Giảm đường",d:"Hạn chế nước ngọt, trà sữa, bánh kẹo. Ưu tiên nước lọc."},
+  {t:"Ngủ đủ giấc",d:"Người lớn 7–9 giờ mỗi đêm. Tắt màn hình 30 phút trước khi ngủ."},
+  {t:"Hạn chế rượu bia",d:"Càng ít càng tốt. Không uống khi lái xe, mang thai, dùng thuốc."},
+  {t:"Chăm sóc tinh thần",d:"Dành thời gian cho gia đình, nói chuyện khi thấy căng thẳng kéo dài và tìm hỗ trợ chuyên môn khi cần."}
+];
+const FAQ = [
+  ["Gửi câu hỏi bằng cách nào?","Điền biểu mẫu, bấm “Soạn câu hỏi gửi qua Zalo”, rồi dán câu hỏi vào Zalo của BS. Thái Hoàng (0935 498 866). Bạn cũng có thể nhắn Zalo trực tiếp."],
+  ["Có thể được kê đơn thuốc qua đây không?","Không. Kê đơn cần thăm khám trực tiếp. Chúng tôi chỉ tư vấn thông tin và hướng dẫn nơi khám phù hợp."],
+  ["Thông tin cá nhân có được bảo mật?","Câu hỏi chỉ được gửi trực tiếp tới bác sĩ qua Zalo, không đăng công khai trên website."]
+];
+
+const ALL = [...DISEASES, ...CHRONIC];
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const norm = s => s.normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/đ/g,"d").replace(/Đ/g,"d").toLowerCase();
+
+function cardHTML(d){
+  return `<button class="card" data-open="${d.id}">
+    <span class="tag${d.group==='Truyền nhiễm'||d.group==='Trẻ em'?' warn':''}">${esc(d.group)}</span>
+    <h3>${esc(d.name)}</h3><p>${esc(d.sum)}</p><span class="more">Đọc thêm →</span></button>`;
+}
+
+/* Home */
+$("#homeDiseases").innerHTML = ["sxh","cum","tcm","tc"].map(id=>cardHTML(ALL.find(d=>d.id===id))).join("");
+$("#homeAges").innerHTML = AGES.map(a=>`<a href="#suc-khoe-theo-tuoi" data-age="${a.id}"><b>${esc(a.name)}</b><span>${esc(a.range)}</span></a>`).join("");
+$("#homeSearch").addEventListener("submit", e=>{e.preventDefault(); goSearch($("#homeQ").value)});
+document.querySelectorAll("[data-q]").forEach(b=>b.addEventListener("click",()=>goSearch(b.dataset.q)));
+function goSearch(q){ $("#dzQ").value=q; dzGroup="Tất cả"; renderSeg(); renderDz(); location.hash="benh-thuong-gap"; }
+
+/* Disease list */
+const GROUPS = ["Tất cả", ...new Set(ALL.map(d=>d.group))];
+let dzGroup = "Tất cả";
+function renderSeg(){
+  $("#dzSeg").innerHTML = GROUPS.map(g=>`<button aria-pressed="${g===dzGroup}" data-g="${esc(g)}">${esc(g)}</button>`).join("");
+}
+$("#dzSeg").addEventListener("click",e=>{const b=e.target.closest("button"); if(!b)return; dzGroup=b.dataset.g; renderSeg(); renderDz();});
+$("#dzQ").addEventListener("input",renderDz);
+function renderDz(){
+  const q = norm($("#dzQ").value.trim());
+  const symNames = Object.fromEntries(SYMPTOMS.flatMap(g=>g.items));
+  const list = ALL.filter(d=>(dzGroup==="Tất cả"||d.group===dzGroup) &&
+    (!q || norm(d.name+" "+d.sum+" "+d.signs.join(" ")+" "+d.sym.map(s=>symNames[s]||"").join(" ")).includes(q)));
+  $("#dzList").innerHTML = list.length ? list.map(cardHTML).join("") :
+    `<div class="empty">Chưa có bài về “${esc($("#dzQ").value)}”. Thử từ khóa khác hoặc <a href="#hoi-bac-si">gửi câu hỏi cho bác sĩ</a>.</div>`;
+}
+renderSeg(); renderDz();
+
+/* Chronic */
+$("#chronicList").innerHTML = CHRONIC.map(cardHTML).join("");
+
+/* Symptom checker */
+const picked = new Set(["sot","dau-dau","dau-co"]);
+function renderSymGroups(){
+  $("#symGroups").innerHTML = SYMPTOMS.map(g=>`<div class="sym-group"><h4>${esc(g.g)}</h4><div class="chips">${
+    g.items.map(([id,l])=>`<button class="${g.red?'red':''}" aria-pressed="${picked.has(id)}" data-sym="${id}">${esc(l)}</button>`).join("")}</div></div>`).join("");
+}
+$("#symGroups").addEventListener("click",e=>{const b=e.target.closest("[data-sym]"); if(!b)return; const id=b.dataset.sym; picked.has(id)?picked.delete(id):picked.add(id); renderSymGroups(); renderSymResults();});
+$("#symClear").addEventListener("click",()=>{picked.clear(); renderSymGroups(); renderSymResults();});
+function renderSymResults(){
+  const reds = [...picked].filter(s=>RED.includes(s));
+  $("#redFlag").innerHTML = reds.length ? `<div class="alert danger" role="alert"><div><b>Có dấu hiệu nặng. Hãy gọi 115 hoặc đến cơ sở y tế gần nhất ngay.</b>Không chờ đợi hay tự điều trị tại nhà.</div></div>` : "";
+  const sel = [...picked].filter(s=>!RED.includes(s));
+  if(!sel.length){ $("#symResults").innerHTML = `<h3>Gợi ý bệnh liên quan</h3><div class="empty">Chọn ít nhất một triệu chứng bên trái.</div>`; return; }
+  const scored = ALL.map(d=>{const hit=sel.filter(s=>d.sym.includes(s)).length; return {d,hit,score:hit/Math.max(sel.length,1)}})
+    .filter(x=>x.hit>0).sort((a,b)=>b.hit-a.hit || a.d.sym.length-b.d.sym.length).slice(0,5);
+  $("#symResults").innerHTML = `<h3>Gợi ý bệnh liên quan</h3><p class="muted" style="font-size:.9rem">Xếp theo số triệu chứng trùng khớp với ${sel.length} triệu chứng bạn chọn.</p>` +
+    (scored.length ? scored.map(x=>`<div class="result"><div class="result-top"><b>${esc(x.d.name)}</b><span class="muted" style="font-size:.85rem">${x.hit}/${sel.length} triệu chứng</span></div>
+      <div class="meter"><i style="width:${Math.round(x.score*100)}%"></i></div><button data-open="${x.d.id}">Xem bài viết →</button></div>`).join("")
+     : `<div class="empty">Chưa có bài phù hợp. <a href="#hoi-bac-si">Hỏi bác sĩ</a>.</div>`);
+}
+renderSymGroups(); renderSymResults();
+
+/* Prevention */
+$("#prevList").innerHTML = PREV.map(p=>`<div class="card"><h3>${esc(p.t)}</h3><p>${esc(p.d)}</p></div>`).join("");
+$("#screenTable").innerHTML = SCREEN.map(r=>`<tr><td><b>${esc(r[0])}</b></td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("");
+
+/* Ages */
+let ageSel = "tre-nho";
+function renderAges(){
+  $("#ageTabs").innerHTML = AGES.map(a=>`<button role="tab" aria-selected="${a.id===ageSel}" data-tab="${a.id}">${esc(a.name)} <span class="muted" style="font-weight:400">${esc(a.range)}</span></button>`).join("");
+  const a = AGES.find(x=>x.id===ageSel);
+  $("#agePanel").innerHTML = `<div class="age-grid">
+    <div class="panel"><h3 style="margin-bottom:10px">Việc nên làm</h3><ul class="list">${a.focus.map(f=>`<li>${esc(f)}</li>`).join("")}</ul></div>
+    <div class="panel"><h3 style="margin-bottom:10px">Vấn đề hay gặp</h3><ul class="list">${a.watch.map(f=>`<li>${esc(f)}</li>`).join("")}</ul></div></div>`;
+}
+$("#ageTabs").addEventListener("click",e=>{const b=e.target.closest("[data-tab]"); if(!b)return; ageSel=b.dataset.tab; renderAges();});
+$("#homeAges").addEventListener("click",e=>{const a=e.target.closest("[data-age]"); if(a){ageSel=a.dataset.age; renderAges();}});
+renderAges();
+
+/* Lifestyle, FAQ */
+$("#lifeList").innerHTML = LIFE.map(p=>`<div class="card"><h3>${esc(p.t)}</h3><p>${esc(p.d)}</p></div>`).join("");
+$("#faqList").innerHTML = FAQ.map(([q,a])=>`<details><summary style="cursor:pointer;font-weight:600">${esc(q)}</summary><p class="muted" style="margin-top:6px">${esc(a)}</p></details>`).join("");
+
+/* Ask form: compose question, copy it, open Zalo */
+const ZALO = "https://zalo.me/0935498866";
+$("#askForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const name=$("#askName").value.trim(), q=$("#askQ").value.trim(), m=$("#askMsg"), out=$("#askOut");
+  if(!name||!q){ m.textContent="Vui lòng nhập họ tên và câu hỏi."; m.style.color="var(--danger)"; return; }
+  const text=`Chào BS. Thái Hoàng, tôi là ${name}.
+Câu hỏi dành cho: ${$("#askFor").value}.
+${q}`;
+  let copied=false;
+  try{ await navigator.clipboard.writeText(text); copied=true; }catch(_){}
+  m.style.color=""; m.innerHTML="Không dùng cho trường hợp khẩn cấp. Gọi 115.";
+  out.innerHTML=`<div class="out ok">
+    <b>${copied?"Đã sao chép câu hỏi.":"Hãy sao chép câu hỏi dưới đây."}</b>
+    <p>Bấm nút bên dưới để mở Zalo của BS. Thái Hoàng (0935 498 866), rồi dán câu hỏi vào khung chat và gửi.</p>
+    <textarea readonly rows="5" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--surface)">${esc(text)}</textarea>
+    <a class="btn" href="${ZALO}" target="_blank" rel="noopener">Mở Zalo</a></div>`;
+});
+
+/* Open article */
+document.addEventListener("click",e=>{
+  const b = e.target.closest("[data-open]"); if(!b) return;
+  location.hash = "bai-" + b.dataset.open;
+});
+
+/* Article page */
+function renderArticle(d){
+  const isC = CHRONIC.includes(d);
+  const back = isC ? ["benh-man-tinh","Bệnh mạn tính"] : ["benh-thuong-gap","Bệnh thường gặp"];
+  const rel = ALL.filter(x=>x!==d && (x.group===d.group || x.sym.filter(s=>d.sym.includes(s)).length>=2)).slice(0,4);
+  const ul = a=>`<ul class="list">${a.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`;
+  $("#v-bai").innerHTML = `<div class="wrap">
+    <div class="page-head">
+      <div class="crumb"><a href="#trang-chu">Trang chủ</a> / <a href="#${back[0]}">${back[1]}</a> / ${esc(d.name)}</div>
+      <span class="eyebrow">${esc(d.group)} · ${esc(d.who)}</span>
+      <h1>${esc(d.name)}</h1>
+      <p>${esc(d.sum)}</p>
+      <p class="meta" style="margin-top:12px">Bác sĩ phụ trách: BS. Thái Hoàng · Cập nhật: 11/2026</p>
+    </div>
+    <div class="article-grid">
+      <article class="article stack">
+        <section><h2>Dấu hiệu thường gặp</h2>${ul(d.signs)}</section>
+        <section><h2>${isC?"Sống chung với bệnh":"Chăm sóc tại nhà"}</h2>${ul(d.home)}</section>
+        <div class="alert danger"><div><b>Đi khám ngay nếu</b><ul class="list" style="margin-top:6px">${d.red.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></div>
+        <section><h2>Phòng bệnh</h2>${ul(d.prev)}</section>
+        <section><h2>Nên hỏi bác sĩ điều gì khi đi khám?</h2>${ul(["Tôi có cần làm xét nghiệm gì không?","Thuốc này dùng bao lâu, có tác dụng phụ nào cần để ý?","Dấu hiệu nào cho thấy tôi cần quay lại khám sớm?","Khi nào tôi tái khám?"])}</section>
+        <section><h2>Nguồn tham khảo</h2><p class="muted">Hướng dẫn chẩn đoán và điều trị của Bộ Y tế; tài liệu của Tổ chức Y tế Thế giới (WHO). Danh sách nguồn cụ thể sẽ được BS. Thái Hoàng bổ sung trước khi đăng.</p></section>
+        <a class="back" href="#${back[0]}">← Quay lại ${back[1]}</a>
+      </article>
+      <aside class="stack">
+        <div class="panel stack"><h3>Chưa chắc có phải bệnh này?</h3><p class="muted">Chọn các dấu hiệu đang gặp để xem những bệnh có thể liên quan.</p><a class="btn" href="#trieu-chung">Tra triệu chứng</a></div>
+        ${rel.length?`<div class="panel stack"><h3>Bài liên quan</h3><ul class="side-list">${rel.map(x=>`<li><a href="#bai-${x.id}">${esc(x.name)}</a></li>`).join("")}</ul></div>`:""}
+        <div class="panel stack"><h3>Còn thắc mắc?</h3><p class="muted">Nhắn BS. Thái Hoàng qua Zalo: <b>0935 498 866</b>.</p><a class="btn ghost" href="https://zalo.me/0935498866" target="_blank" rel="noopener">Nhắn Zalo</a></div>
+      </aside>
+    </div></div>`;
+}
+
+/* BMI */
+function bmiCalc(){
+  const h=parseFloat($("#bmiH").value), w=parseFloat($("#bmiW").value), o=$("#bmiOut");
+  if(!(h>=100&&h<=230&&w>=25&&w<=250)){ o.className="out"; o.innerHTML="<b>Vui lòng nhập chiều cao 100–230 cm và cân nặng 25–250 kg.</b>"; return; }
+  const b=w/((h/100)**2); let c,t,cls;
+  if(b<18.5){c="Thiếu cân";t="Nên trao đổi với bác sĩ hoặc chuyên gia dinh dưỡng để tìm nguyên nhân và cách tăng cân lành mạnh.";cls="warn"}
+  else if(b<23){c="Bình thường";t="Giữ chế độ ăn cân bằng và vận động đều để duy trì.";cls="ok"}
+  else if(b<25){c="Thừa cân";t="Nguy cơ tim mạch, đái tháo đường bắt đầu tăng. Điều chỉnh ăn uống, tăng vận động và đo vòng eo.";cls="warn"}
+  else{c="Béo phì";t="Nên khám để kiểm tra huyết áp, đường huyết, mỡ máu và được tư vấn giảm cân an toàn.";cls="bad"}
+  const lo=(18.5*(h/100)**2).toFixed(1).replace(".",","), hi=(22.9*(h/100)**2).toFixed(1).replace(".",",");
+  o.className="out "+cls;
+  o.innerHTML=`<span class="muted">BMI của bạn</span><span class="big">${b.toFixed(1).replace(".",",")}</span><b>${c}</b><p>${t}</p><p class="muted" style="font-size:.9rem">Cân nặng trong khoảng bình thường với chiều cao này: ${lo}–${hi} kg.</p>`;
+}
+$("#bmiForm").addEventListener("submit",e=>{e.preventDefault();bmiCalc()}); bmiCalc();
+
+/* Blood pressure */
+function bpCalc(){
+  const s=parseInt($("#bpSys").value,10), d=parseInt($("#bpDia").value,10), o=$("#bpOut");
+  if(!(s>=60&&s<=260&&d>=30&&d<=160&&s>d)){ o.className="out"; o.innerHTML="<b>Vui lòng nhập số hợp lệ. Số trên phải lớn hơn số dưới.</b>"; return; }
+  const lv = (s>=180||d>=110)?5:(s>=160||d>=100)?4:(s>=140||d>=90)?3:(s>=130||d>=85)?2:(s>=120||d>=80)?1:0;
+  const R=[["Tối ưu","Tiếp tục duy trì lối sống lành mạnh và đo lại định kỳ.","ok"],
+    ["Bình thường","Giữ thói quen ăn nhạt, vận động đều. Đo lại ít nhất mỗi năm.","ok"],
+    ["Bình thường cao","Chưa phải tăng huyết áp nhưng cần chú ý: giảm muối, giảm cân nếu thừa cân, đo lại thường xuyên hơn.","warn"],
+    ["Mức tăng huyết áp độ 1","Hãy đo lại vài lần vào những ngày khác nhau và đi khám để được đánh giá.","warn"],
+    ["Mức tăng huyết áp độ 2","Nên đi khám sớm trong vài ngày tới để được đánh giá và điều trị.","bad"],
+    ["Mức tăng huyết áp độ 3","Ngồi nghỉ 5 phút rồi đo lại. Nếu vẫn cao, đi khám ngay trong ngày. Nếu kèm đau ngực, khó thở, yếu liệt, nhìn mờ hoặc đau đầu dữ dội: gọi 115.","bad"]][lv];
+  const low = (s<90||d<60) ? `<p>Huyết áp ở mức thấp. Nếu kèm chóng mặt, ngất, mệt lả, hãy đi khám.</p>` : "";
+  o.className="out "+(low?"warn":R[2]);
+  o.innerHTML=`<span class="muted">Kết quả đo</span><span class="big">${s}/${d}</span><b>${low?"Huyết áp thấp":R[0]}</b>${low||`<p>${R[1]}</p>`}<p class="muted" style="font-size:.9rem">Phân loại theo số đo tại phòng khám ở người lớn. Chẩn đoán cần nhiều lần đo và do bác sĩ kết luận.</p>`;
+}
+$("#bpForm").addEventListener("submit",e=>{e.preventDefault();bpCalc()}); bpCalc();
+
+/* Routing */
+const VIEWS = ["trang-chu","benh-thuong-gap","trieu-chung","phong-benh","suc-khoe-theo-tuoi","benh-man-tinh","dinh-duong","hoi-bac-si"];
+function route(){
+  const h = location.hash.slice(1);
+  let v = VIEWS.includes(h) ? h : "trang-chu", shown = v;
+  if(h.startsWith("bai-")){ const d = ALL.find(x=>x.id===h.slice(4)); if(d){ renderArticle(d); shown="bai"; v = CHRONIC.includes(d) ? "benh-man-tinh" : "benh-thuong-gap"; } }
+  document.querySelectorAll(".view").forEach(el=>el.classList.toggle("active", el.id==="v-"+shown));
+  document.querySelectorAll("nav.main a").forEach(a=>{ if(a.getAttribute("href")==="#"+v) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
+  $("#mainNav").classList.remove("open"); $("#menuBtn").setAttribute("aria-expanded","false");
+  window.scrollTo(0,0);
+}
+window.addEventListener("hashchange",route);
+$("#menuBtn").addEventListener("click",()=>{const o=$("#mainNav").classList.toggle("open"); $("#menuBtn").setAttribute("aria-expanded",String(o));});
+route();
+</script>
+</body>
+</html>
