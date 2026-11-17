@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 420" font-family="Be Vietnam Pro, Arial, Helvetica, sans-serif">
+<rect width="600" height="420" rx="16" fill="#ffffff"/>
+<text x="300" y="38" text-anchor="middle" font-size="21" font-weight="700" fill="#16262b">Các nhóm thuốc thường dùng trong GERD</text>
+<g font-size="15" fill="#16262b">
+<rect x="24" y="60" width="268" height="160" rx="14" fill="#e2f0ec"/>
+<text x="44" y="94" font-size="19" font-weight="700" fill="#0e5a4c">PPI</text>
+<text x="44" y="120">Ức chế “bơm acid” ở dạ dày</text>
+<text x="44" y="142">→ giảm tiết acid mạnh</text>
+<text x="44" y="164">Nền tảng điều trị ở nhiều</text>
+<text x="44" y="186">người bệnh, giúp lành viêm</text>
+<rect x="308" y="60" width="268" height="160" rx="14" fill="#e2f0ec"/>
+<text x="328" y="94" font-size="19" font-weight="700" fill="#0e5a4c">Kháng thụ thể H2</text>
+<text x="328" y="120">Giảm tiết acid</text>
+<text x="328" y="142">Có thể dùng cho triệu chứng</text>
+<text x="328" y="164">về đêm, theo chỉ định</text>
+<text x="328" y="186">Dùng liên tục có thể giảm tác dụng</text>
+<rect x="24" y="236" width="268" height="160" rx="14" fill="#fbf0de"/>
+<text x="44" y="270" font-size="19" font-weight="700" fill="#a86a12">Alginate</text>
+<text x="44" y="296">Tạo lớp gel nổi trên dịch dạ dày</text>
+<text x="44" y="318">→ hạn chế dịch trào lên</text>
+<text x="44" y="340">Giảm nhanh triệu chứng sau ăn</text>
+<rect x="308" y="236" width="268" height="160" rx="14" fill="#fbf0de"/>
+<text x="328" y="270" font-size="19" font-weight="700" fill="#a86a12">Thuốc kháng acid</text>
+<text x="328" y="296">Trung hòa acid sẵn có</text>
+<text x="328" y="318">Tác dụng nhanh, ngắn</text>
+<text x="328" y="340">Có thể ảnh hưởng hấp thu</text>
+<text x="328" y="362">thuốc khác – hỏi dược sĩ</text>
+</g>
+</svg>

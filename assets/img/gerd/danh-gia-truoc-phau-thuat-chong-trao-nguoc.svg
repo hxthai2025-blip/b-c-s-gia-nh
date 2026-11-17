@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 470" font-family="Be Vietnam Pro, Arial, Helvetica, sans-serif">
+<rect width="600" height="470" rx="16" fill="#ffffff"/>
+<defs><marker id="m" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#56686d"/></marker></defs>
+<text x="300" y="38" text-anchor="middle" font-size="21" font-weight="700" fill="#16262b">Các bước đánh giá trước phẫu thuật</text>
+<g font-size="15" fill="#16262b">
+<g transform="translate(40 64)"><circle cx="24" cy="30" r="22" fill="#0e5a4c"/><text x="24" y="37" text-anchor="middle" font-size="19" font-weight="700" fill="#fff">1</text>
+<text x="62" y="24" font-size="17" font-weight="700" fill="#0e5a4c">Nội soi tiêu hóa trên</text><text x="62" y="46">Viêm thực quản, Barrett, hẹp, thoát vị khe hoành</text></g>
+<path d="M64 120 V140" stroke="#56686d" stroke-width="3" marker-end="url(#m)"/>
+<g transform="translate(40 146)"><circle cx="24" cy="30" r="22" fill="#0e5a4c"/><text x="24" y="37" text-anchor="middle" font-size="19" font-weight="700" fill="#fff">2</text>
+<text x="62" y="24" font-size="17" font-weight="700" fill="#0e5a4c">Đo pH / pH – trở kháng thực quản</text><text x="62" y="46">Xác nhận có trào ngược bất thường</text></g>
+<path d="M64 202 V222" stroke="#56686d" stroke-width="3" marker-end="url(#m)"/>
+<g transform="translate(40 228)"><circle cx="24" cy="30" r="22" fill="#0e5a4c"/><text x="24" y="37" text-anchor="middle" font-size="19" font-weight="700" fill="#fff">3</text>
+<text x="62" y="24" font-size="17" font-weight="700" fill="#0e5a4c">Đo áp lực thực quản (HRM)</text><text x="62" y="46">Kiểm tra nhu động, loại trừ rối loạn vận động</text></g>
+<path d="M64 284 V304" stroke="#56686d" stroke-width="3" marker-end="url(#m)"/>
+<g transform="translate(40 310)"><circle cx="24" cy="30" r="22" fill="#d9902b"/><text x="24" y="37" text-anchor="middle" font-size="19" font-weight="700" fill="#fff">4</text>
+<text x="62" y="24" font-size="17" font-weight="700" fill="#a86a12">Chụp thực quản cản quang (khi cần)</text><text x="62" y="46">Đánh giá giải phẫu, thoát vị, nuốt nghẹn</text></g>
+<rect x="40" y="390" width="520" height="56" rx="10" fill="#e2f0ec"/>
+<text x="300" y="414" text-anchor="middle" font-weight="700" fill="#0e5a4c">Bác sĩ và người bệnh cùng cân nhắc</text>
+<text x="300" y="434" text-anchor="middle">lợi ích – nguy cơ trước khi quyết định phẫu thuật</text>
+</g>
+</svg>
