@@ -1,36 +1,46 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" font-family="Be Vietnam Pro, Arial, Helvetica, sans-serif">
-<rect width="600" height="380" rx="16" fill="#ffffff"/>
-<text x="300" y="38" text-anchor="middle" font-size="21" font-weight="700" fill="#16262b">Barrett thực quản: niêm mạc thay đổi</text>
-<g transform="translate(40 70)">
-<text x="115" y="0" text-anchor="middle" font-size="18" font-weight="700" fill="#0e5a4c">Bình thường</text>
-<rect x="0" y="20" width="230" height="150" rx="10" fill="#fdecea" stroke="#e89a8f" stroke-width="3"/>
-<g fill="#f6d3cd" stroke="#e89a8f" stroke-width="1.5">
-<rect x="10" y="30" width="210" height="18" rx="9"/><rect x="10" y="52" width="210" height="18" rx="9"/><rect x="10" y="74" width="210" height="18" rx="9"/><rect x="10" y="96" width="210" height="18" rx="9"/><rect x="10" y="118" width="210" height="18" rx="9"/><rect x="10" y="140" width="210" height="18" rx="9"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 440" font-family="Be Vietnam Pro, Arial, Helvetica, sans-serif">
+<defs>
+ <radialGradient id="lumen" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#1a0806"/><stop offset=".18" stop-color="#3a1210" stop-opacity=".95"/><stop offset=".35" stop-color="#7a2e26" stop-opacity="0"/></radialGradient>
+ <radialGradient id="pale" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#d98a7c"/><stop offset=".55" stop-color="#f2c2b5"/><stop offset=".85" stop-color="#e7a99b"/><stop offset="1" stop-color="#9c4a3f"/></radialGradient>
+ <radialGradient id="red" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#b3483b"/><stop offset="1" stop-color="#d0604c"/></radialGradient>
+ <radialGradient id="vig" cx=".5" cy=".5" r=".5"><stop offset=".7" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".55"/></radialGradient>
+ <radialGradient id="glare" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+ <clipPath id="c1"><circle cx="0" cy="0" r="120"/></clipPath>
+</defs>
+<rect width="640" height="440" rx="16" fill="#ffffff"/>
+<text x="320" y="38" text-anchor="middle" font-size="22" font-weight="700" fill="#16262b">Hình ảnh nội soi đoạn cuối thực quản</text>
+<!-- normal -->
+<g transform="translate(170 200)">
+ <g clip-path="url(#c1)">
+  <circle r="120" fill="url(#pale)"/>
+  <!-- Z-line regular -->
+  <path d="M0 -44 C16 -42 30 -32 40 -16 C46 0 42 18 30 32 C16 44 -16 44 -30 32 C-42 18 -46 0 -40 -16 C-30 -32 -16 -42 0 -44 Z" fill="url(#red)"/>
+  <g stroke="#c77d70" stroke-width="1.4" fill="none" opacity=".6"><path d="M-90 -40 Q-60 -50 -48 -24"/><path d="M80 -60 Q60 -40 50 -20"/><path d="M-70 70 Q-50 50 -36 36"/><path d="M70 74 Q52 54 38 34"/></g>
+  <circle r="120" fill="url(#lumen)"/>
+  <ellipse cx="-48" cy="-62" rx="18" ry="10" fill="url(#glare)"/><ellipse cx="62" cy="40" rx="10" ry="6" fill="url(#glare)"/>
+  <circle r="120" fill="url(#vig)"/>
+ </g>
+ <circle r="120" fill="none" stroke="#1d2a28" stroke-width="6"/>
+ <text y="150" text-anchor="middle" font-size="19" font-weight="700" fill="#0e5a4c">Bình thường</text>
+ <text y="172" text-anchor="middle" font-size="15" fill="#16262b">Niêm mạc hồng nhạt, đường nối</text>
+ <text y="192" text-anchor="middle" font-size="15" fill="#16262b">với dạ dày (đường Z) đều, gọn</text>
 </g>
-<text x="115" y="198" text-anchor="middle" font-size="15" fill="#16262b">Nhiều lớp tế bào dẹt (biểu mô lát)</text>
-<text x="115" y="218" text-anchor="middle" font-size="15" fill="#56686d">màu hồng nhạt khi nội soi</text>
+<!-- Barrett -->
+<g transform="translate(470 200)">
+ <g clip-path="url(#c1)">
+  <circle r="120" fill="url(#pale)"/>
+  <!-- salmon tongues extending up -->
+  <path d="M0 -44 L8 -96 L22 -50 L54 -84 L46 -30 L92 -40 L56 4 L100 30 L48 34 L60 84 L22 50 L4 100 L-14 52 L-50 88 L-44 34 L-96 36 L-56 4 L-94 -36 L-46 -28 L-58 -82 L-22 -50 Z" fill="#e0725a"/>
+  <path d="M0 -44 L8 -96 L22 -50 L54 -84 L46 -30 L92 -40 L56 4 L100 30 L48 34 L60 84 L22 50 L4 100 L-14 52 L-50 88 L-44 34 L-96 36 L-56 4 L-94 -36 L-46 -28 L-58 -82 L-22 -50 Z" fill="none" stroke="#f6a48d" stroke-width="2" opacity=".7"/>
+  <path d="M0 -44 C16 -42 30 -32 40 -16 C46 0 42 18 30 32 C16 44 -16 44 -30 32 C-42 18 -46 0 -40 -16 C-30 -32 -16 -42 0 -44 Z" fill="url(#red)"/>
+  <circle r="120" fill="url(#lumen)"/>
+  <ellipse cx="-48" cy="-62" rx="18" ry="10" fill="url(#glare)"/><ellipse cx="62" cy="40" rx="10" ry="6" fill="url(#glare)"/>
+  <circle r="120" fill="url(#vig)"/>
+ </g>
+ <circle r="120" fill="none" stroke="#1d2a28" stroke-width="6"/>
+ <text y="150" text-anchor="middle" font-size="19" font-weight="700" fill="#b4322a">Barrett thực quản</text>
+ <text y="172" text-anchor="middle" font-size="15" fill="#16262b">Các “lưỡi” niêm mạc màu hồng cam</text>
+ <text y="192" text-anchor="middle" font-size="15" fill="#16262b">lan lên trên đường Z</text>
 </g>
-<path d="M290 160 L320 160" stroke="#56686d" stroke-width="4" marker-end="url(#m)"/>
-<defs><marker id="m" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#56686d"/></marker></defs>
-<g transform="translate(330 70)">
-<text x="115" y="0" text-anchor="middle" font-size="18" font-weight="700" fill="#b4322a">Barrett</text>
-<rect x="0" y="20" width="230" height="150" rx="10" fill="#fbe0d0" stroke="#d9702b" stroke-width="3"/>
-<g fill="#f3b48f" stroke="#d9702b" stroke-width="1.5">
-<rect x="10" y="34" width="16" height="122" rx="7"/>
-<rect x="30" y="34" width="16" height="122" rx="7"/>
-<rect x="50" y="34" width="16" height="122" rx="7"/>
-<rect x="70" y="34" width="16" height="122" rx="7"/>
-<rect x="90" y="34" width="16" height="122" rx="7"/>
-<rect x="110" y="34" width="16" height="122" rx="7"/>
-<rect x="130" y="34" width="16" height="122" rx="7"/>
-<rect x="150" y="34" width="16" height="122" rx="7"/>
-<rect x="170" y="34" width="16" height="122" rx="7"/>
-<rect x="190" y="34" width="16" height="122" rx="7"/>
-<rect x="210" y="34" width="16" height="122" rx="7"/>
-</g>
-<text x="115" y="198" text-anchor="middle" font-size="15" fill="#16262b">Một lớp tế bào trụ (chuyển sản ruột)</text>
-<text x="115" y="218" text-anchor="middle" font-size="15" fill="#56686d">màu hồng cam khi nội soi</text>
-</g>
-<rect x="40" y="316" width="520" height="46" rx="10" fill="#fbf0de"/>
-<text x="300" y="345" text-anchor="middle" font-size="15" fill="#16262b">Chẩn đoán cần <tspan font-weight="700">nội soi + sinh thiết</tspan> (đánh giá mô bệnh học)</text>
+<text x="320" y="428" text-anchor="middle" font-size="13" fill="#8a9a96">Hình vẽ mô phỏng. Chẩn đoán cần nội soi kết hợp sinh thiết.</text>
 </svg>

@@ -1,23 +1,52 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 340" font-family="Be Vietnam Pro, Arial, Helvetica, sans-serif">
-<rect width="600" height="340" rx="16" fill="#ffffff"/>
-<text x="300" y="38" text-anchor="middle" font-size="21" font-weight="700" fill="#16262b">Uống PPI thông thường đúng thời điểm</text>
-<g transform="translate(70 80)">
-<rect x="0" y="40" width="70" height="34" rx="17" fill="#0e5a4c"/><rect x="35" y="40" width="35" height="34" rx="0" fill="#5cc2a8"/><rect x="35" y="40" width="35" height="34" rx="17" fill="#5cc2a8"/><rect x="35" y="40" width="10" height="34" fill="#5cc2a8"/>
-<text x="35" y="110" text-anchor="middle" font-size="17" font-weight="700" fill="#16262b">Uống thuốc</text>
-<text x="35" y="132" text-anchor="middle" font-size="15" fill="#56686d">với nước lọc</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" font-family="Be Vietnam Pro, Arial, Helvetica, sans-serif">
+<defs>
+ <linearGradient id="capA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4fa892"/><stop offset=".35" stop-color="#8fe0c9"/><stop offset="1" stop-color="#0e5a4c"/></linearGradient>
+ <linearGradient id="capB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1e7d6"/><stop offset=".35" stop-color="#ffffff"/><stop offset="1" stop-color="#cfc2ab"/></linearGradient>
+ <linearGradient id="glass" x1="0" x2="1"><stop offset="0" stop-color="#d7eef7" stop-opacity=".9"/><stop offset=".5" stop-color="#ffffff" stop-opacity=".5"/><stop offset="1" stop-color="#bfe0ee" stop-opacity=".9"/></linearGradient>
+ <linearGradient id="water" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fd6ec"/><stop offset="1" stop-color="#5fb3d6"/></linearGradient>
+ <radialGradient id="bowl" cx=".5" cy=".3" r=".8"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d4dcdf"/></radialGradient>
+ <radialGradient id="porr" cx=".5" cy=".5" r=".6"><stop offset="0" stop-color="#fbf4e4"/><stop offset="1" stop-color="#e9dcc0"/></radialGradient>
+ <radialGradient id="yolk" cx=".4" cy=".4" r=".6"><stop offset="0" stop-color="#ffd25a"/><stop offset="1" stop-color="#f0a21a"/></radialGradient>
+ <filter id="sh"><feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#2b3a36" flood-opacity=".22"/></filter>
+ <marker id="m" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#d9902b"/></marker>
+</defs>
+<rect width="640" height="400" rx="16" fill="#ffffff"/>
+<rect x="0" y="236" width="640" height="70" fill="#f1e8dc"/>
+<text x="320" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#16262b">Uống PPI thông thường đúng thời điểm</text>
+<!-- glass + capsule -->
+<g filter="url(#sh)">
+ <path d="M70 150 L134 150 L126 252 L78 252 Z" fill="url(#glass)" stroke="#a9cfe0" stroke-width="2"/>
+ <path d="M73 180 L131 180 L126 252 L78 252 Z" fill="url(#water)" opacity=".85"/>
+ <g transform="translate(150 222) rotate(-18)">
+  <rect x="0" y="0" width="34" height="26" rx="13" fill="url(#capA)"/><rect x="20" y="0" width="34" height="26" rx="13" fill="url(#capB)"/><rect x="20" y="0" width="14" height="26" fill="url(#capA)"/>
+  <rect x="8" y="5" width="36" height="4" rx="2" fill="#fff" opacity=".6"/>
+ </g>
 </g>
-<path d="M170 137 L380 137" stroke="#d9902b" stroke-width="5" stroke-dasharray="10 8" marker-end="url(#m)"/>
-<defs><marker id="m" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#d9902b"/></marker></defs>
-<rect x="200" y="96" width="150" height="30" rx="15" fill="#fbf0de"/>
-<text x="275" y="117" text-anchor="middle" font-size="17" font-weight="700" fill="#a86a12">30–60 phút</text>
-<g transform="translate(400 70)">
-<ellipse cx="70" cy="80" rx="62" ry="22" fill="#e2f0ec" stroke="#0e5a4c" stroke-width="4"/>
-<path d="M30 70 q40 -40 80 0" fill="#f2c14e"/><circle cx="55" cy="62" r="8" fill="#d9902b"/><circle cx="85" cy="60" r="7" fill="#5cc2a8"/>
-<text x="70" y="140" text-anchor="middle" font-size="17" font-weight="700" fill="#16262b">Ăn bữa sáng</text>
-<text x="70" y="162" text-anchor="middle" font-size="15" fill="#56686d">(hoặc bữa tối nếu</text>
-<text x="70" y="182" text-anchor="middle" font-size="15" fill="#56686d">uống lần thứ hai)</text>
+<text x="128" y="290" text-anchor="middle" font-size="17" font-weight="700" fill="#16262b">Uống thuốc</text>
+<text x="128" y="312" text-anchor="middle" font-size="15" fill="#56686d">với nước lọc</text>
+<!-- clock -->
+<g transform="translate(320 150)" filter="url(#sh)">
+ <circle r="46" fill="#ffffff" stroke="#d9902b" stroke-width="6"/>
+ <path d="M0 0 L0 -46 A46 46 0 0 1 46 0 Z" fill="#fbf0de"/>
+ <g stroke="#56686d" stroke-width="3" stroke-linecap="round"><path d="M0 -38 V-32"/><path d="M38 0 H32"/><path d="M0 38 V32"/><path d="M-38 0 H-32"/></g>
+ <path d="M0 0 L0 -28" stroke="#16262b" stroke-width="4" stroke-linecap="round"/><path d="M0 0 L22 0" stroke="#16262b" stroke-width="4" stroke-linecap="round"/><circle r="4" fill="#d9902b"/>
 </g>
-<rect x="40" y="268" width="520" height="52" rx="10" fill="#fbe6e3"/>
-<text x="300" y="290" text-anchor="middle" font-size="15" fill="#b4322a" font-weight="600">Không tự tăng liều, không phối hợp nhiều PPI.</text>
-<text x="300" y="310" text-anchor="middle" font-size="15" fill="#16262b">Một số thuốc có cách dùng khác – làm theo hướng dẫn của bác sĩ.</text>
+<path d="M200 222 C240 222 250 222 262 214" fill="none" stroke="#d9902b" stroke-width="4" stroke-dasharray="8 6"/>
+<path d="M378 214 C392 222 410 222 448 222" fill="none" stroke="#d9902b" stroke-width="4" stroke-dasharray="8 6" marker-end="url(#m)"/>
+<rect x="250" y="216" width="140" height="34" rx="17" fill="#d9902b"/>
+<text x="320" y="239" text-anchor="middle" font-size="18" font-weight="700" fill="#ffffff">30–60 phút</text>
+<!-- breakfast -->
+<g filter="url(#sh)">
+ <ellipse cx="530" cy="232" rx="78" ry="20" fill="#e3e9eb"/>
+ <path d="M468 196 Q530 270 592 196 Z" fill="url(#bowl)"/>
+ <ellipse cx="530" cy="196" rx="62" ry="16" fill="url(#porr)"/>
+ <ellipse cx="514" cy="192" rx="18" ry="9" fill="#ffffff"/><circle cx="514" cy="191" r="7" fill="url(#yolk)"/>
+ <g fill="#5aa04a"><ellipse cx="546" cy="190" rx="5" ry="2.2"/><ellipse cx="556" cy="196" rx="4" ry="2"/><ellipse cx="540" cy="199" rx="4" ry="2"/></g>
+ <path d="M500 170 q6 -12 0 -24 M530 166 q6 -12 0 -24 M560 170 q6 -12 0 -24" stroke="#c9d3d6" stroke-width="3" fill="none" stroke-linecap="round"/>
+</g>
+<text x="530" y="290" text-anchor="middle" font-size="17" font-weight="700" fill="#16262b">Ăn bữa sáng</text>
+<text x="530" y="312" text-anchor="middle" font-size="15" fill="#56686d">(hoặc bữa tối nếu uống lần 2)</text>
+<rect x="40" y="332" width="560" height="52" rx="10" fill="#fbe6e3"/>
+<text x="320" y="354" text-anchor="middle" font-size="15" fill="#b4322a" font-weight="600">Không tự tăng liều, không phối hợp nhiều PPI.</text>
+<text x="320" y="374" text-anchor="middle" font-size="15" fill="#16262b">Một số thuốc có cách dùng khác – làm theo hướng dẫn của bác sĩ.</text>
 </svg>
