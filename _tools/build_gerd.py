@@ -90,6 +90,33 @@ ARTICLES = [
            "6.":[(5,"theo dõi Barrett thực quản sau khi điều trị trào ngược")]}),
 ]
 BY_N = {a["n"]: a for a in ARTICLES}
+
+# Hình minh họa: số bài -> {đầu mục: (tệp, alt, chú thích)}
+FIGS = {
+  1: {"1.": ("gerd-co-che-trao-nguoc-da-day-thuc-quan.svg", "Sơ đồ thực quản, cơ thắt thực quản dưới và dạ dày, dịch acid trào ngược lên thực quản", "Khi cơ thắt thực quản dưới hở hoặc yếu, dịch dạ dày trào ngược lên thực quản."),
+      "3.": ("gerd-va-viem-loet-da-day-vi-tri-trieu-chung.svg", "Vị trí khó chịu thường gặp: GERD nóng rát sau xương ức, viêm loét dạ dày – tá tràng đau vùng thượng vị", "Vị trí khó chịu chỉ mang tính gợi ý; hai bệnh có thể chồng lấp.")},
+  2: {"1.": ("nguyen-tac-an-uong-nguoi-bi-trao-nguoc.svg", "Bốn nguyên tắc ăn uống: ăn vừa đủ, ăn chậm, ăn tối sớm, ghi nhật ký ăn uống", "Bốn nguyên tắc ăn uống đơn giản cho người bị trào ngược."),
+      "4.": ("an-toi-som-ke-cao-dau-giuong-giam-trao-nguoc.svg", "Ăn tối xong ít nhất 2–3 giờ mới đi ngủ và kê cao phần đầu giường", "Ăn tối sớm và kê cao đầu giường giúp giảm trào ngược về đêm.")},
+  3: {"1.": ("thoi-diem-uong-thuoc-ppi-truoc-bua-an.svg", "Uống PPI thông thường trước bữa ăn 30–60 phút", "Với đa số PPI dạng thông thường: uống trước bữa ăn 30–60 phút."),
+      "2.": ("cac-nhom-thuoc-dieu-tri-gerd.svg", "Bốn nhóm thuốc: PPI, kháng thụ thể H2, alginate và thuốc kháng acid", "Các nhóm thuốc thường dùng trong GERD và tác dụng chính.")},
+  4: {"2.": ("nguyen-nhan-uong-thuoc-trao-nguoc-khong-khoi.svg", "Sáu nguyên nhân thường gặp khiến uống thuốc trào ngược chưa đỡ", "Những lý do thường gặp khi điều trị chưa hiệu quả."),
+      "3.": ("quy-trinh-danh-gia-gerd-khang-tri.svg", "Sơ đồ các bước đánh giá khi uống thuốc trào ngược vẫn chưa đỡ", "Các bước bác sĩ thường đi qua trước khi kết luận GERD kháng trị.")},
+  5: {"1.": ("barrett-thuc-quan-bien-doi-niem-mac.svg", "So sánh niêm mạc thực quản bình thường (biểu mô lát) và Barrett (biểu mô trụ chuyển sản ruột)", "Barrett: niêm mạc lát bình thường được thay bằng biểu mô trụ."),
+      "4.": ("barrett-thuc-quan-cac-muc-do-loan-san.svg", "Các mức kết quả sinh thiết Barrett từ không loạn sản đến ung thư và hướng xử trí", "Nguy cơ tăng theo mức độ loạn sản; đa số không tiến triển thành ung thư.")},
+  6: {"3.": ("danh-gia-truoc-phau-thuat-chong-trao-nguoc.svg", "Bốn bước đánh giá trước phẫu thuật: nội soi, đo pH – trở kháng, đo áp lực thực quản, chụp cản quang", "Các thăm dò thường cần trước khi quyết định phẫu thuật."),
+      "4.": ("phau-thuat-nissen-va-toupet-chong-trao-nguoc.svg", "Mặt cắt minh họa quấn đáy vị Nissen 360 độ và Toupet khoảng 270 độ quanh thực quản", "Nissen quấn toàn bộ 360°, Toupet quấn bán phần khoảng 270°.")},
+}
+
+
+def figure(a, title):
+    for key, (f, alt, cap) in FIGS.get(a["n"], {}).items():
+        if title.startswith(key):
+            return (f'<figure class="fig"><a href="../../assets/img/gerd/{f}" target="_blank" rel="noopener" title="Bấm để xem hình lớn">'
+                    f'<img src="../../assets/img/gerd/{f}" alt="{E(alt)}" loading="lazy" width="600" height="400"></a>'
+                    f'<figcaption>{E(cap)} <span class="zoom">Bấm vào hình để xem lớn hơn.</span></figcaption></figure>')
+    return ""
+
+
 LOGO_SVG = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/><path d="M12 11.5v5M9.5 14h5"/></svg>'
 E = html.escape
 
@@ -265,9 +292,14 @@ def build_article(a):
             if t.startswith(key):
                 extra += '<p class="see-also">Đọc thêm: ' + " · ".join(link(n, txt) for n, txt in targets) + "</p>"
         cls = ' class="key-message"' if t.startswith("Thông điệp") else ""
+        fig = figure(a, t)
+        sbody = s["body"]
+        if fig:
+            i = sbody.find("</p>")
+            sbody = sbody[:i + 4] + fig + sbody[i + 4:] if i >= 0 else fig + sbody
         if t != "Mở đầu":
             toc.append(f'<li><a href="#{sid}">{E(t)}</a></li>')
-            body.append(f'<section{cls}><h2 id="{sid}">{E(t)}</h2>{s["body"]}{extra}</section>')
+            body.append(f'<section{cls}><h2 id="{sid}">{E(t)}</h2>{sbody}{extra}</section>')
         else:
             body.append(f'<section>{s["body"]}{extra}</section>')
     toc.append('<li><a href="#hoi-dap">Câu hỏi thường gặp</a></li>')

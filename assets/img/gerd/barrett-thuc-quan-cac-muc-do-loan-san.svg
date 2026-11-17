@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" font-family="Be Vietnam Pro, Arial, Helvetica, sans-serif">
+<rect width="600" height="400" rx="16" fill="#ffffff"/>
+<text x="300" y="38" text-anchor="middle" font-size="21" font-weight="700" fill="#16262b">Kết quả sinh thiết Barrett và mức nguy cơ</text>
+<g font-size="15">
+<rect x="30"  y="250" width="125" height="70"  rx="10" fill="#cfe7df"/>
+<rect x="165" y="210" width="125" height="110" rx="10" fill="#f6e3b5"/>
+<rect x="300" y="160" width="125" height="160" rx="10" fill="#f3c19a"/>
+<rect x="435" y="100" width="135" height="220" rx="10" fill="#e9a29a"/>
+<g text-anchor="middle" font-weight="700" fill="#16262b">
+<text x="92"  y="280">Không</text><text x="92" y="300">loạn sản</text>
+<text x="227" y="240">Loạn sản</text><text x="227" y="260">độ thấp</text>
+<text x="362" y="190">Loạn sản</text><text x="362" y="210">độ cao</text>
+<text x="502" y="130">Ung thư</text><text x="502" y="150">biểu mô tuyến</text>
+</g>
+<g text-anchor="middle" fill="#16262b">
+<text x="92" y="346">Nội soi theo dõi</text><text x="92" y="364">định kỳ</text>
+<text x="227" y="346">Xác nhận, đánh giá</text><text x="227" y="364">tại nơi có kinh nghiệm</text>
+<text x="362" y="346">Thường điều trị</text><text x="362" y="364">qua nội soi</text>
+<text x="502" y="346">Hội chẩn</text><text x="502" y="364">đa chuyên khoa</text>
+</g>
+<path d="M40 76 L560 76" stroke="#b4322a" stroke-width="3" marker-end="url(#m)"/>
+<defs><marker id="m" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#b4322a"/></marker></defs>
+<text x="40" y="66" fill="#b4322a" font-weight="600">Nguy cơ tăng dần →</text>
+<text x="300" y="390" text-anchor="middle" font-size="14" fill="#56686d">Đa số người có Barrett không tiến triển thành ung thư</text>
+</g>
+</svg>
