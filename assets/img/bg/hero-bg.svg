@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 640" preserveAspectRatio="xMidYMid slice">
+<style>
+ .t{fill:#0e5a4c}.ts{stroke:#0e5a4c;fill:none}.a{fill:#d9902b}
+ @media (prefers-color-scheme: dark){.t{fill:#5cc2a8}.ts{stroke:#5cc2a8}.a{fill:#e9ad55}}
+</style>
+<!-- soft blobs -->
+<circle class="t" cx="1380" cy="120" r="300" opacity=".07"/>
+<circle class="t" cx="1180" cy="520" r="170" opacity=".06"/>
+<circle class="a" cx="120" cy="560" r="200" opacity=".07"/>
+<circle class="t" cx="80" cy="60" r="130" opacity=".05"/>
+<!-- dots grid -->
+<g class="t" opacity=".16">
+ <g id="r"><circle cx="40" cy="300" r="3"/><circle cx="76" cy="300" r="3"/><circle cx="112" cy="300" r="3"/><circle cx="148" cy="300" r="3"/><circle cx="184" cy="300" r="3"/><circle cx="220" cy="300" r="3"/></g>
+ <use href="#r" y="36"/><use href="#r" y="72"/><use href="#r" y="108"/>
+</g>
+<!-- plus signs -->
+<g class="ts" stroke-width="5" stroke-linecap="round" opacity=".22">
+ <path d="M1010 90v36M992 108h36"/><path d="M1490 330v28M1476 344h28"/><path d="M700 560v28M686 574h28"/><path d="M1290 470v22M1279 481h22"/><path d="M520 60v24M508 72h24"/>
+</g>
+<!-- leaves -->
+<g class="t" opacity=".13">
+ <path d="M1400 600C1380 520 1420 440 1500 410C1520 490 1480 570 1400 600Z"/>
+ <path d="M1400 600C1330 560 1310 480 1350 420C1420 450 1440 540 1400 600Z"/>
+ <path d="M1400 600C1450 560 1560 560 1600 600V640H1400Z"/>
+</g>
+<g class="t" opacity=".06">
+ <path d="M60 640C60 560 100 500 170 480C190 550 150 620 60 640Z"/>
+ <path d="M60 640C0 600-10 540 20 500C80 520 100 590 60 640Z"/>
+</g>
+<!-- heartbeat -->
+<path class="ts" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity=".20" d="M0 588H420L452 588L476 528L512 632L544 556L566 588H940L972 588L996 536L1030 626L1058 566L1078 588H1600"/>
+<!-- bottom wave fade -->
+<path class="t" opacity=".05" d="M0 600C300 540 600 650 900 600S1400 560 1600 610V640H0Z"/>
+</svg>

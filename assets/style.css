@@ -222,7 +222,7 @@ footer a:hover{color:var(--brand)}
 .meta{font-size:.88rem;color:var(--muted)}
 .toc{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px 22px}
 .toc h2{font-size:1rem;font-family:var(--font-body);margin-bottom:8px}
-.toc ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.toc ol{margin:0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:4px}
 .toc a{text-decoration:none}
 .article h2{scroll-margin-top:84px}
 .article h3{margin-top:4px}
@@ -249,3 +249,23 @@ ol.series{list-style:none}
 .fig figcaption{font-size:.88rem;color:var(--muted);text-align:center}
 .fig .zoom{display:none}@media (max-width:600px){.fig .zoom{display:inline}}
 .fig .credit{display:block;font-size:.8rem;margin-top:4px}.fig .credit a{color:inherit}.fig img[src$=".jpg"]{max-width:100%}
+
+/* Ảnh nền trang trí */
+:root{--hero-a:#d6ebe4;--feat-a:#0e5a4c;--feat-b:#17866f}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--hero-a:#15302b;--feat-a:#0c3a32;--feat-b:#13614f}}
+:root[data-theme="dark"]{--hero-a:#15302b;--feat-a:#0c3a32;--feat-b:#13614f}
+body{overflow-x:clip}
+.hero,.page-head{position:relative;isolation:isolate}
+.hero::before,.page-head::before{content:"";position:absolute;z-index:-1;top:0;bottom:0;left:calc(50% - 50vw);right:calc(50% - 50vw);pointer-events:none}
+.hero::before{background:url(img/bg/hero-bg.svg) center/cover no-repeat,linear-gradient(180deg,var(--hero-a) 0%,var(--bg) 100%)}
+.hero{padding:64px 0 56px}
+.page-head::before{background:url(img/bg/page-bg.svg) center/cover no-repeat,linear-gradient(180deg,var(--hero-a) 0%,var(--bg) 100%)}
+.feature{display:block;position:relative;overflow:hidden;border-radius:18px;padding:34px 36px;color:#fff;text-decoration:none;
+  background:url(img/bg/feature-bg.svg) right center/cover no-repeat,linear-gradient(120deg,var(--feat-a),var(--feat-b));box-shadow:var(--shadow)}
+.feature .tag-w{display:inline-block;font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:rgba(255,255,255,.18);padding:4px 10px;border-radius:99px;margin-bottom:12px}
+.feature h2{color:#fff;margin-bottom:8px}
+.feature p{color:rgba(255,255,255,.9);max-width:54ch;margin-bottom:18px}
+.feature .btn{background:#fff;color:#0e5a4c}
+.feature:hover{filter:brightness(1.05)}
+.feature:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@media (max-width:600px){.feature{padding:26px 22px}}

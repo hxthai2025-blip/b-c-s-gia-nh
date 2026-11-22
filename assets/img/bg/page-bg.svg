@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 300" preserveAspectRatio="xMidYMid slice">
+<style>.t{fill:#0e5a4c}.ts{stroke:#0e5a4c;fill:none}.a{fill:#d9902b}
+@media (prefers-color-scheme: dark){.t{fill:#5cc2a8}.ts{stroke:#5cc2a8}.a{fill:#e9ad55}}</style>
+<circle class="t" cx="1450" cy="40" r="220" opacity=".07"/>
+<circle class="a" cx="1180" cy="290" r="120" opacity=".07"/>
+<circle class="t" cx="140" cy="300" r="150" opacity=".05"/>
+<g class="ts" stroke-width="4" stroke-linecap="round" opacity=".2"><path d="M1300 70v26M1287 83h26"/><path d="M1520 190v22M1509 201h22"/><path d="M980 40v20M970 50h20"/></g>
+<path class="ts" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".18" d="M1130 262H1300L1318 262L1336 222L1360 292L1380 244L1394 262H1600"/>
+<g class="t" opacity=".12"><path d="M1560 300C1550 240 1580 190 1600 180V300Z"/><path d="M1560 300C1510 280 1500 230 1520 195C1570 210 1585 260 1560 300Z"/></g>
+</svg>
