@@ -1,14 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" preserveAspectRatio="xMaxYMid slice">
 <style>.w{fill:#fff}.ws{stroke:#fff;fill:none}
+@keyframes draw{from{stroke-dashoffset:700}to{stroke-dashoffset:0}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.ecg{stroke-dasharray:700;animation:draw 4.5s linear infinite}.bob{animation:bob 5s ease-in-out infinite}
+@media (prefers-reduced-motion: reduce){.ecg,.bob{animation:none;stroke-dasharray:none}}
 </style>
 <circle class="w" cx="1040" cy="60" r="200" opacity=".08"/>
 <circle class="w" cx="1160" cy="270" r="130" opacity=".07"/>
 <circle class="w" cx="760" cy="300" r="110" opacity=".05"/>
 <!-- stylised stomach + esophagus -->
-<g transform="translate(850 24)" opacity=".22">
+<g class="bob"><g transform="translate(850 24)" opacity=".3">
  <path class="ws" stroke-width="16" stroke-linecap="round" d="M70 0V120C70 150 90 168 118 176"/>
  <path class="w" d="M112 168C80 160 70 190 78 220C88 262 160 286 220 262C278 238 268 170 226 150C196 136 160 150 112 168Z"/>
-</g>
+</g></g>
 <g class="ws" stroke-width="5" stroke-linecap="round" opacity=".3"><path d="M700 60v30M685 75h30"/><path d="M1130 150v26M1117 163h26"/><path d="M640 230v22M629 241h22"/></g>
-<path class="ws" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity=".22" d="M560 250H760L780 250L800 200L830 290L856 230L872 250H1200"/>
+<path class="ws ecg" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity=".45" d="M560 250H760L780 250L800 200L830 290L856 230L872 250H1200"/>
 </svg>
