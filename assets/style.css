@@ -270,3 +270,10 @@ body{overflow-x:clip}
 .feature:hover{filter:brightness(1.05)}
 .feature:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 @media (max-width:600px){.feature{padding:26px 22px}}
+.features{display:grid;gap:18px;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:820px){.features{grid-template-columns:1fr}}
+.feature.alt{background:url(img/bg/feature-bg-tri.svg) right center/cover no-repeat,linear-gradient(120deg,#b4531f,#e08a3a)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .feature.alt{background:url(img/bg/feature-bg-tri.svg) right center/cover no-repeat,linear-gradient(120deg,#6b3414,#a65f22)}}
+:root[data-theme="dark"] .feature.alt{background:url(img/bg/feature-bg-tri.svg) right center/cover no-repeat,linear-gradient(120deg,#6b3414,#a65f22)}
+.feature.alt .btn{color:#a24a17}
+.feature p{margin-bottom:16px}

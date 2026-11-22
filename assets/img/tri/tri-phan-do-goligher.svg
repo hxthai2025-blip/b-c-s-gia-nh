@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" font-family="Be Vietnam Pro, Arial, Helvetica, sans-serif">
+<defs>
+ <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6cfb0"/><stop offset="1" stop-color="#e8b48f"/></linearGradient>
+ <linearGradient id="w" x1="0" x2="1"><stop offset="0" stop-color="#d9776c"/><stop offset=".5" stop-color="#f2a79c"/><stop offset="1" stop-color="#d9776c"/></linearGradient>
+ <marker id="a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#0e5a4c"/></marker>
+<g id="tube">
+ <rect x="-34" y="0" width="68" height="120" fill="#fff4f2"/>
+ <path d="M-34 0V120M34 0V120" stroke="url(#w)" stroke-width="14" stroke-linecap="round" fill="none"/>
+</g>
+</defs>
+<rect width="720" height="400" rx="16" fill="#fff"/>
+<text x="360" y="36" text-anchor="middle" font-size="22" font-weight="700" fill="#16262b">Phân độ trĩ nội theo Goligher</text>
+
+<!-- panel 1 -->
+<g transform="translate(96 64)"><use href="#tube"/><path d="M-70 128H70" stroke="#e8b48f" stroke-width="12" stroke-linecap="round"/>
+ <ellipse cx="-24" cy="84" rx="11" ry="17" fill="#e86a5e"/><ellipse cx="24" cy="84" rx="11" ry="17" fill="#e86a5e"/></g>
+<!-- panel 2 -->
+<g transform="translate(276 64)"><use href="#tube"/><path d="M-70 128H70" stroke="#e8b48f" stroke-width="12" stroke-linecap="round"/>
+ <ellipse cx="-22" cy="110" rx="14" ry="22" fill="#e9843a"/><ellipse cx="22" cy="110" rx="14" ry="22" fill="#e9843a"/>
+ <path d="M-22 150C-22 170 -22 174 -22 176" stroke="#0e5a4c" stroke-width="3" stroke-dasharray="4 4" fill="none"/>
+ <path d="M0 176V152" stroke="#0e5a4c" stroke-width="3.5" marker-end="url(#a)" fill="none"/></g>
+<!-- panel 3 -->
+<g transform="translate(456 64)"><use href="#tube"/><path d="M-70 128H70" stroke="#e8b48f" stroke-width="12" stroke-linecap="round"/>
+ <ellipse cx="-24" cy="142" rx="16" ry="26" fill="#d9532c"/><ellipse cx="24" cy="142" rx="16" ry="26" fill="#d9532c"/>
+ <path d="M0 196V170" stroke="#0e5a4c" stroke-width="3.5" marker-end="url(#a)" fill="none"/>
+ <path d="M-8 206 q8 -16 16 0 l0 10 h-16z" fill="#f2c9a6"/></g>
+<!-- panel 4 -->
+<g transform="translate(636 64)"><use href="#tube"/><path d="M-70 128H70" stroke="#e8b48f" stroke-width="12" stroke-linecap="round"/>
+ <ellipse cx="-28" cy="150" rx="20" ry="34" fill="#b92f2a"/><ellipse cx="28" cy="150" rx="20" ry="34" fill="#b92f2a"/>
+ <path d="M-16 186q16 14 32 0" stroke="#7a1d19" stroke-width="3" fill="none"/></g>
+<g text-anchor="middle">
+ <g font-size="20" font-weight="700"><text x="96" y="300" fill="#e86a5e">Độ I</text><text x="276" y="300" fill="#e9843a">Độ II</text><text x="456" y="300" fill="#d9532c">Độ III</text><text x="636" y="300" fill="#b92f2a">Độ IV</text></g>
+ <g font-size="14" fill="#16262b">
+  <text x="96" y="324">Chưa sa ra ngoài,</text><text x="96" y="342">có thể chảy máu</text>
+  <text x="276" y="324">Sa khi đại tiện,</text><text x="276" y="342">tự co lên</text>
+  <text x="456" y="324">Sa, phải dùng</text><text x="456" y="342">tay đẩy lên</text>
+  <text x="636" y="324">Sa thường xuyên,</text><text x="636" y="342">không đẩy lên được</text></g>
+</g>
+<rect x="60" y="360" width="600" height="28" rx="8" fill="#fbf0de"/><text x="360" y="379" text-anchor="middle" font-size="14" fill="#16262b">Phân độ chỉ mô tả mức sa của trĩ nội; bác sĩ còn xét nhiều yếu tố khác khi chọn điều trị</text>
+</svg>
