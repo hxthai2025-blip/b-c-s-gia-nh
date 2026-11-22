@@ -248,3 +248,4 @@ ol.series{list-style:none}
 .fig img{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:var(--radius);background:#fff}
 .fig figcaption{font-size:.88rem;color:var(--muted);text-align:center}
 .fig .zoom{display:none}@media (max-width:600px){.fig .zoom{display:inline}}
+.fig .credit{display:block;font-size:.8rem;margin-top:4px}.fig .credit a{color:inherit}.fig img[src$=".jpg"]{max-width:100%}

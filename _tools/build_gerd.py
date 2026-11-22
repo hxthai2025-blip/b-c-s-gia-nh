@@ -91,30 +91,63 @@ ARTICLES = [
 ]
 BY_N = {a["n"]: a for a in ARTICLES}
 
-# Hình minh họa: số bài -> {đầu mục: (tệp, alt, chú thích)}
+# Hình minh họa: số bài -> danh sách (đầu mục, tệp, alt, chú thích, nguồn ảnh hoặc None)
+CC4 = "https://creativecommons.org/licenses/by-sa/4.0"
+CC3 = "https://creativecommons.org/licenses/by-sa/3.0"
+WM = "https://commons.wikimedia.org/wiki/File:"
+CREDIT_GERD = ("BruceBlaus", "CC BY-SA 4.0", CC4, WM + "GastroEsophageal_Reflux_Disease_(GERD).jpg", "đã thêm chú thích tiếng Việt")
+CREDIT_HERNIA = ("BruceBlaus", "CC BY-SA 4.0", CC4, WM + "Hiatal_Hernia.png", "đã thay chú thích bằng tiếng Việt")
+CREDIT_NISSEN = ("Dana Hamers", "CC BY-SA 3.0", CC3, WM + "Doorsnede-Nissen_wiki.jpg", "")
+CREDIT_BARRETT = ("Samir", "dùng tự do theo giấy phép của tác giả", None, WM + "Barretts_esophagus.jpg", "")
+CREDIT_STRICTURE = ("Samir", "phạm vi công cộng", None, WM + "Peptic_stricture.png", "")
+
 FIGS = {
-  1: {"1.": ("gerd-co-che-trao-nguoc-da-day-thuc-quan.svg", "Sơ đồ thực quản, cơ thắt thực quản dưới và dạ dày, dịch acid trào ngược lên thực quản", "Khi cơ thắt thực quản dưới hở hoặc yếu, dịch dạ dày trào ngược lên thực quản."),
-      "3.": ("gerd-va-viem-loet-da-day-vi-tri-trieu-chung.svg", "Vị trí khó chịu thường gặp: GERD nóng rát sau xương ức, viêm loét dạ dày – tá tràng đau vùng thượng vị", "Vị trí khó chịu chỉ mang tính gợi ý; hai bệnh có thể chồng lấp.")},
-  2: {"1.": ("nguyen-tac-an-uong-nguoi-bi-trao-nguoc.svg", "Bốn nguyên tắc ăn uống: ăn vừa đủ, ăn chậm, ăn tối sớm, ghi nhật ký ăn uống", "Bốn nguyên tắc ăn uống đơn giản cho người bị trào ngược."),
-      "4.": ("an-toi-som-ke-cao-dau-giuong-giam-trao-nguoc.svg", "Ăn tối xong ít nhất 2–3 giờ mới đi ngủ và kê cao phần đầu giường", "Ăn tối sớm và kê cao đầu giường giúp giảm trào ngược về đêm.")},
-  3: {"1.": ("thoi-diem-uong-thuoc-ppi-truoc-bua-an.svg", "Uống PPI thông thường trước bữa ăn 30–60 phút", "Với đa số PPI dạng thông thường: uống trước bữa ăn 30–60 phút."),
-      "2.": ("cac-nhom-thuoc-dieu-tri-gerd.svg", "Bốn nhóm thuốc: PPI, kháng thụ thể H2, alginate và thuốc kháng acid", "Các nhóm thuốc thường dùng trong GERD và tác dụng chính.")},
-  4: {"2.": ("nguyen-nhan-uong-thuoc-trao-nguoc-khong-khoi.svg", "Sáu nguyên nhân thường gặp khiến uống thuốc trào ngược chưa đỡ", "Những lý do thường gặp khi điều trị chưa hiệu quả."),
-      "3.": ("quy-trinh-danh-gia-gerd-khang-tri.svg", "Sơ đồ các bước đánh giá khi uống thuốc trào ngược vẫn chưa đỡ", "Các bước bác sĩ thường đi qua trước khi kết luận GERD kháng trị.")},
-  5: {"1.": ("barrett-thuc-quan-bien-doi-niem-mac.svg", "So sánh niêm mạc thực quản bình thường (biểu mô lát) và Barrett (biểu mô trụ chuyển sản ruột)", "Barrett: niêm mạc lát bình thường được thay bằng biểu mô trụ."),
-      "4.": ("barrett-thuc-quan-cac-muc-do-loan-san.svg", "Các mức kết quả sinh thiết Barrett từ không loạn sản đến ung thư và hướng xử trí", "Nguy cơ tăng theo mức độ loạn sản; đa số không tiến triển thành ung thư.")},
-  6: {"3.": ("danh-gia-truoc-phau-thuat-chong-trao-nguoc.svg", "Bốn bước đánh giá trước phẫu thuật: nội soi, đo pH – trở kháng, đo áp lực thực quản, chụp cản quang", "Các thăm dò thường cần trước khi quyết định phẫu thuật."),
-      "4.": ("phau-thuat-nissen-va-toupet-chong-trao-nguoc.svg", "Mặt cắt minh họa quấn đáy vị Nissen 360 độ và Toupet khoảng 270 độ quanh thực quản", "Nissen quấn toàn bộ 360°, Toupet quấn bán phần khoảng 270°.")},
+  1: [("1.", "gerd-giai-phau-trao-nguoc-co-nhan.jpg", "Hình giải phẫu so sánh dạ dày bình thường và dạ dày bị trào ngược GERD, dịch dạ dày trào lên thực quản", "Bình thường, cơ thắt thực quản dưới đóng kín. Ở người bị GERD, cơ thắt hở và dịch dạ dày trào lên thực quản.", CREDIT_GERD),
+      ("3.", "gerd-va-viem-loet-da-day-vi-tri-trieu-chung.svg", "Vị trí khó chịu thường gặp: GERD nóng rát sau xương ức, viêm loét dạ dày – tá tràng đau vùng thượng vị", "Vị trí khó chịu chỉ mang tính gợi ý; hai bệnh có thể chồng lấp.", None)],
+  2: [("1.", "nguyen-tac-an-uong-nguoi-bi-trao-nguoc.svg", "Bốn nguyên tắc ăn uống: ăn vừa đủ, ăn chậm, ăn tối sớm, ghi nhật ký ăn uống", "Bốn nguyên tắc ăn uống đơn giản cho người bị trào ngược.", None),
+      ("4.", "an-toi-som-ke-cao-dau-giuong-giam-trao-nguoc.svg", "Ăn tối xong ít nhất 2–3 giờ mới đi ngủ và kê cao phần đầu giường", "Ăn tối sớm và kê cao đầu giường giúp giảm trào ngược về đêm.", None)],
+  3: [("1.", "thoi-diem-uong-thuoc-ppi-truoc-bua-an.svg", "Uống PPI thông thường trước bữa ăn 30–60 phút", "Với đa số PPI dạng thông thường: uống trước bữa ăn 30–60 phút.", None),
+      ("2.", "cac-nhom-thuoc-dieu-tri-gerd.svg", "Bốn nhóm thuốc: PPI, kháng thụ thể H2, alginate và thuốc kháng acid", "Các nhóm thuốc thường dùng trong GERD và tác dụng chính.", None)],
+  4: [("2.", "nguyen-nhan-uong-thuoc-trao-nguoc-khong-khoi.svg", "Sáu nguyên nhân thường gặp khiến uống thuốc trào ngược chưa đỡ", "Những lý do thường gặp khi điều trị chưa hiệu quả.", None),
+      ("3.", "quy-trinh-danh-gia-gerd-khang-tri.svg", "Sơ đồ các bước đánh giá khi uống thuốc trào ngược vẫn chưa đỡ", "Các bước bác sĩ thường đi qua trước khi kết luận GERD kháng trị.", None),
+      ("3.", "hep-thuc-quan-do-trao-nguoc-anh-noi-soi.jpg", "Ảnh nội soi thực quản bị hẹp do trào ngược kéo dài", "Ví dụ hình ảnh nội soi: thực quản bị hẹp do trào ngược acid kéo dài.", CREDIT_STRICTURE)],
+  5: [("1.", "barrett-thuc-quan-anh-noi-soi.jpg", "Ảnh nội soi đoạn cuối thực quản của người bị Barrett thực quản", "Ví dụ hình ảnh nội soi đoạn cuối thực quản ở người bị Barrett.", CREDIT_BARRETT),
+      ("4.", "barrett-thuc-quan-cac-muc-do-loan-san.svg", "Các mức kết quả sinh thiết Barrett từ không loạn sản đến ung thư và hướng xử trí", "Nguy cơ tăng theo mức độ loạn sản; đa số không tiến triển thành ung thư.", None)],
+  6: [("2.", "thoat-vi-khe-hoanh-co-nhan.jpg", "Hình giải phẫu so sánh dạ dày bình thường và thoát vị khe hoành, một phần dạ dày trồi lên qua cơ hoành", "Thoát vị khe hoành: một phần dạ dày trồi lên khỏi cơ hoành, thường làm trào ngược nặng hơn.", CREDIT_HERNIA),
+      ("3.", "danh-gia-truoc-phau-thuat-chong-trao-nguoc.svg", "Bốn bước đánh giá trước phẫu thuật: nội soi, đo pH – trở kháng, đo áp lực thực quản, chụp cản quang", "Các thăm dò thường cần trước khi quyết định phẫu thuật.", None),
+      ("4.", "phau-thuat-nissen-mat-cat-minh-hoa.jpg", "Hình minh họa mặt cắt phẫu thuật quấn đáy vị Nissen quanh thực quản với các mũi khâu", "Mặt cắt minh họa van quấn đáy vị Nissen quanh đoạn cuối thực quản.", CREDIT_NISSEN),
+      ("4.", "phau-thuat-nissen-va-toupet-chong-trao-nguoc.svg", "Mặt cắt minh họa quấn đáy vị Nissen 360 độ và Toupet khoảng 270 độ quanh thực quản", "Nissen quấn toàn bộ 360°, Toupet quấn bán phần khoảng 270°.", None)],
 }
+
+IMG_DIR = ROOT / "assets" / "img" / "gerd"
+
+
+def _size(f):
+    if f.endswith(".svg"):
+        import re as _re
+        m = _re.search(r'viewBox="0 0 (\d+) (\d+)"', (IMG_DIR / f).read_text(encoding="utf-8"))
+        return (int(m.group(1)), int(m.group(2))) if m else (600, 400)
+    from PIL import Image
+    with Image.open(IMG_DIR / f) as im:
+        return im.size
 
 
 def figure(a, title):
-    for key, (f, alt, cap) in FIGS.get(a["n"], {}).items():
-        if title.startswith(key):
-            return (f'<figure class="fig"><a href="../../assets/img/gerd/{f}" target="_blank" rel="noopener" title="Bấm để xem hình lớn">'
-                    f'<img src="../../assets/img/gerd/{f}" alt="{E(alt)}" loading="lazy" width="600" height="400"></a>'
-                    f'<figcaption>{E(cap)} <span class="zoom">Bấm vào hình để xem lớn hơn.</span></figcaption></figure>')
-    return ""
+    out = ""
+    for key, f, alt, cap, cred in FIGS.get(a["n"], []):
+        if not title.startswith(key):
+            continue
+        w, h = _size(f)
+        credit = ""
+        if cred:
+            who, lic, lic_url, page, note = cred
+            lic_html = f'<a href="{lic_url}" target="_blank" rel="noopener">{E(lic)}</a>' if lic_url else E(lic)
+            credit = (f'<span class="credit">Nguồn hình: {E(who)} · {lic_html} · <a href="{page}" target="_blank" rel="noopener">Wikimedia Commons</a>'
+                      + (f" ({E(note)})" if note else "") + "</span>")
+        out += (f'<figure class="fig"><a href="../../assets/img/gerd/{f}" target="_blank" rel="noopener" title="Bấm để xem hình lớn">'
+                f'<img src="../../assets/img/gerd/{f}" alt="{E(alt)}" loading="lazy" width="{w}" height="{h}"></a>'
+                f'<figcaption>{E(cap)} <span class="zoom">Bấm vào hình để xem lớn hơn.</span>{credit}</figcaption></figure>')
+    return out
 
 
 LOGO_SVG = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/><path d="M12 11.5v5M9.5 14h5"/></svg>'
