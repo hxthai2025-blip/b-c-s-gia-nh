@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 320" preserveAspectRatio="xMidYMax slice">
+<style>
+ .h1{fill:#bfe8d8}.h2{fill:#8fd6ba}.h3{fill:#5fc09d}.edge{fill:#f4f7f6}
+ .tr{fill:#2f9e7e}.tr2{fill:#49b595}.tk{fill:#8a5a3c}
+ @keyframes sway{0%,100%{transform:rotate(-1.5deg)}50%{transform:rotate(1.5deg)}}
+ @keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.22)}30%{transform:scale(1)}45%{transform:scale(1.14)}}
+ @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+ .sway{transform-box:fill-box;transform-origin:50% 100%;animation:sway 6s ease-in-out infinite}
+ .beat{transform-box:fill-box;transform-origin:50% 50%;animation:beat 1.6s ease-in-out infinite}
+ .bob{animation:bob 3.2s ease-in-out infinite}
+ @media (prefers-color-scheme: dark){
+  .h1{fill:#21493f}.h2{fill:#1b3f37}.h3{fill:#163129}.edge{fill:#0f1716}.tr{fill:#2a6e5c}.tr2{fill:#347f6b}.tk{fill:#5b4331}
+ }
+ @media (prefers-reduced-motion: reduce){.sway,.beat,.bob{animation:none}}
+</style>
+<defs>
+ <g id="p">
+  <rect x="-8" y="-36" width="7" height="36" rx="3.5" fill="#2d4a6b"/><rect x="1" y="-36" width="7" height="36" rx="3.5" fill="#2d4a6b"/>
+  <rect x="-20" y="-68" width="8" height="30" rx="4" fill="currentColor"/><rect x="12" y="-68" width="8" height="30" rx="4" fill="currentColor"/>
+  <path d="M-14 -34V-62Q-14 -72 -5 -72H5Q14 -72 14 -62V-34Z" fill="currentColor"/>
+  <circle cy="-84" r="11.5" fill="#f2c9a6"/>
+  <path d="M-12 -86Q-11 -98 0 -98Q12 -98 12 -86Q5 -92 -12 -86Z" fill="#3b2a20"/>
+ </g>
+</defs>
+<path class="h1" d="M0 190C200 120 430 140 650 182S1110 226 1600 140V320H0Z"/>
+<path class="h2" d="M0 236C260 186 520 206 800 236S1300 246 1600 196V320H0Z"/>
+<!-- trees -->
+<g class="sway"><rect class="tk" x="146" y="176" width="10" height="64"/><circle class="tr" cx="151" cy="160" r="38"/><circle class="tr2" cx="132" cy="176" r="26"/><circle class="tr2" cx="174" cy="172" r="24"/></g>
+<g class="sway" style="animation-delay:-2s"><rect class="tk" x="336" y="206" width="8" height="46"/><circle class="tr" cx="340" cy="194" r="28"/><circle class="tr2" cx="326" cy="206" r="18"/></g>
+<g class="sway" style="animation-delay:-4s"><rect class="tk" x="1276" y="190" width="10" height="56"/><circle class="tr" cx="1281" cy="174" r="34"/><circle class="tr2" cx="1264" cy="190" r="22"/><circle class="tr2" cx="1300" cy="186" r="22"/></g>
+<g class="sway" style="animation-delay:-1s"><rect class="tk" x="1462" y="176" width="9" height="58"/><circle class="tr" cx="1466" cy="160" r="32"/><circle class="tr2" cx="1450" cy="176" r="20"/></g>
+<path class="h3" d="M0 282C300 252 600 272 900 284S1400 272 1600 264V320H0Z"/>
+<!-- family -->
+<g class="bob">
+ <use href="#p" x="742" y="276" style="color:#e9843a"/>
+ <use href="#p" x="858" y="276" style="color:#3b82c4"/>
+ <use href="#p" x="800" y="276" transform="translate(800 276) scale(.66) translate(-800 -276)" style="color:#f2c14e"/>
+ <path d="M760 224L784 232M840 232L864 224" stroke="#f2c9a6" stroke-width="5" stroke-linecap="round" fill="none" opacity="0"/>
+</g>
+<g class="beat"><path d="M800 138c-8-12-26-4-20 11 4 9 20 18 20 18s16-9 20-18c6-15-12-23-20-11z" fill="#e5534b"/></g>
+<!-- flowers -->
+<g fill="#f2c14e"><circle cx="560" cy="296" r="5"/><circle cx="600" cy="302" r="4"/><circle cx="1060" cy="298" r="5"/><circle cx="1010" cy="304" r="4"/></g>
+<g fill="#e9843a"><circle cx="520" cy="304" r="4"/><circle cx="1100" cy="304" r="4"/></g>
+<path class="edge" d="M0 306C260 292 560 304 860 308S1400 302 1600 298V320H0Z"/>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 380" font-family="Be Vietnam Pro, Arial, Helvetica, sans-serif">
+<defs>
+ <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5cc2a8"/><stop offset="1" stop-color="#2f9e82"/></linearGradient>
+ <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4b158"/><stop offset="1" stop-color="#e08a2b"/></linearGradient>
+ <linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ee7a6e"/><stop offset="1" stop-color="#cf4a40"/></linearGradient>
+ <filter id="sh"><feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000" flood-opacity=".18"/></filter>
+</defs>
+<rect width="640" height="380" rx="16" fill="#fff"/>
+<text x="320" y="36" text-anchor="middle" font-size="22" font-weight="700" fill="#16262b">Các bậc điều trị bệnh trĩ</text>
+<g filter="url(#sh)">
+ <rect x="30" y="226" width="190" height="124" rx="12" fill="url(#g1)"/>
+ <rect x="226" y="166" width="190" height="184" rx="12" fill="url(#g2)"/>
+ <rect x="422" y="106" width="190" height="244" rx="12" fill="url(#g3)"/>
+</g>
+<g fill="#fff" font-weight="700" font-size="20"><text x="46" y="258">1. Bảo tồn</text><text x="242" y="198">2. Thủ thuật</text><text x="438" y="138">3. Phẫu thuật</text></g>
+<g fill="#fff" font-size="15">
+ <text x="46" y="284">Chất xơ, uống đủ nước,</text><text x="46" y="304">điều chỉnh đại tiện,</text><text x="46" y="324">thuốc giảm triệu chứng</text>
+ <text x="242" y="224">Tại phòng khám:</text><text x="242" y="246">thắt vòng cao su,</text><text x="242" y="266">tiêm xơ, quang đông</text><text x="242" y="296" opacity=".9">Thường cho trĩ nội</text><text x="242" y="316" opacity=".9">nhẹ đến vừa</text>
+ <text x="438" y="164" font-size="14">Cắt trĩ, Longo, HAL/THD,</text><text x="438" y="184" font-size="14">laser</text><text x="438" y="214" opacity=".9">Khi trĩ lớn, sa nặng</text><text x="438" y="234" opacity=".9">hoặc điều trị trước đó</text><text x="438" y="254" opacity=".9">không đủ</text>
+</g>
+<text x="320" y="372" text-anchor="middle" font-size="13" fill="#56686d">Triệu chứng dai dẳng hoặc nặng hơn → lên bậc cao hơn, theo chỉ định của bác sĩ</text>
+</svg>

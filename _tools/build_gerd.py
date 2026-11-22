@@ -287,7 +287,7 @@ def foot(a):
       <p style="margin-top:10px">BS. Thái Hoàng · Zalo <a href="https://zalo.me/0935498866">0935 498 866</a></p>
     </div>
     <div><h4>Tra cứu</h4><ul>
-      <li><a href="{a}#benh-thuong-gap">Bệnh thường gặp</a></li><li><a href="{a}kien-thuc-tieu-hoa/">Chuyên đề trào ngược (GERD)</a></li><li><a href="{a}#trieu-chung">Triệu chứng</a></li><li><a href="{a}#benh-man-tinh">Bệnh mạn tính</a></li></ul></div>
+      <li><a href="{a}#benh-thuong-gap">Bệnh thường gặp</a></li><li><a href="{a}kien-thuc-tieu-hoa/">Kiến thức tiêu hóa</a></li><li><a href="{a}#trieu-chung">Triệu chứng</a></li><li><a href="{a}#benh-man-tinh">Bệnh mạn tính</a></li></ul></div>
     <div><h4>Sống khỏe</h4><ul>
       <li><a href="{a}#phong-benh">Phòng bệnh</a></li><li><a href="{a}#suc-khoe-theo-tuoi">Sức khỏe theo tuổi</a></li><li><a href="{a}#dinh-duong">Dinh dưỡng &amp; lối sống</a></li><li><a href="{a}#hoi-bac-si">Hỏi bác sĩ</a></li></ul></div>
   </div>
@@ -371,7 +371,7 @@ def build_article(a):
 <main>
 <div class="wrap">
   <div class="page-head">
-    <div class="crumb"><a href="../../#trang-chu">Trang chủ</a> / <a href="../">Chuyên đề GERD</a> / Bài {a["n"]}</div>
+    <div class="crumb"><a href="../../#trang-chu">Trang chủ</a> / <a href="../">Kiến thức tiêu hóa</a> / GERD · Bài {a["n"]}</div>
     <span class="eyebrow">Tiêu hóa · Chuyên đề GERD · Bài {a["n"]}</span>
     <h1>{E(a["h1"])}</h1>
     <p>{E(subtitle)}</p>

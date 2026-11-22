@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" preserveAspectRatio="xMaxYMid slice">
+<style>.w{fill:#fff}.ws{stroke:#fff;fill:none}
+@keyframes draw{from{stroke-dashoffset:700}to{stroke-dashoffset:0}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.ecg{stroke-dasharray:700;animation:draw 4.5s linear infinite}.bob{animation:bob 5s ease-in-out infinite}
+@media (prefers-reduced-motion: reduce){.ecg,.bob{animation:none;stroke-dasharray:none}}</style>
+<circle class="w" cx="1040" cy="60" r="200" opacity=".08"/><circle class="w" cx="1160" cy="270" r="130" opacity=".07"/><circle class="w" cx="760" cy="300" r="110" opacity=".05"/>
+<g class="bob" opacity=".3"><path class="w" d="M960 40C1000 100 1030 140 1030 180C1030 222 1000 250 960 250C920 250 890 222 890 180C890 140 920 100 960 40Z"/>
+ <path class="w" d="M1090 120C1110 150 1124 170 1124 192C1124 214 1110 228 1090 228C1070 228 1056 214 1056 192C1056 170 1070 150 1090 120Z" opacity=".7"/></g>
+<g class="ws" stroke-width="5" stroke-linecap="round" opacity=".3"><path d="M700 60v30M685 75h30"/><path d="M1150 70v26M1137 83h26"/><path d="M640 230v22M629 241h22"/></g>
+<path class="ws ecg" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity=".45" d="M560 250H760L780 250L800 200L830 290L856 230L872 250H1200"/>
+</svg>

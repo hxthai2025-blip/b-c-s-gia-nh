@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 300" preserveAspectRatio="xMidYMid slice">
+<style>
+ .t{fill:#0e8a6e}.ts{stroke:#0e8a6e;fill:none}.o{fill:#e9843a}.r{fill:#e5534b}.cl{fill:#fff}
+ @keyframes drift{0%,100%{transform:translateX(0)}50%{transform:translateX(50px)}}
+ @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+ @keyframes draw{from{stroke-dashoffset:900}to{stroke-dashoffset:0}}
+ .d{animation:drift 28s ease-in-out infinite}.f{animation:float 5.5s ease-in-out infinite}.f2{animation:float 7s ease-in-out infinite -3s}
+ .ecg{stroke-dasharray:900;animation:draw 5s linear infinite}
+ @media (prefers-color-scheme: dark){.t{fill:#5cc2a8}.ts{stroke:#5cc2a8}.o{fill:#e9ad55}.r{fill:#f08a80}.cl{fill:#cfe6e0;opacity:.12}}
+ @media (prefers-reduced-motion: reduce){.d,.f,.f2,.ecg{animation:none;stroke-dasharray:none}}
+</style>
+<circle cx="1440" cy="70" r="210" fill="#ffd45e" opacity=".28"/><circle cx="1440" cy="70" r="46" fill="#ffd45e" opacity=".9"/>
+<circle class="t" cx="1130" cy="300" r="140" opacity=".12"/><circle class="o" cx="1560" cy="270" r="110" opacity=".16"/>
+<g class="d cl" opacity=".85"><ellipse cx="1180" cy="70" rx="58" ry="17"/><ellipse cx="1216" cy="58" rx="36" ry="16"/></g>
+<g class="f"><path class="r" opacity=".7" d="M1290 150c-6-9-20-4-15 8 3 7 15 14 15 14s12-7 15-14c5-12-9-17-15-8z"/></g>
+<g class="f2 ts" stroke-width="5" stroke-linecap="round" opacity=".5"><path d="M1010 60v26M997 73h26"/><path d="M1520 190v22M1509 201h22"/></g>
+<path class="ts ecg" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity=".5" d="M1100 262H1260L1278 262L1296 222L1320 292L1340 244L1354 262H1600"/>
+</svg>

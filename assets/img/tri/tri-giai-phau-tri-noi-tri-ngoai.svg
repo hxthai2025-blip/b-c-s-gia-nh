@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" font-family="Be Vietnam Pro, Arial, Helvetica, sans-serif">
+<defs>
+ <linearGradient id="wall" x1="0" x2="1"><stop offset="0" stop-color="#d9776c"/><stop offset=".5" stop-color="#f2a79c"/><stop offset="1" stop-color="#d9776c"/></linearGradient>
+ <linearGradient id="lum" x1="0" x2="1"><stop offset="0" stop-color="#fbe0dc"/><stop offset=".5" stop-color="#fff4f2"/><stop offset="1" stop-color="#fbe0dc"/></linearGradient>
+ <radialGradient id="red" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#ef6b5f"/><stop offset="1" stop-color="#b92f2a"/></radialGradient>
+ <radialGradient id="pur" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#a77be0"/><stop offset="1" stop-color="#5f3aa8"/></radialGradient>
+ <linearGradient id="mus" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b8683f"/><stop offset=".5" stop-color="#dc9367"/><stop offset="1" stop-color="#b8683f"/></linearGradient>
+ <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6cfb0"/><stop offset="1" stop-color="#e8b48f"/></linearGradient>
+ <filter id="sh"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#5a2a24" flood-opacity=".25"/></filter>
+</defs>
+<rect width="640" height="480" rx="16" fill="#fff"/>
+<text x="320" y="38" text-anchor="middle" font-size="22" font-weight="700" fill="#16262b">Trĩ nội và trĩ ngoại nằm ở đâu?</text>
+<!-- surrounding tissue -->
+<path d="M96 120 C96 100 130 92 160 100 L160 420 L96 420Z" fill="#fbeee8"/><path d="M384 120 C384 100 350 92 320 100 L320 420 L384 420Z" fill="#fbeee8"/>
+<!-- sphincters -->
+<g filter="url(#sh)">
+ <rect x="148" y="268" width="52" height="96" rx="24" fill="url(#mus)"/>
+ <rect x="280" y="268" width="52" height="96" rx="24" fill="url(#mus)"/>
+ <rect x="166" y="276" width="30" height="64" rx="15" fill="#e9b08a" opacity=".85"/>
+ <rect x="284" y="276" width="30" height="64" rx="15" fill="#e9b08a" opacity=".85"/>
+</g>
+<!-- lumen -->
+<path d="M180 76 C180 170 206 240 214 274 L214 392 L266 392 L266 274 C274 240 300 170 300 76 Z" fill="url(#lum)"/>
+<!-- walls -->
+<g fill="none" stroke="url(#wall)" stroke-width="20" stroke-linecap="round" filter="url(#sh)">
+ <path d="M176 76 C176 170 204 244 212 276 L212 384"/><path d="M304 76 C304 170 276 244 268 276 L268 384"/>
+</g>
+<!-- skin at anal margin -->
+<path d="M96 392 C140 380 190 388 212 392 L212 410 L96 410Z" fill="url(#skin)"/><path d="M384 392 C340 380 290 388 268 392 L268 410 L384 410Z" fill="url(#skin)"/>
+<!-- internal hemorrhoids -->
+<g filter="url(#sh)"><ellipse cx="223" cy="262" rx="12" ry="30" fill="url(#red)"/><ellipse cx="257" cy="262" rx="12" ry="30" fill="url(#red)"/>
+ <ellipse cx="220" cy="232" rx="9" ry="14" fill="url(#red)" opacity=".85"/><ellipse cx="260" cy="232" rx="9" ry="14" fill="url(#red)" opacity=".85"/></g>
+<!-- external hemorrhoids -->
+<g filter="url(#sh)"><ellipse cx="203" cy="352" rx="15" ry="20" fill="url(#pur)"/><ellipse cx="277" cy="352" rx="15" ry="20" fill="url(#pur)"/></g>
+<!-- dentate line -->
+<line x1="96" y1="306" x2="400" y2="306" stroke="#0e5a4c" stroke-width="3" stroke-dasharray="9 6"/>
+<!-- labels right -->
+<g font-size="15" fill="#56686d">
+ <line x1="304" y1="92" x2="400" y2="92" stroke="#8a9a96" stroke-width="1.4"/>
+ <text x="408" y="86" font-size="18" font-weight="700" fill="#16262b">Trực tràng</text>
+ <line x1="272" y1="250" x2="400" y2="190" stroke="#b92f2a" stroke-width="1.6"/>
+ <text x="408" y="180" font-size="19" font-weight="700" fill="#b92f2a">Trĩ nội</text><text x="408" y="202">Trên đường lược</text><text x="408" y="222">Thường ít đau, có thể</text><text x="408" y="242">chảy máu, sa búi</text>
+ <text x="408" y="300" font-size="17" font-weight="700" fill="#0e5a4c">Đường lược</text>
+ <line x1="292" y1="352" x2="400" y2="366" stroke="#5f3aa8" stroke-width="1.6"/>
+ <text x="408" y="360" font-size="19" font-weight="700" fill="#5f3aa8">Trĩ ngoại</text><text x="408" y="382">Dưới đường lược</text><text x="408" y="402">Có thể đau khi tắc mạch</text>
+</g>
+<!-- labels left -->
+<g font-size="14" fill="#56686d"><text x="20" y="330">Cơ thắt</text><text x="20" y="348">hậu môn</text><line x1="86" y1="330" x2="150" y2="320" stroke="#8a9a96" stroke-width="1.4"/>
+ <text x="20" y="434">Rìa hậu môn</text><line x1="100" y1="428" x2="196" y2="402" stroke="#8a9a96" stroke-width="1.4"/></g>
+<text x="320" y="468" text-anchor="middle" font-size="12" fill="#8a9a96">Hình minh họa giáo dục sức khỏe, không theo tỉ lệ và không dùng để tự chẩn đoán</text>
+</svg>

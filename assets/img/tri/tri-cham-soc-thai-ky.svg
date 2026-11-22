@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 380" font-family="Be Vietnam Pro, Arial, Helvetica, sans-serif">
+<defs><filter id="sh"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#2b3a36" flood-opacity=".2"/></filter></defs>
+<rect width="640" height="380" rx="16" fill="#fff"/>
+<text x="320" y="36" text-anchor="middle" font-size="22" font-weight="700" fill="#16262b">Chăm sóc trĩ khi mang thai</text>
+<g>
+ <rect x="24" y="58" width="284" height="128" rx="14" fill="#e2f0ec"/>
+ <g filter="url(#sh)"><circle cx="76" cy="122" r="30" fill="#fff"/><path d="M62 134c4-22 22-30 28-34-2 14-8 28-28 34z" fill="#43a559"/><path d="M62 134c8-8 14-16 18-24" stroke="#2f7a42" stroke-width="2" fill="none"/></g>
+ <text x="124" y="108" font-size="18" font-weight="700" fill="#0e5a4c">Chất xơ và nước</text><text x="124" y="132" font-size="15" fill="#16262b">Rau, trái cây, ngũ cốc,</text><text x="124" y="152" font-size="15" fill="#16262b">uống đủ nước phù hợp</text>
+ <rect x="332" y="58" width="284" height="128" rx="14" fill="#e3f1f7"/>
+ <g filter="url(#sh)"><circle cx="384" cy="122" r="30" fill="#fff"/><circle cx="386" cy="106" r="6" fill="#3b82c4"/><path d="M386 113v18M386 120l-10 8M386 120l10 6M386 131l-8 14M386 131l8 14" stroke="#3b82c4" stroke-width="4" stroke-linecap="round" fill="none"/></g>
+ <text x="432" y="108" font-size="18" font-weight="700" fill="#1f5f99">Vận động nhẹ</text><text x="432" y="132" font-size="15" fill="#16262b">Đi bộ nếu bác sĩ sản</text><text x="432" y="152" font-size="15" fill="#16262b">khoa cho phép</text>
+ <rect x="24" y="202" width="284" height="128" rx="14" fill="#fbf0de"/>
+ <g filter="url(#sh)"><circle cx="76" cy="266" r="30" fill="#fff"/><circle cx="76" cy="266" r="18" fill="none" stroke="#e9843a" stroke-width="4"/><path d="M76 266V254M76 266l9 5" stroke="#e9843a" stroke-width="4" stroke-linecap="round"/></g>
+ <text x="124" y="252" font-size="18" font-weight="700" fill="#a86a12">Không nhịn đại tiện</text><text x="124" y="276" font-size="15" fill="#16262b">Không rặn, không ngồi</text><text x="124" y="296" font-size="15" fill="#16262b">lâu, bỏ điện thoại</text>
+ <rect x="332" y="202" width="284" height="128" rx="14" fill="#fbe9ef"/>
+ <g filter="url(#sh)"><circle cx="384" cy="266" r="30" fill="#fff"/><path d="M384 282c-16-10-20-22-14-30 6-7 14-4 14 2 0-6 8-9 14-2 6 8 2 20-14 30z" fill="#e5534b"/></g>
+ <text x="432" y="252" font-size="18" font-weight="700" fill="#b4325a">Hỏi bác sĩ sản khoa</text><text x="432" y="276" font-size="15" fill="#16262b">Trước khi dùng thuốc</text><text x="432" y="296" font-size="15" fill="#16262b">hoặc chất bổ sung nào</text>
+</g>
+<text x="320" y="360" text-anchor="middle" font-size="14" fill="#56686d">Chảy máu hoặc đau đáng kể trong thai kỳ cần được bác sĩ đánh giá</text>
+</svg>
