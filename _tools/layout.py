@@ -233,7 +233,7 @@ def article_page(a, *, url, seo_title, desc, crumbs, category, h1, sapo, publish
     breadcrumb → chuyên mục → H1 → sapo → tác giả → người duyệt → ngày đăng/cập nhật/thời gian đọc → ảnh đại diện →
     tóm tắt nhanh → mục lục → nội dung (hộp cảnh báo, hình minh họa) → hỏi đáp → tài liệu tham khảo →
     bài liên quan → thông tin tác giả → miễn trừ trách nhiệm."""
-    reviewer = (f'<b>{E(REVIEWER["name"])}</b>' if REVIEWER else '<span class="pending">Đang cập nhật</span>')
+    reviewer = (f'<div class="person"><span class="avatar">{ic(a, "badge-check")}</span><div><small>Người duyệt chuyên môn</small><b>{E(REVIEWER["name"])}</b></div></div>' if REVIEWER else "")
     hero = ""
     if featured:
         cap = f'<p class="media-cap">{featured.get("caption", "")}{" · " + featured["credit"] if featured.get("credit") else ""}</p>'
@@ -260,7 +260,6 @@ def article_page(a, *, url, seo_title, desc, crumbs, category, h1, sapo, publish
                   f'<h2 id="tac-gia">Về tác giả: {E(AUTHOR["name"])}</h2>'
                   f'<p>{E(AUTHOR["role"])}.</p>'
                   + (f'<ul class="list" style="margin-top:8px">{verified}</ul>' if verified else '')
-                  + '<p class="pending">Học hàm, học vị và chứng chỉ hành nghề: đang bổ sung.</p>'
                   + f'<p><a href="{a}kien-thuc-tieu-hoa/">Xem các bài viết</a> · <a href="{ZALO}">Liên hệ qua Zalo</a></p></div></section>')
     disclaimer = (f'<p class="disclaimer-box"><b>Miễn trừ trách nhiệm:</b> Bài viết cung cấp thông tin giáo dục sức khỏe, không thay thế khám, chẩn đoán hoặc chỉ định điều trị của bác sĩ. '
                   f'Không tự ý dùng, ngừng hay đổi liều thuốc. Khi có dấu hiệu nguy hiểm, gọi 115. <a href="{a}mien-tru-trach-nhiem/">Đọc đầy đủ</a>.</p>')
@@ -274,7 +273,7 @@ def article_page(a, *, url, seo_title, desc, crumbs, category, h1, sapo, publish
   <p class="sapo">{E(sapo)}</p>
   <div class="byline">
     <div class="person"><span class="avatar">{ic(a, "user")}</span><div><small>Tác giả · {E(AUTHOR_AFFIL)}</small><b>{E(AUTHOR["name"])}</b></div></div>
-    <div class="person"><span class="avatar">{ic(a, "badge-check")}</span><div><small>Người duyệt chuyên môn</small>{reviewer}</div></div>
+    {reviewer}
     <div class="dates"><span>{ic(a, "calendar")} Đăng {fmt_date(published)}</span><span>{ic(a, "refresh")} Cập nhật {fmt_date(modified)}</span><span>{ic(a, "clock")} {E(read_time)}</span></div>
   </div>
 </div>{hero}</div></div>
