@@ -41,7 +41,7 @@ def danger(title, items):
 
 ARTICLES = [
 # ───────────────────────────── BÀI 1 ─────────────────────────────
-dict(n=1, slug="benh-tri-la-gi-nguyen-nhan-trieu-chung-dieu-tri",
+dict(n=1, summary=['Bệnh trĩ là khi các đệm mạch máu bình thường ở hậu môn phì đại hoặc sa xuống và gây triệu chứng.', 'Dấu hiệu thường gặp: chảy máu đỏ tươi khi đi ngoài, sa búi trĩ, ngứa hoặc khó chịu ở hậu môn.', 'Nền tảng điều trị là chất xơ, đủ nước, không rặn, không ngồi lâu; thủ thuật hoặc phẫu thuật chỉ khi cần.', 'Không tự kết luận mọi trường hợp ra máu là trĩ; đi khám khi chảy máu mới xuất hiện hoặc tái diễn.'], slug="benh-tri-la-gi-nguyen-nhan-trieu-chung-dieu-tri",
   h1="Bệnh trĩ là gì? Nguyên nhân, triệu chứng và cách điều trị",
   short="Bệnh trĩ là gì? Nguyên nhân, triệu chứng và cách điều trị",
   seo="Bệnh trĩ là gì? Nguyên nhân, triệu chứng và cách điều trị",
@@ -66,7 +66,7 @@ dict(n=1, slug="benh-tri-la-gi-nguyen-nhan-trieu-chung-dieu-tri",
         "Điều trị": ("tri-cac-nhom-dieu-tri.svg", "Ba nhóm phương pháp điều trị trĩ: bảo tồn, thủ thuật tại phòng khám và phẫu thuật", "Điều trị đi từ bảo tồn, thủ thuật đến phẫu thuật tùy mức độ và đáp ứng.")}),
 
 # ───────────────────────────── BÀI 2 ─────────────────────────────
-dict(n=2, slug="dau-hieu-benh-tri-di-ngoai-ra-mau",
+dict(n=2, summary=['Máu đỏ tươi dính giấy hoặc phủ ngoài phân thường gặp ở trĩ, nhưng màu máu không đủ để xác định nguyên nhân.', 'Nứt kẽ hậu môn, viêm trực tràng, polyp và ung thư đại trực tràng cũng có thể gây chảy máu.', 'Khám sớm khi chảy máu lần đầu hoặc tái diễn, thiếu máu, sụt cân, đau bụng kéo dài hay thay đổi thói quen đại tiện.', 'Chảy máu nhiều kèm choáng, ngất cần cấp cứu (gọi 115).'], slug="dau-hieu-benh-tri-di-ngoai-ra-mau",
   h1="Dấu hiệu bệnh trĩ – khi nào đi ngoài ra máu cần đi khám?",
   short="Dấu hiệu bệnh trĩ – khi nào đi ngoài ra máu cần đi khám?",
   seo="Dấu hiệu bệnh trĩ – khi nào đi ngoài ra máu cần đi khám?",
@@ -89,7 +89,7 @@ dict(n=2, slug="dau-hieu-benh-tri-di-ngoai-ra-mau",
   figs={"Dấu hiệu thường gặp": ("tri-dau-hieu-ra-mau-can-kham.svg", "So sánh dấu hiệu thường gặp ở bệnh trĩ và các dấu hiệu cần đi khám sớm", "Một số dấu hiệu gợi ý trĩ và những dấu hiệu cần đi khám sớm. Hình mang tính giáo dục, không dùng để tự chẩn đoán.")}),
 
 # ───────────────────────────── BÀI 3 ─────────────────────────────
-dict(n=3, slug="phan-biet-tri-noi-tri-ngoai-tri-hon-hop",
+dict(n=3, summary=['Đường lược là mốc phân biệt: trĩ nội nằm phía trên, trĩ ngoại nằm phía dưới.', 'Trĩ nội thường chảy máu, sa búi và ít đau; trĩ ngoại có thể đau rõ khi tắc mạch.', 'Thắt vòng cao su chủ yếu dành cho trĩ nội, không dùng cho búi trĩ ngoại.', 'Trĩ hỗn hợp có cả hai thành phần, cần đánh giá cả hai khi chọn điều trị.'], slug="phan-biet-tri-noi-tri-ngoai-tri-hon-hop",
   h1="Phân biệt trĩ nội, trĩ ngoại và trĩ hỗn hợp",
   short="Phân biệt trĩ nội, trĩ ngoại và trĩ hỗn hợp",
   seo="Phân biệt trĩ nội, trĩ ngoại và trĩ hỗn hợp",
@@ -117,7 +117,7 @@ dict(n=3, slug="phan-biet-tri-noi-tri-ngoai-tri-hon-hop",
         "Điều trị khác nhau thế nào?": ("tri-cac-nhom-dieu-tri.svg", "Ba nhóm phương pháp điều trị trĩ: bảo tồn, thủ thuật tại phòng khám và phẫu thuật", "Điều trị đi từ bảo tồn, thủ thuật đến phẫu thuật tùy mức độ.")}),
 
 # ───────────────────────────── BÀI 4 ─────────────────────────────
-dict(n=4, slug="phan-do-tri-goligher-chan-doan-benh-tri",
+dict(n=4, summary=['Phân độ Goligher I–IV mô tả mức sa của trĩ nội, không áp dụng cho trĩ ngoại.', 'Độ trĩ giúp định hướng nhưng không tự quyết định cách điều trị.', 'Bác sĩ chẩn đoán bằng hỏi bệnh, quan sát, thăm trực tràng và soi hậu môn; nội soi đại trực tràng khi có chỉ định.', 'Không nên tự xác định độ trĩ tại nhà và không tự ngừng thuốc chống đông.'], slug="phan-do-tri-goligher-chan-doan-benh-tri",
   h1="Phân độ trĩ Goligher và cách bác sĩ chẩn đoán",
   short="Phân độ trĩ Goligher và cách bác sĩ chẩn đoán",
   seo="Phân độ trĩ Goligher và cách bác sĩ chẩn đoán",
@@ -140,7 +140,7 @@ dict(n=4, slug="phan-do-tri-goligher-chan-doan-benh-tri",
   figs={"Bốn mức độ": ("tri-phan-do-goligher.svg", "Bốn mức độ trĩ nội theo Goligher: độ I chưa sa, độ II tự co lên, độ III phải đẩy lên, độ IV sa cố định", "Phân độ trĩ nội Goligher I–IV theo mức độ sa. Hình minh họa giáo dục, không dùng để tự chẩn đoán.")}),
 
 # ───────────────────────────── BÀI 5 ─────────────────────────────
-dict(n=5, slug="dieu-tri-benh-tri-tai-nha-an-uong-sinh-hoat-thuoc",
+dict(n=5, summary=['Tăng chất xơ từ từ và uống đủ nước giúp phân mềm, giảm rặn.', 'Không nhịn đại tiện, không rặn, không ngồi lâu trên bồn cầu.', 'Thuốc bôi hoặc đặt chỉ giảm triệu chứng ngắn hạn; thuốc có corticosteroid chỉ dùng ngắn ngày theo hướng dẫn.', 'Đi khám khi triệu chứng kéo dài, chảy máu tái diễn, đau nhiều hoặc có khối sưng tím.'], slug="dieu-tri-benh-tri-tai-nha-an-uong-sinh-hoat-thuoc",
   h1="Điều trị bệnh trĩ tại nhà: ăn uống, sinh hoạt và thuốc",
   short="Điều trị bệnh trĩ tại nhà: ăn uống, sinh hoạt và thuốc",
   seo="Điều trị bệnh trĩ tại nhà: ăn uống, sinh hoạt và thuốc",
@@ -165,7 +165,7 @@ dict(n=5, slug="dieu-tri-benh-tri-tai-nha-an-uong-sinh-hoat-thuoc",
         "Khi nào chăm sóc tại nhà không đủ?": ("tri-cac-nhom-dieu-tri.svg", "Ba nhóm phương pháp điều trị trĩ: bảo tồn, thủ thuật tại phòng khám và phẫu thuật", "Khi chăm sóc tại nhà không đủ, bác sĩ cân nhắc thủ thuật hoặc phẫu thuật.")}),
 
 # ───────────────────────────── BÀI 6 ─────────────────────────────
-dict(n=6, slug="phuong-phap-dieu-tri-benh-tri-longo-laser-phau-thuat",
+dict(n=6, summary=['Không có phương pháp tốt nhất cho mọi người; lựa chọn tùy loại trĩ, mức độ, bệnh nền và mong muốn.', 'Thắt vòng, tiêm xơ, quang đông là thủ thuật tại phòng khám, thường cho trĩ nội nhẹ đến vừa.', 'Cắt trĩ, Longo, HAL/THD và laser có chỉ định, lợi ích và giới hạn riêng; laser không đồng nghĩa không đau hay không tái phát.', 'Sau điều trị vẫn cần chất xơ, đủ nước, vệ sinh và tái khám.'], slug="phuong-phap-dieu-tri-benh-tri-longo-laser-phau-thuat",
   h1="Điều trị bệnh trĩ: thủ thuật, Longo, laser và phẫu thuật",
   short="Điều trị bệnh trĩ: thủ thuật, Longo, laser và phẫu thuật",
   seo="Điều trị bệnh trĩ: thủ thuật, Longo, laser và phẫu thuật",
@@ -197,7 +197,7 @@ dict(n=6, slug="phuong-phap-dieu-tri-benh-tri-longo-laser-phau-thuat",
   figs={"Khi nào cần thủ thuật hoặc phẫu thuật?": ("tri-cac-nhom-dieu-tri.svg", "Ba nhóm phương pháp điều trị trĩ: bảo tồn, thủ thuật tại phòng khám và phẫu thuật", "Điều trị đi từ bảo tồn, thủ thuật đến phẫu thuật tùy mức độ và đáp ứng.")}),
 
 # ───────────────────────────── BÀI 7 ─────────────────────────────
-dict(n=7, slug="benh-tri-khi-mang-thai-tri-ngoai-tac-mach",
+dict(n=7, summary=['Thai kỳ làm tăng nguy cơ trĩ do táo bón, áp lực vùng chậu và rặn.', 'Ưu tiên chăm sóc bảo tồn; không tự dùng thuốc và hỏi bác sĩ sản khoa trước khi dùng.', 'Trĩ ngoại tắc mạch gây khối sưng tím, đau đột ngột; không tự chích, rạch hoặc nặn.', 'Khám sớm khi đau dữ dội, khối tím mới xuất hiện, chảy máu nhiều, sốt hoặc có mủ.'], slug="benh-tri-khi-mang-thai-tri-ngoai-tac-mach",
   h1="Bệnh trĩ khi mang thai và trĩ ngoại tắc mạch",
   short="Bệnh trĩ khi mang thai và trĩ ngoại tắc mạch",
   seo="Bệnh trĩ khi mang thai và trĩ ngoại tắc mạch",
