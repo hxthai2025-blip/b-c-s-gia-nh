@@ -125,33 +125,63 @@ IMG_DIR = ROOT / "assets" / "img" / "gerd"
 
 def _size(f):
     if f.endswith(".svg"):
-        import re as _re
-        m = _re.search(r'viewBox="0 0 (\d+) (\d+)"', (IMG_DIR / f).read_text(encoding="utf-8"))
+        m = re.search(r'viewBox="0 0 (\d+) (\d+)"', (IMG_DIR / f).read_text(encoding="utf-8"))
         return (int(m.group(1)), int(m.group(2))) if m else (600, 400)
     from PIL import Image
     with Image.open(IMG_DIR / f) as im:
         return im.size
 
 
+def credit_html(cred):
+    if not cred:
+        return ""
+    who, lic, lic_url, page, note = cred
+    lic_html = f'<a href="{lic_url}" target="_blank" rel="noopener">{E(lic)}</a>' if lic_url else E(lic)
+    return (f'Nguồn hình: {E(who)} · {lic_html} · <a href="{page}" target="_blank" rel="noopener">Wikimedia Commons</a>'
+            + (f" ({E(note)})" if note else ""))
+
+
+def webp_of(rel):
+    """Trả về đường dẫn .webp nếu đã tạo (build_all tạo từ ảnh JPG/PNG)."""
+    if rel.endswith((".jpg", ".png")):
+        w = rel.rsplit(".", 1)[0] + ".webp"
+        if (ROOT / w).exists():
+            return w
+    return None
+
+
+def inline_fig(a_prefix, rel, alt, cap, credit, w, h):
+    """Hình minh họa trong thân bài: lazy, có width/height, WebP nếu có, bấm để phóng to."""
+    img = f'<img src="{a_prefix}{rel}" alt="{E(alt)}" loading="lazy" decoding="async" width="{w}" height="{h}">'
+    wp = webp_of(rel)
+    if wp:
+        img = f'<picture><source type="image/webp" srcset="{a_prefix}{wp}">{img}</picture>'
+    cr = f'<span class="credit">{credit}</span>' if credit else ""
+    return (f'<figure class="fig"><a href="{a_prefix}{rel}" target="_blank" rel="noopener" title="Bấm để xem hình lớn">{img}</a>'
+            f'<figcaption>{E(cap)} <span class="zoom">Bấm vào hình để xem lớn hơn.</span>{cr}</figcaption></figure>')
+
+
+def featured_of(a):
+    """Ảnh đại diện = hình đầu tiên của bài (không lặp lại trong thân bài)."""
+    figs = FIGS.get(a["n"], [])
+    if not figs:
+        return None
+    key, f, alt, cap, cred = figs[0]
+    rel = f"assets/img/gerd/{f}"
+    w, h = _size(f)
+    return dict(src=rel, alt=alt, w=w, h=h, webp=webp_of(rel), caption=E(cap), credit=credit_html(cred))
+
+
 def figure(a, title):
     out = ""
-    for key, f, alt, cap, cred in FIGS.get(a["n"], []):
-        if not title.startswith(key):
+    for i, (key, f, alt, cap, cred) in enumerate(FIGS.get(a["n"], [])):
+        if i == 0 or not title.startswith(key):
             continue
         w, h = _size(f)
-        credit = ""
-        if cred:
-            who, lic, lic_url, page, note = cred
-            lic_html = f'<a href="{lic_url}" target="_blank" rel="noopener">{E(lic)}</a>' if lic_url else E(lic)
-            credit = (f'<span class="credit">Nguồn hình: {E(who)} · {lic_html} · <a href="{page}" target="_blank" rel="noopener">Wikimedia Commons</a>'
-                      + (f" ({E(note)})" if note else "") + "</span>")
-        out += (f'<figure class="fig"><a href="../../assets/img/gerd/{f}" target="_blank" rel="noopener" title="Bấm để xem hình lớn">'
-                f'<img src="../../assets/img/gerd/{f}" alt="{E(alt)}" loading="lazy" width="{w}" height="{h}"></a>'
-                f'<figcaption>{E(cap)} <span class="zoom">Bấm vào hình để xem lớn hơn.</span>{credit}</figcaption></figure>')
+        out += inline_fig("../../", f"assets/img/gerd/{f}", alt, cap, credit_html(cred), w, h)
     return out
 
 
-LOGO_SVG = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/><path d="M12 11.5v5M9.5 14h5"/></svg>'
 E = html.escape
 
 
@@ -228,171 +258,88 @@ def parse(a):
     return subtitle, audience, note, sections
 
 
-def head(a, canonical, title, desc, extra=""):
-    return f'''<!DOCTYPE html>
-<html lang="vi">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{E(title)}</title>
-<meta name="description" content="{E(desc)}">
-<link rel="canonical" href="{canonical}">
-<meta property="og:type" content="article">
-<meta property="og:locale" content="vi_VN">
-<meta property="og:site_name" content="Family Doctor">
-<meta property="og:title" content="{E(title)}">
-<meta property="og:description" content="{E(desc)}">
-<meta property="og:url" content="{canonical}">
-<meta name="theme-color" content="#0b7a75">
-{L.FONT_LINK}
-<link rel="stylesheet" href="{a}assets/style.css">
-{extra}</head>
-<body>
-
-{L.header(a, current="chuyen-de")}'''
+READ_TIME = {1: "6–8 phút", 2: "6–8 phút", 3: "7–9 phút", 4: "7–9 phút", 5: "7–9 phút", 6: "8–10 phút"}
+SERIES_NAME = "Trào ngược dạ dày – thực quản (GERD)"
 
 
-def foot(a):
-    return L.footer(a, progress=True)
+def related_of(a, arts, tag, n=3):
+    """Bài liên quan trong cùng chuyên đề: các bài kế tiếp (vòng tròn)."""
+    i = arts.index(a)
+    pick = [arts[(i + k) % len(arts)] for k in range(1, n + 1)]
+    return [dict(url=f'../{x["slug"]}/', title=x["h1"], desc=x["desc"], tag=f"{tag} · Bài {x['n']}") for x in pick]
 
 
-def meta_row(a, aud, author, published, modified):
-    """Dòng thông tin dưới tiêu đề bài viết (có biểu tượng)."""
-    items = []
-    if aud:
-        items.append(f'<span>{L.ic(a, "users")}{E(aud)}</span>')
-    items.append(f'<span>{L.ic(a, "stethoscope")}{E(author)}</span>')
-    items.append(f'<span>{L.ic(a, "calendar")}Đăng {fmt_date(published)}</span>')
-    items.append(f'<span>{L.ic(a, "refresh")}Cập nhật {fmt_date(modified)}</span>')
-    return '<div class="meta-row">' + "".join(items) + "</div>"
+def pager_of(a, by_n):
+    nxt, prv = by_n.get(a["n"] + 1), by_n.get(a["n"] - 1)
+    p = '<nav class="pager" aria-label="Bài trong chuyên đề">'
+    p += (f'<a href="../{prv["slug"]}/"><small>← Bài {prv["n"]}</small>{E(prv["short"])}</a>' if prv else "<span></span>")
+    p += (f'<a class="next" href="../{nxt["slug"]}/"><small>Bài {nxt["n"]} →</small>{E(nxt["short"])}</a>' if nxt else "<span></span>")
+    return p + "</nav>"
 
 
-def fmt_date(d):
-    y, m, dd = d.split("-")
-    return f"{dd}/{m}/{y}"
+def series_items(a, arts):
+    return "".join(
+        (f'<li aria-current="page"><b>{x["n"]}. {E(x["short"])}</b><span class="soon">Bạn đang đọc</span></li>' if x is a
+         else f'<li><a href="../{x["slug"]}/">{x["n"]}. {E(x["short"])}</a></li>') for x in arts)
+
+
+def schema_of(a, url, featured, published, modified, series_name, crumbs_abs, faq):
+    img = (SITE + "/" + featured["src"]) if featured and not featured["src"].endswith(".svg") else f"{SITE}/{L.OG_DEFAULT}"
+    page = {"@context": "https://schema.org", "@type": "MedicalWebPage", "headline": a["h1"], "description": a["desc"],
+            "url": url, "mainEntityOfPage": url, "inLanguage": "vi", "image": img,
+            "datePublished": published, "dateModified": modified,
+            "author": {"@type": "Person", "name": L.AUTHOR["name"], "jobTitle": "Bác sĩ " + L.AUTHOR["dept"],
+                       "worksFor": {"@type": "Hospital", "name": L.AUTHOR["org"]}},
+            "publisher": {"@type": "Organization", "name": L.BRAND, "url": SITE + "/", "logo": {"@type": "ImageObject", "url": SITE + "/assets/logo-512.png"}},
+            "isPartOf": {"@type": "CollectionPage", "name": series_name, "url": SITE + "/kien-thuc-tieu-hoa/"}}
+    if L.REVIEWER:
+        page["reviewedBy"] = {"@type": "Person", "name": L.REVIEWER["name"]}
+    out = [page, L.ld_breadcrumb(crumbs_abs)]
+    if faq:
+        out.append({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": ans}} for q, ans in faq]})
+    return out, img
 
 
 def build_article(a):
     subtitle, audience, note, sections = parse(a)
     url = f"{SITE}/kien-thuc-tieu-hoa/{a['slug']}/"
-    toc, body = [], []
-    refs = None
+    toc, body, refs, summary = [], [], [], []
     for s in sections:
         t = s["title"]
         if t.startswith("Tài liệu tham khảo"):
-            refs = s
+            refs = [str(li.decode_contents()) for li in BeautifulSoup(s["body"], "html.parser").find_all("li")]
+            continue
+        if t.startswith("Thông điệp"):
+            txt = BeautifulSoup(s["body"], "html.parser").get_text(" ", strip=True)
+            summary = [E(x.strip().rstrip(".")) + "." for x in re.split(r"(?<=\.)\s+", txt) if x.strip()]
             continue
         sid = slugify(re.sub(r"^\d+\.\s*", "", t))
         extra = ""
         for key, targets in a["links"].items():
             if t.startswith(key):
                 extra += '<p class="see-also">Đọc thêm: ' + " · ".join(link(n, txt) for n, txt in targets) + "</p>"
-        cls = ' class="key-message"' if t.startswith("Thông điệp") else ""
         fig = figure(a, t)
         sbody = s["body"]
         if fig:
             i = sbody.find("</p>")
             sbody = sbody[:i + 4] + fig + sbody[i + 4:] if i >= 0 else fig + sbody
         if t != "Mở đầu":
-            toc.append(f'<li><a href="#{sid}">{E(t)}</a></li>')
-            body.append(f'<section{cls}><h2 id="{sid}">{E(t)}</h2>{sbody}{extra}</section>')
+            toc.append((sid, t))
+            body.append(f'<section><h2 id="{sid}">{E(t)}</h2>{sbody}{extra}</section>')
         else:
-            body.append(f'<section>{s["body"]}{extra}</section>')
-    toc.append('<li><a href="#hoi-dap">Câu hỏi thường gặp</a></li>')
-    faq_html = "".join(f"<details><summary>{E(q)}</summary><p>{E(ans)}</p></details>" for q, ans in a["faq"])
-    body.append(f'<section class="faq"><h2 id="hoi-dap">Câu hỏi thường gặp</h2>{faq_html}</section>')
-    if refs:
-        body.append(f'<section class="refs-block"><h2 id="tai-lieu-tham-khao">Tài liệu tham khảo</h2><div class="refs">{refs["body"]}</div>'
-                    f'<p class="refs"><b>Lưu ý y khoa:</b> {E(note)}</p></section>')
-
-    nxt = BY_N.get(a["n"] + 1)
-    prv = BY_N.get(a["n"] - 1)
-    pager = '<nav class="pager" aria-label="Bài trong chuyên đề">'
-    pager += (f'<a href="../{prv["slug"]}/"><small>← Bài {prv["n"]}</small>{E(prv["short"])}</a>' if prv else "<span></span>")
-    pager += (f'<a class="next" href="../{nxt["slug"]}/"><small>Bài {nxt["n"]} →</small>{E(nxt["short"])}</a>' if nxt else "<span></span>")
-    pager += "</nav>"
-
-    series = "".join(
-        (f'<li aria-current="page"><b>{x["n"]}. {E(x["short"])}</b><span class="soon">Bạn đang đọc</span></li>' if x is a
-         else f'<li><a href="../{x["slug"]}/">{x["n"]}. {E(x["short"])}</a></li>') for x in ARTICLES)
-
-    schema = {"@context": "https://schema.org", "@type": "MedicalWebPage", "headline": a["h1"],
-              "description": a["desc"], "url": url, "inLanguage": "vi",
-              "datePublished": PUBLISHED, "dateModified": MODIFIED,
-              "author": {"@type": "Person", "name": AUTHOR},
-              "publisher": {"@type": "Organization", "name": "Family Doctor", "url": SITE + "/"},
-              "isPartOf": {"@type": "CollectionPage", "name": "Chuyên đề trào ngược dạ dày – thực quản (GERD)", "url": SITE + "/kien-thuc-tieu-hoa/"}}
-    faq_schema = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
-        {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": ans}} for q, ans in a["faq"]]}
-    ld = ('<script type="application/ld+json">\n' + json.dumps(schema, ensure_ascii=False, indent=1) + "\n</script>\n"
-          '<script type="application/ld+json">\n' + json.dumps(faq_schema, ensure_ascii=False, indent=1) + "\n</script>\n")
-
-    meta_line = f"Tác giả: {AUTHOR} · Đăng ngày: {fmt_date(PUBLISHED)} · Cập nhật: {fmt_date(MODIFIED)}"
-    aud = " · ".join(x.strip() for x in audience.split("|")) if audience else ""
-    page = head("../../", url, a["seo"] + " | Family Doctor", a["desc"], ld)
-    page += f'''
-<main>
-<div class="wrap">
-  <div class="page-head">
-    <div class="crumb"><a href="../../#trang-chu">Trang chủ</a> / <a href="../">Kiến thức tiêu hóa</a> / GERD · Bài {a["n"]}</div>
-    <span class="eyebrow">Tiêu hóa · Chuyên đề GERD · Bài {a["n"]}</span>
-    <h1>{E(a["h1"])}</h1>
-    <p>{E(subtitle)}</p>
-    {meta_row("../../", aud, AUTHOR, PUBLISHED, MODIFIED)}
-  </div>
-
-  <div class="article-grid">
-    <article class="article stack">
-      <nav class="toc" aria-label="Mục lục"><h2>Nội dung bài viết</h2><ol>{"".join(toc)}</ol></nav>
-      {"".join(body)}
-      {pager}
-    </article>
-
-    <aside class="stack">
-      <div class="panel stack">
-        <h3>Chuyên đề trào ngược dạ dày – thực quản</h3>
-        <ol class="series">{series}</ol>
-        <a href="../">Xem tổng quan chuyên đề →</a>
-      </div>
-      <div class="panel stack"><h3>Chưa chắc có phải bệnh này?</h3><p class="muted">Chọn các dấu hiệu đang gặp để xem những bệnh có thể liên quan.</p><a class="btn" href="../../#trieu-chung">Tra triệu chứng</a></div>
-      <div class="panel stack"><h3>Còn thắc mắc?</h3><p class="muted">Nhắn BS. Thái Hoàng qua Zalo: <b>0935 498 866</b>.</p><a class="btn ghost" href="https://zalo.me/0935498866" target="_blank" rel="noopener">Nhắn Zalo</a></div>
-    </aside>
-  </div>
-</div>
-</main>
-'''
-    page += foot("../../")
+            body.append(f'<section>{sbody}{extra}</section>')
+    toc += [("hoi-dap", "Câu hỏi thường gặp"), ("tai-lieu-tham-khao", "Tài liệu tham khảo")]
+    featured = featured_of(a)
+    crumbs = [("Trang chủ", "../../"), ("Kiến thức tiêu hóa", "../"), ("GERD", "../#gerd"), (a["short"], None)]
+    crumbs_abs = [("Trang chủ", SITE + "/"), ("Kiến thức tiêu hóa", SITE + "/kien-thuc-tieu-hoa/"), (a["h1"], url)]
+    ld, og = schema_of(a, url, featured, PUBLISHED, MODIFIED, "Chuyên đề " + SERIES_NAME, crumbs_abs, a["faq"])
+    page = L.article_page("../../", url=url, seo_title=a["seo"] + " | Family Doctor", desc=a["desc"], crumbs=crumbs,
+                          category=("Tiêu hóa · GERD", "../#gerd"), h1=a["h1"], sapo=subtitle,
+                          published=PUBLISHED, modified=MODIFIED, read_time=READ_TIME[a["n"]] + " đọc",
+                          featured=featured, summary=summary, toc=toc, sections_html="".join(body), faq=a["faq"],
+                          refs=refs, related=related_of(a, ARTICLES, "GERD"), series_title="Chuyên đề " + SERIES_NAME,
+                          series_items=series_items(a, ARTICLES), pager=pager_of(a, BY_N), ld=ld, og_image=og)
     d = OUT / a["slug"]
     d.mkdir(parents=True, exist_ok=True)
     (d / "index.html").write_text(page, encoding="utf-8")
-
-
-def build_hub():
-    url = f"{SITE}/kien-thuc-tieu-hoa/"
-    desc = "Chuyên đề 6 bài về bệnh trào ngược dạ dày – thực quản (GERD): nhận biết, chế độ ăn, thuốc điều trị, GERD kháng trị, Barrett thực quản và phẫu thuật."
-    cards = "".join(
-        f'<a class="card" href="{x["slug"]}/"><span class="tag">Bài {x["n"]}</span><h3>{E(x["h1"])}</h3><p>{E(x["desc"])}</p><span class="more">Đọc bài →</span></a>'
-        for x in ARTICLES)
-    page = head("../", url, "Trào ngược dạ dày – thực quản (GERD): Chuyên đề 6 bài | Family Doctor", desc)
-    page += f'''
-<main>
-<div class="wrap">
-  <div class="page-head">
-    <div class="crumb"><a href="../#trang-chu">Trang chủ</a> / <a href="../#benh-thuong-gap">Bệnh thường gặp</a> / Chuyên đề GERD</div>
-    <span class="eyebrow">Tiêu hóa · Chuyên đề</span>
-    <h1>Trào ngược dạ dày – thực quản (GERD)</h1>
-    <p>Sáu bài viết đi từ nhận biết bệnh, ăn uống, dùng thuốc đúng cách, đến khi nào triệu chứng đáng lo và khi nào cần can thiệp. Nên đọc theo thứ tự, bắt đầu từ Bài 1.</p>
-  </div>
-  <div class="grid">{cards}</div>
-</div>
-</main>
-'''
-    page += foot("../")
-    (OUT / "index.html").write_text(page, encoding="utf-8")
-
-
-if __name__ == "__main__":
-    for a in ARTICLES:
-        build_article(a)
-    build_hub()
-    print("Đã tạo", len(ARTICLES), "bài và trang chuyên đề trong", OUT)
