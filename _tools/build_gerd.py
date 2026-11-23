@@ -288,7 +288,8 @@ def schema_of(a, url, featured, published, modified, series_name, crumbs_abs, fa
     page = {"@context": "https://schema.org", "@type": "MedicalWebPage", "headline": a["h1"], "description": a["desc"],
             "url": url, "mainEntityOfPage": url, "inLanguage": "vi", "image": img,
             "datePublished": published, "dateModified": modified,
-            "author": {"@type": "Person", "name": L.AUTHOR["name"]},
+            "author": {"@type": "Person", "name": L.AUTHOR["name"], "jobTitle": "Bác sĩ " + L.AUTHOR["dept"],
+                       "worksFor": {"@type": "Hospital", "name": L.AUTHOR["org"]}},
             "publisher": {"@type": "Organization", "name": L.BRAND, "url": SITE + "/", "logo": {"@type": "ImageObject", "url": SITE + "/assets/logo-512.png"}},
             "isPartOf": {"@type": "CollectionPage", "name": series_name, "url": SITE + "/kien-thuc-tieu-hoa/"}}
     if L.REVIEWER:

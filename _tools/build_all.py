@@ -87,7 +87,7 @@ def build_home():
   </div>
   <div class="hero-media">
     {L.media(a, None, "Bác sĩ tư vấn cho bệnh nhân và người nhà", ratio="4/3.4", priority=True, icon="stethoscope", ph="Ảnh bác sĩ tư vấn bệnh nhân – đang chờ ảnh thật có bản quyền")}
-    <a class="hero-note" href="{L.ZALO}" target="_blank" rel="noopener"><span class="ib solid">{ic(a, "message")}</span><span><b>Hỏi bác sĩ qua Zalo</b><small>{E(L.AUTHOR["name"])} · 0935 498 866</small></span></a>
+    <a class="hero-note" href="{L.ZALO}" target="_blank" rel="noopener"><span class="ib solid">{ic(a, "message")}</span><span><b>Hỏi bác sĩ qua Zalo</b><small>{E(L.AUTHOR["name"])} · {E(L.AUTHOR["dept"])}, {E(L.AUTHOR["org"])}</small></span></a>
   </div>
 </div></section>'''
 
@@ -133,11 +133,13 @@ def build_home():
     {L.media(a, None, "Ảnh chân dung " + L.AUTHOR["name"], ratio="4/5", icon="user", ph="Ảnh chân dung bác sĩ – đang chờ ảnh thật")}
     <div>
       <h3>{E(L.AUTHOR["name"])}</h3>
+      <p class="muted" style="margin-top:4px">{E(L.AUTHOR["dept"])} · {E(L.AUTHOR["org"])}</p>
       <div class="roles"><span class="role">{ic(a, "pen")} Tác giả</span><span class="role">{ic(a, "stethoscope")} Phụ trách nội dung</span></div>
       <ul class="facts">
+        <li>{ic(a, "badge-check")}<span>Công tác tại {E(L.AUTHOR_AFFIL)}.</span></li>
         <li>{ic(a, "check-circle")}<span>Tác giả {n_art} bài chuyên đề trong mục Kiến thức tiêu hóa.</span></li>
         <li>{ic(a, "check-circle")}<span>Trả lời câu hỏi của bạn đọc qua Zalo 0935 498 866.</span></li>
-        <li>{ic(a, "badge-check")}<span class="pending">Bằng cấp, chuyên khoa và nơi công tác: chỉ hiển thị sau khi được xác minh.</span></li>
+        <li>{ic(a, "badge-check")}<span class="pending">Học hàm, học vị và chứng chỉ hành nghề: đang bổ sung.</span></li>
         <li>{ic(a, "users")}<span class="pending">Người duyệt chuyên môn: đang bổ sung.</span></li>
       </ul>
       <div class="acts"><a class="btn" href="kien-thuc-tieu-hoa/">{ic(a, "book-open")} Xem bài viết của bác sĩ</a><a class="btn ghost" href="{L.ZALO}" target="_blank" rel="noopener">{ic(a, "message")} Nhắn Zalo</a></div>
@@ -218,7 +220,7 @@ POLICIES = [
     dict(slug="chinh-sach-bien-tap", title="Chính sách biên tập", lead="Cách Family Doctor soạn, kiểm tra và cập nhật nội dung sức khỏe.",
          body=[("Mục tiêu", "<p>Family Doctor cung cấp thông tin sức khỏe bằng tiếng Việt dễ hiểu, giúp người bệnh và gia đình hiểu đúng bệnh, chăm sóc đúng cách và biết khi nào cần đi khám.</p>"),
                ("Nguồn tham khảo", "<p>Nội dung được soạn dựa trên hướng dẫn của Bộ Y tế, Tổ chức Y tế Thế giới và các hiệp hội chuyên ngành. Mỗi bài chuyên đề liệt kê tài liệu tham khảo ở cuối bài.</p>"),
-               ("Tác giả và người duyệt", f"<p>Mỗi bài ghi rõ tác giả và ngày cập nhật. Thông tin bằng cấp, chuyên khoa của tác giả và người duyệt chuyên môn chỉ được hiển thị khi đã xác minh.</p><p>Bác sĩ phụ trách nội dung hiện tại: {E(L.AUTHOR['name'])}.</p>"),
+               ("Tác giả và người duyệt", f"<p>Mỗi bài ghi rõ tác giả và ngày cập nhật. Học hàm, học vị và chứng chỉ của tác giả, cùng thông tin người duyệt chuyên môn, chỉ được hiển thị khi đã có dữ liệu xác minh.</p><p>Bác sĩ phụ trách nội dung hiện tại: {E(L.AUTHOR['name'])}, {E(L.AUTHOR_AFFIL)}.</p>"),
                ("Độc lập và quảng cáo", "<p>Family Doctor không quảng cáo thuốc, không nhận tài trợ để đưa thông tin về sản phẩm vào bài viết và không cam kết kết quả điều trị.</p>"),
                ("Cập nhật và góp ý", f'<p>Nội dung được rà soát khi có hướng dẫn mới. Nếu phát hiện thông tin chưa chính xác, vui lòng báo qua Zalo <a href="{L.ZALO}">0935 498 866</a>.</p>')]),
     dict(slug="chinh-sach-bao-mat", title="Chính sách bảo mật", lead="Family Doctor tôn trọng quyền riêng tư của bạn đọc.",

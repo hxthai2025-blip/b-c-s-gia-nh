@@ -22,7 +22,10 @@ TAGLINE = "Hiểu đúng bệnh. Chăm sóc đúng cách."
 OG_DEFAULT = "assets/og-default.png"
 
 # Hồ sơ tác giả: CHỈ ghi thông tin đã xác minh. Bằng cấp/chuyên khoa để trống cho tới khi có dữ liệu thật.
-AUTHOR = dict(name="BS. Thái Hoàng", role="Bác sĩ phụ trách nội dung Family Doctor", verified=[])
+AUTHOR = dict(name="BS. Thái Hoàng", role="Bác sĩ phụ trách nội dung Family Doctor",
+              dept="Khoa Ngoại tổng hợp", org="Bệnh viện Nhân dân 115",
+              verified=["Khoa Ngoại tổng hợp, Bệnh viện Nhân dân 115"])  # do chủ site cung cấp; học hàm, học vị, chứng chỉ chưa có dữ liệu
+AUTHOR_AFFIL = AUTHOR["dept"] + ", " + AUTHOR["org"]
 REVIEWER = None  # dict(name=..., role=...) khi có người duyệt chuyên môn thật
 
 FONT_LINK = f'<link rel="stylesheet" href="{{a}}assets/fonts/fonts.css">'
@@ -171,7 +174,7 @@ def footer(a="", progress=False, script=True):
         {logo(a)}
         <p class="foot-about">Nền tảng kiến thức sức khỏe bằng tiếng Việt cho gia đình, người bệnh và người chăm sóc. Nội dung dễ hiểu, có nguồn tham khảo, không quảng cáo thuốc.</p>
         <div class="foot-contact">
-          <span>{ic(a, "stethoscope")} {AUTHOR["name"]} – phụ trách nội dung</span>
+          <span>{ic(a, "stethoscope")} {AUTHOR["name"]} – {AUTHOR_AFFIL}</span>
           <span>{ic(a, "message")} Zalo: <a href="{ZALO}">0935 498 866</a></span>
         </div>
       </div>
@@ -255,8 +258,9 @@ def article_page(a, *, url, seo_title, desc, crumbs, category, h1, sapo, publish
     verified = "".join(f"<li>{E(v)}</li>" for v in AUTHOR["verified"])
     author_box = (f'<section class="author-box" aria-labelledby="tac-gia"><span class="avatar">{ic(a, "user", "lg")}</span><div>'
                   f'<h2 id="tac-gia">Về tác giả: {E(AUTHOR["name"])}</h2>'
-                  f'<p>{E(AUTHOR["role"])}. '
-                  + (f'</p><ul class="list">{verified}</ul>' if verified else 'Thông tin bằng cấp, chuyên khoa và nơi công tác sẽ được hiển thị sau khi xác minh.</p>')
+                  f'<p>{E(AUTHOR["role"])}.</p>'
+                  + (f'<ul class="list" style="margin-top:8px">{verified}</ul>' if verified else '')
+                  + '<p class="pending">Học hàm, học vị và chứng chỉ hành nghề: đang bổ sung.</p>'
                   + f'<p><a href="{a}kien-thuc-tieu-hoa/">Xem các bài viết</a> · <a href="{ZALO}">Liên hệ qua Zalo</a></p></div></section>')
     disclaimer = (f'<p class="disclaimer-box"><b>Miễn trừ trách nhiệm:</b> Bài viết cung cấp thông tin giáo dục sức khỏe, không thay thế khám, chẩn đoán hoặc chỉ định điều trị của bác sĩ. '
                   f'Không tự ý dùng, ngừng hay đổi liều thuốc. Khi có dấu hiệu nguy hiểm, gọi 115. <a href="{a}mien-tru-trach-nhiem/">Đọc đầy đủ</a>.</p>')
@@ -269,7 +273,7 @@ def article_page(a, *, url, seo_title, desc, crumbs, category, h1, sapo, publish
   <h1>{E(h1)}</h1>
   <p class="sapo">{E(sapo)}</p>
   <div class="byline">
-    <div class="person"><span class="avatar">{ic(a, "user")}</span><div><small>Tác giả</small><b>{E(AUTHOR["name"])}</b></div></div>
+    <div class="person"><span class="avatar">{ic(a, "user")}</span><div><small>Tác giả · {E(AUTHOR_AFFIL)}</small><b>{E(AUTHOR["name"])}</b></div></div>
     <div class="person"><span class="avatar">{ic(a, "badge-check")}</span><div><small>Người duyệt chuyên môn</small>{reviewer}</div></div>
     <div class="dates"><span>{ic(a, "calendar")} Đăng {fmt_date(published)}</span><span>{ic(a, "refresh")} Cập nhật {fmt_date(modified)}</span><span>{ic(a, "clock")} {E(read_time)}</span></div>
   </div>
