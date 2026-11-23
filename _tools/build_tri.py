@@ -96,8 +96,7 @@ def build_article(a):
     <span class="eyebrow">Tiêu hóa · Chuyên đề bệnh trĩ · Bài {a["n"]}</span>
     <h1>{E(a["h1"])}</h1>
     <p>{E(a["subtitle"])}</p>
-    <p class="meta" style="margin-top:12px">{E(a["meta"])}</p>
-    <p class="meta">{E(meta_line)}</p>
+    {g.meta_row("../../", a["meta"].split(" · ")[0], AUTHOR, c.PUBLISHED, c.MODIFIED)}
   </div>
 
   <div class="article-grid">

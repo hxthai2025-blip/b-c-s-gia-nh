@@ -6,125 +6,158 @@
 <title>Family Doctor – Bác sĩ gia đình</title>
 <meta name="description" content="Thông tin y khoa dễ hiểu cho người bệnh và gia đình: tra cứu bệnh thường gặp, triệu chứng, phòng bệnh, bệnh mạn tính và dinh dưỡng.">
 <link rel="canonical" href="https://bacsi115.com/">
+<meta name="theme-color" content="#0b7a75">
+<!--FONTS:START-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!--FONTS:END-->
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 
+<!--HEADER:START-->
 <div class="topbar"><div class="wrap">
-  <span>Cấp cứu: gọi <strong>115</strong> nếu khó thở, đau ngực, yếu liệt hoặc lơ mơ</span>
-  <span>Hỏi bác sĩ qua Zalo: <a href="https://zalo.me/0935498866" style="color:#fff;font-weight:600">0935 498 866</a></span>
+  <span class="em"><b>115</b> Cấp cứu ngay nếu khó thở, đau ngực, yếu liệt hoặc lơ mơ</span>
+  <span class="hot"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#phone"/></svg> Hỏi bác sĩ qua Zalo: <a href="https://zalo.me/0935498866">0935 498 866</a></span>
 </div></div>
 
 <header class="site">
   <div class="wrap">
-    <a class="logo" href="#trang-chu" aria-label="Family Doctor – Trang chủ">
-      <span class="logo-mark" aria-hidden="true">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/><path d="M12 11.5v5M9.5 14h5"/></svg>
-      </span>
-      <span><b>FAMILY DOCTOR</b><small>Bác sĩ gia đình</small></span>
-    </a>
-    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mainNav">Menu</button>
+    <a class="logo" href="#trang-chu" aria-label="Family Doctor – Trang chủ"><span class="logo-mark" aria-hidden="true"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#heart-pulse"/></svg></span><span><b>Family Doctor</b><small>Kiến thức sức khỏe đáng tin cậy</small></span></a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mainNav"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#menu"/></svg> Menu</button>
     <nav class="main" id="mainNav" aria-label="Điều hướng chính">
       <a href="#trang-chu">Trang chủ</a>
       <a href="#benh-thuong-gap">Bệnh thường gặp</a>
       <a href="#trieu-chung">Triệu chứng</a>
-      <a href="#phong-benh">Phòng bệnh</a>
-      <a href="#suc-khoe-theo-tuoi">Sức khỏe theo tuổi</a>
-      <a href="#benh-man-tinh">Bệnh mạn tính</a>
-      <a href="#dinh-duong">Dinh dưỡng &amp; lối sống</a>
-      <a href="#hoi-bac-si">Hỏi bác sĩ</a>
+      <div class="has-sub"><button type="button" aria-haspopup="true">Chuyên đề <svg class="i " aria-hidden="true"><use href="assets/icons.svg#chevron-down"/></svg></button><div class="sub-menu"><a href="kien-thuc-tieu-hoa/"><span class="ib" style="--c:#0b7a75"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#stomach"/></svg></span><span><b>Kiến thức tiêu hóa</b><small>Tổng quan các chuyên đề</small></span></a><a href="kien-thuc-tieu-hoa/#gerd"><span class="ib" style="--c:#c2410c"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#droplet"/></svg></span><span><b>Trào ngược dạ dày (GERD)</b><small>6 bài: từ nhận biết đến điều trị</small></span></a><a href="kien-thuc-tieu-hoa/#tri"><span class="ib" style="--c:#be185d"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#heart-pulse"/></svg></span><span><b>Bệnh trĩ</b><small>7 bài: dấu hiệu, phân độ, điều trị</small></span></a></div></div>
+      <div class="has-sub"><button type="button" aria-haspopup="true">Sống khỏe <svg class="i " aria-hidden="true"><use href="assets/icons.svg#chevron-down"/></svg></button><div class="sub-menu"><a href="#phong-benh"><span class="ib" style="--c:#0b7a75"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#shield-check"/></svg></span><span><b>Phòng bệnh</b><small>Lịch khám, tầm soát, tiêm chủng</small></span></a><a href="#suc-khoe-theo-tuoi"><span class="ib" style="--c:#1b6fb3"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#users"/></svg></span><span><b>Sức khỏe theo tuổi</b><small>Chăm sóc từng giai đoạn</small></span></a><a href="#benh-man-tinh"><span class="ib" style="--c:#7c3aed"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#activity"/></svg></span><span><b>Bệnh mạn tính</b><small>Sống chung và kiểm soát</small></span></a><a href="#dinh-duong"><span class="ib" style="--c:#4d7c0f"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#apple"/></svg></span><span><b>Dinh dưỡng & lối sống</b><small>Ăn, ngủ, vận động</small></span></a></div></div>
+      <span class="nav-cta"><a class="btn sm" href="#hoi-bac-si"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#message"/></svg> Hỏi bác sĩ</a></span>
     </nav>
   </div>
 </header>
+
+<!--HEADER:END-->
 
 <main>
 
 <!-- ================= TRANG CHỦ ================= -->
 <div class="view" id="v-trang-chu">
-  <div class="wrap">
-    <section class="hero">
-      <div class="hero-grid">
-        <div>
-          <span class="eyebrow">Thông tin y khoa cho cả nhà</span>
-          <h1>Chăm sóc sức khỏe, <span>bắt đầu từ gia đình.</span></h1>
-          <p class="sub">Hiểu đúng bệnh – Sống khỏe mỗi ngày. Tra cứu bệnh, triệu chứng và cách phòng bệnh bằng ngôn ngữ dễ hiểu.</p>
-          <form class="search" id="homeSearch" role="search">
-            <input id="homeQ" type="search" placeholder="Tìm bệnh, ví dụ: sốt xuất huyết, tăng huyết áp…" aria-label="Tìm bệnh">
-            <button class="btn" type="submit">Tìm</button>
-          </form>
-          <div class="quick"><span>Hay tìm:</span>
-            <button class="chip-link" data-q="Sốt xuất huyết">Sốt xuất huyết</button>
-            <button class="chip-link" data-q="Tăng huyết áp">Tăng huyết áp</button>
-            <button class="chip-link" data-q="Tay chân miệng">Tay chân miệng</button>
-            <button class="chip-link" data-q="Đái tháo đường">Đái tháo đường</button>
-          </div>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#badge-check"/></svg> Thông tin y khoa đáng tin cậy</span>
+        <h1>Chăm sóc sức khỏe <span>bắt đầu từ gia đình</span></h1>
+        <p class="sub">Hiểu đúng bệnh – Sống khỏe mỗi ngày. Tra cứu bệnh, triệu chứng và cách phòng bệnh bằng ngôn ngữ dễ hiểu.</p>
+        <form class="search" id="homeSearch" role="search">
+          <svg class="i " aria-hidden="true"><use href="assets/icons.svg#search"/></svg>
+          <input id="homeQ" type="search" placeholder="Tìm bệnh, ví dụ: sốt xuất huyết, tăng huyết áp…" aria-label="Tìm bệnh">
+          <button class="btn" type="submit">Tìm kiếm</button>
+        </form>
+        <div class="quick"><span>Hay tìm:</span>
+          <button class="chip-link" data-q="Sốt xuất huyết">Sốt xuất huyết</button>
+          <button class="chip-link" data-q="Tăng huyết áp">Tăng huyết áp</button>
+          <button class="chip-link" data-q="Trào ngược">Trào ngược dạ dày</button>
+          <button class="chip-link" data-q="Trĩ">Bệnh trĩ</button>
         </div>
-        <aside class="promise" aria-labelledby="promiseH">
-          <h3 id="promiseH">Lời hứa của chúng tôi</h3>
-          <ul>
-            <li><span class="tick">1</span><div><b>Dễ hiểu</b><br><span class="muted">Viết cho người bệnh và gia đình, giải thích thuật ngữ khi cần.</span></div></li>
-            <li><span class="tick">2</span><div><b>Có cơ sở khoa học</b><br><span class="muted">Mỗi bài dựa trên hướng dẫn của Bộ Y tế, WHO và tài liệu chuyên ngành.</span></div></li>
-            <li><span class="tick">3</span><div><b>Vì lợi ích người bệnh</b><br><span class="muted">Không quảng cáo thuốc. Luôn nói rõ khi nào cần đi khám.</span></div></li>
-          </ul>
-        </aside>
+        <div class="trust-row">
+          <span><svg class="i " aria-hidden="true"><use href="assets/icons.svg#shield-check"/></svg> Theo hướng dẫn của Bộ Y tế, WHO</span>
+          <span><svg class="i " aria-hidden="true"><use href="assets/icons.svg#stethoscope"/></svg> Bác sĩ biên tập nội dung</span>
+          <span><svg class="i " aria-hidden="true"><use href="assets/icons.svg#check-circle"/></svg> Không quảng cáo thuốc</span>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hv-disc"></div>
+        <svg class="hv-ecg" viewBox="0 0 300 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M0 30H96l12 0 12-26 18 52 14-34 8 8H300"/></svg>
+        <div class="hv-core"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#heart-pulse"/></svg></div>
+        <a class="hv-card hv-1" href="#dinh-duong"><span class="ib" style="--c:#0b7a75"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#gauge"/></svg></span><span><b>Tính chỉ số BMI</b><small>Theo ngưỡng người châu Á</small></span></a>
+        <a class="hv-card hv-2" href="#benh-man-tinh"><span class="ib" style="--c:#7c3aed"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#activity"/></svg></span><span><b>Đọc huyết áp</b><small>Hiểu kết quả đo tại nhà</small></span></a>
+        <div class="hv-card hv-3"><span class="ib" style="--c:#1b6fb3"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#badge-check"/></svg></span><span><b>Bác sĩ biên tập</b><small>Nội dung được rà soát y khoa</small></span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="quick-actions">
+      <a class="qa" href="#benh-thuong-gap" style="--c:#0b7a75"><span class="ib"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#book-open"/></svg></span><div><b>Tra cứu bệnh</b><span>Nguyên nhân, triệu chứng, cách chăm sóc</span></div></a>
+      <a class="qa" href="#trieu-chung" style="--c:#c2410c"><span class="ib"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#thermometer"/></svg></span><div><b>Tra triệu chứng</b><span>Chọn dấu hiệu, xem bệnh liên quan</span></div></a>
+      <a class="qa" href="#phong-benh" style="--c:#1b6fb3"><span class="ib"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#calendar"/></svg></span><div><b>Lịch khám, tầm soát</b><span>Mốc khám cho người không triệu chứng</span></div></a>
+      <a class="qa" href="kien-thuc-tieu-hoa/" style="--c:#be185d"><span class="ib"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#stomach"/></svg></span><div><b>Chuyên đề tiêu hóa</b><span>Trào ngược dạ dày, bệnh trĩ</span></div></a>
+      <a class="qa" href="#hoi-bac-si" style="--c:#4d7c0f"><span class="ib"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#message"/></svg></span><div><b>Hỏi bác sĩ</b><span>Gửi câu hỏi qua Zalo</span></div></a>
+    </div>
+
+    <section class="sec" id="chuyen-khoa">
+      <div class="section-head"><div><span class="kicker">Nhóm bệnh</span><h2>Tra cứu theo chuyên khoa</h2><p>Chọn nhóm bệnh bạn quan tâm để xem danh sách bệnh liên quan.</p></div></div>
+      <div class="spec-grid" id="specGrid"></div>
+    </section>
+
+    <section class="sec tight" id="chuyen-de">
+      <div class="section-head"><div><span class="kicker">Chuyên đề nổi bật</span><h2>Đọc sâu theo từng chuyên đề</h2><p>Mỗi chuyên đề gồm nhiều bài liên kết với nhau, đi từ nhận biết đến điều trị.</p></div><a href="kien-thuc-tieu-hoa/">Xem tất cả <svg class="i " aria-hidden="true"><use href="assets/icons.svg#arrow-right"/></svg></a></div>
+      <div class="series-grid">
+<!--SERIES:START-->
+<a class="series-card" href="kien-thuc-tieu-hoa/#gerd" style="--cover:linear-gradient(135deg,#0b6e78 0%,#1b76b8 100%);--c:#0b7a75"><div class="cover"><span class="badge">6 bài</span><svg class="i " aria-hidden="true"><use href="assets/icons.svg#stomach"/></svg></div><div class="body"><h3>Trào ngược dạ dày – thực quản (GERD)</h3><p>Sáu bài từ nhận biết bệnh, chế độ ăn, dùng thuốc đúng cách đến GERD kháng trị, Barrett thực quản và phẫu thuật.</p><ul><li><svg class="i " aria-hidden="true"><use href="assets/icons.svg#check-circle"/></svg><span>GERD là gì? Nhận biết và phân biệt với viêm loét dạ dày</span></li><li><svg class="i " aria-hidden="true"><use href="assets/icons.svg#check-circle"/></svg><span>Chế độ ăn cho người bị trào ngược dạ dày – thực quản</span></li><li><svg class="i " aria-hidden="true"><use href="assets/icons.svg#check-circle"/></svg><span>Các nhóm thuốc điều trị GERD và cách sử dụng an toàn</span></li><li><svg class="i " aria-hidden="true"><use href="assets/icons.svg#check-circle"/></svg><span>GERD kháng trị: Vì sao uống thuốc mãi không khỏi?</span></li><li><svg class="i " aria-hidden="true"><use href="assets/icons.svg#arrow-right"/></svg><span>và 2 bài khác</span></li></ul><span class="go">Đọc chuyên đề <svg class="i " aria-hidden="true"><use href="assets/icons.svg#arrow-right"/></svg></span></div></a>
+<a class="series-card" href="kien-thuc-tieu-hoa/#tri" style="--cover:linear-gradient(135deg,#b4324a 0%,#e0802f 100%);--c:#be185d"><div class="cover"><span class="badge">7 bài</span><svg class="i " aria-hidden="true"><use href="assets/icons.svg#droplet"/></svg></div><div class="body"><h3>Bệnh trĩ</h3><p>Bảy bài về dấu hiệu, phân loại, phân độ Goligher, chăm sóc tại nhà, các phương pháp điều trị, trĩ khi mang thai và trĩ ngoại tắc mạch.</p><ul><li><svg class="i " aria-hidden="true"><use href="assets/icons.svg#check-circle"/></svg><span>Bệnh trĩ là gì? Nguyên nhân, triệu chứng và cách điều trị</span></li><li><svg class="i " aria-hidden="true"><use href="assets/icons.svg#check-circle"/></svg><span>Dấu hiệu bệnh trĩ – khi nào đi ngoài ra máu cần đi khám?</span></li><li><svg class="i " aria-hidden="true"><use href="assets/icons.svg#check-circle"/></svg><span>Phân biệt trĩ nội, trĩ ngoại và trĩ hỗn hợp</span></li><li><svg class="i " aria-hidden="true"><use href="assets/icons.svg#check-circle"/></svg><span>Phân độ trĩ Goligher và cách bác sĩ chẩn đoán</span></li><li><svg class="i " aria-hidden="true"><use href="assets/icons.svg#arrow-right"/></svg><span>và 3 bài khác</span></li></ul><span class="go">Đọc chuyên đề <svg class="i " aria-hidden="true"><use href="assets/icons.svg#arrow-right"/></svg></span></div></a>
+<!--SERIES:END-->
       </div>
     </section>
 
-    <section class="block">
-      <h2>Bạn đang cần gì?</h2>
-      <div class="nav-tiles">
-        <a class="nav-tile" href="#benh-thuong-gap"><b>Bệnh thường gặp</b><span>Tra cứu bệnh lý</span></a>
-        <a class="nav-tile" href="#trieu-chung"><b>Triệu chứng</b><span>Tra cứu theo dấu hiệu</span></a>
-        <a class="nav-tile" href="#phong-benh"><b>Phòng bệnh</b><span>Chủ động bảo vệ sức khỏe</span></a>
-        <a class="nav-tile" href="#suc-khoe-theo-tuoi"><b>Sức khỏe theo tuổi</b><span>Chăm sóc từng giai đoạn</span></a>
-        <a class="nav-tile" href="#benh-man-tinh"><b>Bệnh mạn tính</b><span>Sống chung và kiểm soát</span></a>
-        <a class="nav-tile" href="#dinh-duong"><b>Dinh dưỡng &amp; lối sống</b><span>Ăn, ngủ, vận động</span></a>
+    <section class="sec tight" id="bai-viet">
+      <div class="section-head"><div><span class="kicker">Bài viết nổi bật</span><h2>Được quan tâm nhiều</h2></div><a href="kien-thuc-tieu-hoa/">Tất cả bài viết <svg class="i " aria-hidden="true"><use href="assets/icons.svg#arrow-right"/></svg></a></div>
+      <div class="art-grid">
+<!--ARTICLES:START-->
+<a class="art-card" href="kien-thuc-tieu-hoa/gerd-la-gi-trieu-chung-phan-biet-viem-loet-da-day/" style="--cover:linear-gradient(135deg,#0b6e78 0%,#1b76b8 100%)"><div class="thumb"><em>GERD · Bài 1</em><svg class="i " aria-hidden="true"><use href="assets/icons.svg#stomach"/></svg></div><div class="txt"><h3>GERD là gì? Cách nhận biết và phân biệt với viêm loét dạ dày</h3><p>GERD gây ợ nóng, ợ trớ và khó chịu sau ăn. Tìm hiểu dấu hiệu thường gặp, cách chẩn đoán và phân biệt GERD với viêm loét dạ dày – tá tràng.</p><span class="rt"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#clock"/></svg> 6–8 phút</span></div></a>
+<a class="art-card" href="kien-thuc-tieu-hoa/benh-tri-la-gi-nguyen-nhan-trieu-chung-dieu-tri/" style="--cover:linear-gradient(135deg,#b4324a 0%,#e0802f 100%)"><div class="thumb"><em>Bệnh trĩ · Bài 1</em><svg class="i " aria-hidden="true"><use href="assets/icons.svg#droplet"/></svg></div><div class="txt"><h3>Bệnh trĩ là gì? Nguyên nhân, triệu chứng và cách điều trị</h3><p>Giải thích bệnh trĩ, nguyên nhân, triệu chứng, phân loại và các phương pháp điều trị hiện nay.</p><span class="rt"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#clock"/></svg> 6–8 phút</span></div></a>
+<a class="art-card" href="kien-thuc-tieu-hoa/dau-hieu-benh-tri-di-ngoai-ra-mau/" style="--cover:linear-gradient(135deg,#b4324a 0%,#e0802f 100%)"><div class="thumb"><em>Bệnh trĩ · Bài 2</em><svg class="i " aria-hidden="true"><use href="assets/icons.svg#alert-triangle"/></svg></div><div class="txt"><h3>Dấu hiệu bệnh trĩ – khi nào đi ngoài ra máu cần đi khám?</h3><p>Nhận biết chảy máu đỏ tươi, sa búi trĩ, ngứa và đau hậu môn; phân biệt dấu hiệu cần khám sớm.</p><span class="rt"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#clock"/></svg> 5–7 phút</span></div></a>
+<a class="art-card" href="kien-thuc-tieu-hoa/trao-nguoc-da-day-nen-an-gi-kieng-gi/" style="--cover:linear-gradient(135deg,#0b6e78 0%,#1b76b8 100%)"><div class="thumb"><em>GERD · Bài 2</em><svg class="i " aria-hidden="true"><use href="assets/icons.svg#apple"/></svg></div><div class="txt"><h3>Chế độ ăn cho người bị trào ngược dạ dày – thực quản</h3><p>Người bị trào ngược dạ dày nên ăn gì, hạn chế gì? Xem nguyên tắc ăn uống, cách nhận diện thực phẩm khởi phát triệu chứng và thói quen giúp giảm trào ngược.</p><span class="rt"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#clock"/></svg> 6–8 phút</span></div></a>
+<a class="art-card" href="kien-thuc-tieu-hoa/dieu-tri-benh-tri-tai-nha-an-uong-sinh-hoat-thuoc/" style="--cover:linear-gradient(135deg,#b4324a 0%,#e0802f 100%)"><div class="thumb"><em>Bệnh trĩ · Bài 5</em><svg class="i " aria-hidden="true"><use href="assets/icons.svg#leaf"/></svg></div><div class="txt"><h3>Điều trị bệnh trĩ tại nhà: ăn uống, sinh hoạt và thuốc</h3><p>Hướng dẫn tăng chất xơ, uống nước, điều chỉnh đại tiện, vệ sinh và sử dụng thuốc an toàn.</p><span class="rt"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#clock"/></svg> 6–8 phút</span></div></a>
+<a class="art-card" href="kien-thuc-tieu-hoa/thuoc-dieu-tri-trao-nguoc-da-day-cach-dung-ppi/" style="--cover:linear-gradient(135deg,#0b6e78 0%,#1b76b8 100%)"><div class="thumb"><em>GERD · Bài 3</em><svg class="i " aria-hidden="true"><use href="assets/icons.svg#pill"/></svg></div><div class="txt"><h3>Các nhóm thuốc điều trị GERD và cách sử dụng an toàn</h3><p>Tìm hiểu các nhóm thuốc điều trị GERD, cách dùng PPI đúng thời điểm, vai trò của thuốc khác và những lưu ý để tránh tự ý dùng thuốc kéo dài.</p><span class="rt"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#clock"/></svg> 7–9 phút</span></div></a>
+<!--ARTICLES:END-->
       </div>
     </section>
 
-    <section class="block">
-      <div class="section-head"><h2>Bệnh thường gặp trong gia đình</h2><a href="#benh-thuong-gap">Xem tất cả →</a></div>
+    <section class="sec tight">
+      <div class="section-head"><div><span class="kicker">Bệnh thường gặp</span><h2>Trong gia đình bạn</h2></div><a href="#benh-thuong-gap">Xem tất cả <svg class="i " aria-hidden="true"><use href="assets/icons.svg#arrow-right"/></svg></a></div>
       <div class="grid" id="homeDiseases"></div>
     </section>
 
-    <section class="block">
-      <div class="features">
-        <a class="feature" href="kien-thuc-tieu-hoa/#gerd">
-          <span class="tag-w">Chuyên đề · 6 bài</span>
-          <h2>Trào ngược dạ dày – thực quản (GERD)</h2>
-          <p>Nhận biết bệnh, chế độ ăn, dùng thuốc an toàn, GERD kháng trị, Barrett thực quản và phẫu thuật.</p>
-          <span class="btn">Đọc chuyên đề →</span>
-        </a>
-        <a class="feature alt" href="kien-thuc-tieu-hoa/#tri">
-          <span class="tag-w">Chuyên đề · 7 bài</span>
-          <h2>Bệnh trĩ</h2>
-          <p>Dấu hiệu, phân loại, phân độ Goligher, chăm sóc tại nhà, các phương pháp điều trị, trĩ khi mang thai.</p>
-          <span class="btn">Đọc chuyên đề →</span>
-        </a>
+    <section class="sec tight">
+      <div class="section-head"><div><span class="kicker">Công cụ</span><h2>Công cụ sức khỏe</h2><p>Các công cụ đơn giản giúp bạn hiểu chỉ số của mình. Kết quả chỉ mang tính tham khảo.</p></div></div>
+      <div class="tool-grid">
+        <a class="tool-card" href="#trieu-chung" style="--c:#c2410c"><span class="ib lg solid"><svg class="i lg" aria-hidden="true"><use href="assets/icons.svg#thermometer"/></svg></span><div><b>Tra triệu chứng</b><span>Chọn dấu hiệu đang gặp, xem những bệnh có thể liên quan để đọc thêm.</span><em>Dùng ngay <svg class="i " aria-hidden="true"><use href="assets/icons.svg#arrow-right"/></svg></em></div></a>
+        <a class="tool-card" href="#dinh-duong" style="--c:#0b7a75"><span class="ib lg solid"><svg class="i lg" aria-hidden="true"><use href="assets/icons.svg#gauge"/></svg></span><div><b>Tính chỉ số BMI</b><span>Đánh giá cân nặng theo ngưỡng dành cho người châu Á.</span><em>Dùng ngay <svg class="i " aria-hidden="true"><use href="assets/icons.svg#arrow-right"/></svg></em></div></a>
+        <a class="tool-card" href="#benh-man-tinh" style="--c:#7c3aed"><span class="ib lg solid"><svg class="i lg" aria-hidden="true"><use href="assets/icons.svg#activity"/></svg></span><div><b>Đọc chỉ số huyết áp</b><span>Hiểu kết quả đo tại nhà và khi nào cần gặp bác sĩ.</span><em>Dùng ngay <svg class="i " aria-hidden="true"><use href="assets/icons.svg#arrow-right"/></svg></em></div></a>
       </div>
     </section>
 
-    <section class="block">
-      <h2>Công cụ sức khỏe</h2>
-      <div class="nav-tiles">
-        <a class="nav-tile" href="#trieu-chung"><b>Tra triệu chứng</b><span>Chọn dấu hiệu, xem bệnh liên quan</span></a>
-        <a class="nav-tile" href="#dinh-duong"><b>Tính BMI</b><span>Theo ngưỡng người châu Á</span></a>
-        <a class="nav-tile" href="#benh-man-tinh"><b>Đọc chỉ số huyết áp</b><span>Hiểu kết quả đo tại nhà</span></a>
-      </div>
-    </section>
-
-    <section class="block">
-      <div class="section-head"><h2>Sức khỏe theo tuổi</h2><a href="#suc-khoe-theo-tuoi">Xem chi tiết →</a></div>
+    <section class="sec tight">
+      <div class="section-head"><div><span class="kicker">Theo độ tuổi</span><h2>Sức khỏe theo từng giai đoạn</h2></div><a href="#suc-khoe-theo-tuoi">Xem chi tiết <svg class="i " aria-hidden="true"><use href="assets/icons.svg#arrow-right"/></svg></a></div>
       <div class="age-strip" id="homeAges"></div>
     </section>
 
-    <section class="block">
-      <div class="alert info">
-        <div><b>Thông tin trên website không thay thế việc khám bệnh.</b>
-        Nếu triệu chứng nặng lên, kéo dài hoặc bạn lo lắng, hãy đến cơ sở y tế gần nhất. <a href="#trieu-chung">Xem các dấu hiệu cần đi khám ngay</a>.</div>
+    <section class="sec tight">
+      <div class="trust-band">
+        <div>
+          <span class="kicker">Vì sao tin cậy</span>
+          <h2>Thông tin y khoa được biên tập cẩn thận</h2>
+          <ul class="pillars">
+            <li><span class="ib"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#pen"/></svg></span><div><b>Soạn theo hướng dẫn chuyên ngành</b><span>Dựa trên hướng dẫn của Bộ Y tế, WHO và các hiệp hội chuyên khoa.</span></div></li>
+            <li><span class="ib"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#stethoscope"/></svg></span><div><b>Bác sĩ rà soát nội dung</b><span>Mỗi bài có người phụ trách chuyên môn và ghi rõ ngày cập nhật.</span></div></li>
+            <li><span class="ib"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#shield-check"/></svg></span><div><b>Vì lợi ích người bệnh</b><span>Không quảng cáo thuốc. Luôn nói rõ khi nào cần đi khám.</span></div></li>
+          </ul>
+        </div>
+        <div class="stats">
+          <div class="stat"><b id="statDz">0</b><span>bệnh thường gặp</span></div>
+          <div class="stat"><b><!--N:START-->13<!--N:END--></b><span>bài chuyên đề</span></div>
+          <div class="stat"><b>2</b><span>chuyên đề tiêu hóa</span></div>
+          <div class="stat"><b>3</b><span>công cụ tra cứu</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec tight">
+      <div class="cta-band">
+        <div class="txt"><span class="ib lg solid" style="--c:#0b7a75"><svg class="i lg" aria-hidden="true"><use href="assets/icons.svg#message"/></svg></span><div><h2>Còn thắc mắc về sức khỏe?</h2><p class="muted">Gửi câu hỏi để bác sĩ trả lời. Nếu có dấu hiệu nặng, hãy <a href="#trieu-chung">xem các dấu hiệu cần đi khám ngay</a>.</p></div></div>
+        <div class="acts"><a class="btn" href="#hoi-bac-si"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#message"/></svg> Gửi câu hỏi</a><a class="btn ghost" href="https://zalo.me/0935498866" target="_blank" rel="noopener"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#phone"/></svg> Zalo 0935 498 866</a></div>
       </div>
     </section>
   </div>
@@ -359,20 +392,43 @@
 
 </main>
 
-<div class="disclaimer"><div class="wrap">Thông tin trên Family Doctor chỉ nhằm mục đích tham khảo, không thay thế chẩn đoán và điều trị của bác sĩ.</div></div>
-<footer>
-  <div class="wrap foot-grid">
-    <div>
-      <a class="logo" href="#trang-chu"><span class="logo-mark" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/><path d="M12 11.5v5M9.5 14h5"/></svg></span><span><b>FAMILY DOCTOR</b><small>Chăm sóc sức khỏe, bắt đầu từ gia đình.</small></span></a>
-      <p class="muted" style="margin-top:12px;max-width:44ch">Thông tin y khoa dễ hiểu, có cơ sở khoa học và hướng đến lợi ích người bệnh.</p>
-      <p style="margin-top:10px">BS. Thái Hoàng · Zalo <a href="https://zalo.me/0935498866">0935 498 866</a></p>
+<!--FOOTER:START-->
+
+<div class="disclaimer"><div class="wrap"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#alert-triangle"/></svg><span>Thông tin trên Family Doctor chỉ nhằm mục đích tham khảo, không thay thế chẩn đoán và điều trị của bác sĩ.</span></div></div>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-main">
+      <div>
+        <a class="logo" href="#trang-chu" aria-label="Family Doctor – Trang chủ"><span class="logo-mark" aria-hidden="true"><svg class="i " aria-hidden="true"><use href="assets/icons.svg#heart-pulse"/></svg></span><span><b>Family Doctor</b><small>Kiến thức sức khỏe đáng tin cậy</small></span></a>
+        <p class="foot-about">Thông tin y khoa dễ hiểu, có cơ sở khoa học và hướng đến lợi ích người bệnh. Chăm sóc sức khỏe, bắt đầu từ gia đình.</p>
+        <div class="foot-contact">
+          <span><svg class="i " aria-hidden="true"><use href="assets/icons.svg#stethoscope"/></svg> BS. Thái Hoàng – bác sĩ phụ trách nội dung</span>
+          <span><svg class="i " aria-hidden="true"><use href="assets/icons.svg#message"/></svg> Zalo: <a href="https://zalo.me/0935498866">0935 498 866</a></span>
+        </div>
+      </div>
+      <div><h4>Tra cứu</h4><ul>
+        <li><a href="#benh-thuong-gap">Bệnh thường gặp</a></li>
+        <li><a href="#trieu-chung">Tra cứu triệu chứng</a></li>
+        <li><a href="#phong-benh">Phòng bệnh</a></li>
+        <li><a href="#suc-khoe-theo-tuoi">Sức khỏe theo tuổi</a></li>
+        <li><a href="#benh-man-tinh">Bệnh mạn tính</a></li>
+        <li><a href="#dinh-duong">Dinh dưỡng &amp; lối sống</a></li></ul></div>
+      <div><h4>Chuyên đề</h4><ul>
+        <li><a href="kien-thuc-tieu-hoa/">Kiến thức tiêu hóa</a></li>
+        <li><a href="kien-thuc-tieu-hoa/#gerd">Trào ngược dạ dày (GERD)</a></li>
+        <li><a href="kien-thuc-tieu-hoa/#tri">Bệnh trĩ</a></li>
+        <li><a href="#dinh-duong">Tính chỉ số BMI</a></li>
+        <li><a href="#benh-man-tinh">Đọc chỉ số huyết áp</a></li></ul></div>
+      <div><h4>Cần hỗ trợ?</h4>
+        <div class="foot-em"><b>Cấp cứu: gọi 115</b>Khó thở, đau ngực, yếu liệt, lơ mơ, chảy máu nhiều.</div>
+        <ul style="margin-top:14px"><li><a href="#hoi-bac-si">Gửi câu hỏi cho bác sĩ</a></li><li><a href="https://zalo.me/0935498866">Nhắn Zalo trực tiếp</a></li></ul>
+      </div>
     </div>
-    <div><h4>Tra cứu</h4><ul>
-      <li><a href="#benh-thuong-gap">Bệnh thường gặp</a></li><li><a href="#trieu-chung">Triệu chứng</a></li><li><a href="#benh-man-tinh">Bệnh mạn tính</a></li></ul></div>
-    <div><h4>Sống khỏe</h4><ul>
-      <li><a href="#phong-benh">Phòng bệnh</a></li><li><a href="#suc-khoe-theo-tuoi">Sức khỏe theo tuổi</a></li><li><a href="#dinh-duong">Dinh dưỡng &amp; lối sống</a></li><li><a href="#hoi-bac-si">Hỏi bác sĩ</a></li></ul></div>
+    <div class="foot-bottom"><span>© 2026 Family Doctor · bacsi115.com</span><span>Nội dung giáo dục sức khỏe, không thay thế khám và điều trị.</span></div>
   </div>
 </footer>
+
+<!--FOOTER:END-->
 
 
 <script>
@@ -573,15 +629,20 @@ const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const norm = s => s.normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/đ/g,"d").replace(/Đ/g,"d").toLowerCase();
 
+const ico = (n,c="") => `<svg class="i ${c}" aria-hidden="true"><use href="assets/icons.svg#${n}"/></svg>`;
+const GRP = {"Truyền nhiễm":{i:"bug",c:"#c2410c"},"Hô hấp":{i:"wind",c:"#0369a1"},"Tiêu hóa":{i:"stomach",c:"#0b7a75"},"Trẻ em":{i:"baby",c:"#be185d"},"Mạn tính":{i:"activity",c:"#7c3aed"},"Cơ xương khớp":{i:"bone",c:"#4d7c0f"},"Thần kinh":{i:"brain",c:"#4338ca"}};
 function cardHTML(d){
-  return `<button class="card" data-open="${d.id}">
-    <span class="tag${d.group==='Truyền nhiễm'||d.group==='Trẻ em'?' warn':''}">${esc(d.group)}</span>
-    <h3>${esc(d.name)}</h3><p>${esc(d.sum)}</p><span class="more">Đọc thêm →</span></button>`;
+  const g = GRP[d.group] || {i:"stethoscope",c:"#0b7a75"};
+  return `<button class="card" data-open="${d.id}" style="--c:${g.c}">
+    <span class="top"><span class="ib">${ico(g.i)}</span><span class="tag">${esc(d.group)}</span></span>
+    <h3>${esc(d.name)}</h3><p>${esc(d.sum)}</p><span class="more">Đọc thêm ${ico("arrow-right")}</span></button>`;
 }
 
 /* Home */
 $("#homeDiseases").innerHTML = ["sxh","cum","tcm","tc"].map(id=>cardHTML(ALL.find(d=>d.id===id))).join("");
-$("#homeAges").innerHTML = AGES.map(a=>`<a href="#suc-khoe-theo-tuoi" data-age="${a.id}"><b>${esc(a.name)}</b><span>${esc(a.range)}</span></a>`).join("");
+const AGE_ICON = {"tre-nho":["baby","#be185d"],"hoc-duong":["book-open","#1b6fb3"],"truong-thanh":["users","#0b7a75"],"trung-nien":["heart-pulse","#c2410c"],"cao-tuoi":["shield-check","#7c3aed"]};
+$("#homeAges").innerHTML = AGES.map(a=>{const [n,c]=AGE_ICON[a.id]||["users","#0b7a75"]; return `<a href="#suc-khoe-theo-tuoi" data-age="${a.id}" style="--c:${c}"><span class="ib">${ico(n)}</span><b>${esc(a.name)}</b><span>${esc(a.range)}</span></a>`}).join("");
+$("#statDz").textContent = ALL.length;
 $("#homeSearch").addEventListener("submit", e=>{e.preventDefault(); goSearch($("#homeQ").value)});
 document.querySelectorAll("[data-q]").forEach(b=>b.addEventListener("click",()=>goSearch(b.dataset.q)));
 function goSearch(q){ $("#dzQ").value=q; dzGroup="Tất cả"; renderSeg(); renderDz(); location.hash="benh-thuong-gap"; }
@@ -603,6 +664,9 @@ function renderDz(){
     `<div class="empty">Chưa có bài về “${esc($("#dzQ").value)}”. Thử từ khóa khác hoặc <a href="#hoi-bac-si">gửi câu hỏi cho bác sĩ</a>.</div>`;
 }
 renderSeg(); renderDz();
+$("#specGrid").innerHTML = GROUPS.filter(g=>g!=="Tất cả").map(g=>{const x=GRP[g]||{i:"stethoscope",c:"#0b7a75"}, n=ALL.filter(d=>d.group===g).length; return `<button class="spec" data-spec="${esc(g)}" style="--c:${x.c}"><span class="ib">${ico(x.i)}</span><span><b>${esc(g)}</b><small>${n} bệnh</small></span></button>`}).join("")
+  + `<button class="spec" data-spec="Tất cả" style="--c:#0b7a75"><span class="ib solid">${ico("book-open")}</span><span><b>Tất cả bệnh</b><small>${ALL.length} bệnh</small></span></button>`;
+$("#specGrid").addEventListener("click",e=>{const b=e.target.closest("[data-spec]"); if(!b) return; dzGroup=b.dataset.spec; $("#dzQ").value=""; renderSeg(); renderDz(); location.hash="benh-thuong-gap";});
 
 /* Chronic */
 $("#chronicList").innerHTML = CHRONIC.map(cardHTML).join("");
@@ -749,6 +813,7 @@ function route(){
   if(h.startsWith("bai-")){ const d = ALL.find(x=>x.id===h.slice(4)); if(d && d.url){ location.replace(d.url); return; } if(d){ renderArticle(d); shown="bai"; v = CHRONIC.includes(d) ? "benh-man-tinh" : "benh-thuong-gap"; } }
   document.querySelectorAll(".view").forEach(el=>el.classList.toggle("active", el.id==="v-"+shown));
   document.querySelectorAll("nav.main a").forEach(a=>{ if(a.getAttribute("href")==="#"+v) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
+  document.querySelectorAll("nav.main .has-sub").forEach(g=>g.classList.toggle("cur", !!g.querySelector('a[aria-current="page"]')));
   $("#mainNav").classList.remove("open"); $("#menuBtn").setAttribute("aria-expanded","false");
   window.scrollTo(0,0);
 }

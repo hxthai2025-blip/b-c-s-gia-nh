@@ -8,6 +8,7 @@ Thư mục bắt đầu bằng "_" không được GitHub Pages đăng lên web.
 import html, json, re, subprocess, unicodedata
 from pathlib import Path
 from bs4 import BeautifulSoup, NavigableString
+import layout as L
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "_tools" / "gerd"
@@ -242,66 +243,28 @@ def head(a, canonical, title, desc, extra=""):
 <meta property="og:title" content="{E(title)}">
 <meta property="og:description" content="{E(desc)}">
 <meta property="og:url" content="{canonical}">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#0b7a75">
+{L.FONT_LINK}
 <link rel="stylesheet" href="{a}assets/style.css">
 {extra}</head>
 <body>
 
-<div class="topbar"><div class="wrap">
-  <span>Cấp cứu: gọi <strong>115</strong> nếu khó thở, đau ngực, yếu liệt hoặc lơ mơ</span>
-  <span>Hỏi bác sĩ qua Zalo: <a href="https://zalo.me/0935498866" style="color:#fff;font-weight:600">0935 498 866</a></span>
-</div></div>
-
-<header class="site">
-  <div class="wrap">
-    <a class="logo" href="{a}#trang-chu" aria-label="Family Doctor – Trang chủ">
-      <span class="logo-mark" aria-hidden="true">{LOGO_SVG}</span>
-      <span><b>FAMILY DOCTOR</b><small>Bác sĩ gia đình</small></span>
-    </a>
-    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mainNav">Menu</button>
-    <nav class="main" id="mainNav" aria-label="Điều hướng chính">
-      <a href="{a}#trang-chu">Trang chủ</a>
-      <a href="{a}#benh-thuong-gap" aria-current="page">Bệnh thường gặp</a>
-      <a href="{a}#trieu-chung">Triệu chứng</a>
-      <a href="{a}#phong-benh">Phòng bệnh</a>
-      <a href="{a}#suc-khoe-theo-tuoi">Sức khỏe theo tuổi</a>
-      <a href="{a}#benh-man-tinh">Bệnh mạn tính</a>
-      <a href="{a}#dinh-duong">Dinh dưỡng &amp; lối sống</a>
-      <a href="{a}#hoi-bac-si">Hỏi bác sĩ</a>
-    </nav>
-  </div>
-</header>
-'''
+{L.header(a, current="chuyen-de")}'''
 
 
 def foot(a):
-    return f'''
-<div class="disclaimer"><div class="wrap">Thông tin trên Family Doctor chỉ nhằm mục đích tham khảo, không thay thế chẩn đoán và điều trị của bác sĩ.</div></div>
-<footer>
-  <div class="wrap foot-grid">
-    <div>
-      <a class="logo" href="{a}#trang-chu"><span class="logo-mark" aria-hidden="true">{LOGO_SVG}</span><span><b>FAMILY DOCTOR</b><small>Chăm sóc sức khỏe, bắt đầu từ gia đình.</small></span></a>
-      <p class="muted" style="margin-top:12px;max-width:44ch">Thông tin y khoa dễ hiểu, có cơ sở khoa học và hướng đến lợi ích người bệnh.</p>
-      <p style="margin-top:10px">BS. Thái Hoàng · Zalo <a href="https://zalo.me/0935498866">0935 498 866</a></p>
-    </div>
-    <div><h4>Tra cứu</h4><ul>
-      <li><a href="{a}#benh-thuong-gap">Bệnh thường gặp</a></li><li><a href="{a}kien-thuc-tieu-hoa/">Kiến thức tiêu hóa</a></li><li><a href="{a}#trieu-chung">Triệu chứng</a></li><li><a href="{a}#benh-man-tinh">Bệnh mạn tính</a></li></ul></div>
-    <div><h4>Sống khỏe</h4><ul>
-      <li><a href="{a}#phong-benh">Phòng bệnh</a></li><li><a href="{a}#suc-khoe-theo-tuoi">Sức khỏe theo tuổi</a></li><li><a href="{a}#dinh-duong">Dinh dưỡng &amp; lối sống</a></li><li><a href="{a}#hoi-bac-si">Hỏi bác sĩ</a></li></ul></div>
-  </div>
-</footer>
+    return L.footer(a, progress=True)
 
-<script>
-document.getElementById("menuBtn").addEventListener("click",function(){{
-  var o=document.getElementById("mainNav").classList.toggle("open");
-  this.setAttribute("aria-expanded",String(o));
-}});
-</script>
-</body>
-</html>
-'''
+
+def meta_row(a, aud, author, published, modified):
+    """Dòng thông tin dưới tiêu đề bài viết (có biểu tượng)."""
+    items = []
+    if aud:
+        items.append(f'<span>{L.ic(a, "users")}{E(aud)}</span>')
+    items.append(f'<span>{L.ic(a, "stethoscope")}{E(author)}</span>')
+    items.append(f'<span>{L.ic(a, "calendar")}Đăng {fmt_date(published)}</span>')
+    items.append(f'<span>{L.ic(a, "refresh")}Cập nhật {fmt_date(modified)}</span>')
+    return '<div class="meta-row">' + "".join(items) + "</div>"
 
 
 def fmt_date(d):
@@ -375,8 +338,7 @@ def build_article(a):
     <span class="eyebrow">Tiêu hóa · Chuyên đề GERD · Bài {a["n"]}</span>
     <h1>{E(a["h1"])}</h1>
     <p>{E(subtitle)}</p>
-    <p class="meta" style="margin-top:12px">{E(aud)}</p>
-    <p class="meta">{E(meta_line)}</p>
+    {meta_row("../../", aud, AUTHOR, PUBLISHED, MODIFIED)}
   </div>
 
   <div class="article-grid">
