@@ -219,13 +219,14 @@ POLICIES = [
          body=[("Mục tiêu", "<p>Family Doctor cung cấp thông tin sức khỏe bằng tiếng Việt dễ hiểu, giúp người bệnh và gia đình hiểu đúng bệnh, chăm sóc đúng cách và biết khi nào cần đi khám.</p>"),
                ("Nguồn tham khảo", "<p>Nội dung được soạn dựa trên hướng dẫn của Bộ Y tế, Tổ chức Y tế Thế giới và các hiệp hội chuyên ngành. Mỗi bài chuyên đề liệt kê tài liệu tham khảo ở cuối bài.</p>"),
                ("Tác giả", f"<p>Mỗi bài ghi rõ tác giả và ngày cập nhật.</p><p>Bác sĩ phụ trách nội dung hiện tại: {E(L.AUTHOR['name'])}, {E(L.AUTHOR_AFFIL)}.</p>"),
-               ("Độc lập và quảng cáo", "<p>Family Doctor không quảng cáo thuốc, không nhận tài trợ để đưa thông tin về sản phẩm vào bài viết và không cam kết kết quả điều trị.</p>"),
+               ("Độc lập và quảng cáo", "<p>Family Doctor không quảng cáo thuốc, không nhận tài trợ để đưa thông tin về sản phẩm vào bài viết và không cam kết kết quả điều trị.</p><p>Bạn đọc có thể ủng hộ tác giả một cách tự nguyện (xem trang <a href=\"../ung-ho/\">Ủng hộ tác giả</a>). Các khoản ủng hộ không ảnh hưởng đến nội dung, quan điểm chuyên môn hay việc đưa thông tin về bất kỳ sản phẩm, dịch vụ nào vào bài viết.</p>"),
                ("Cập nhật và góp ý", f'<p>Nội dung được rà soát khi có hướng dẫn mới. Nếu phát hiện thông tin chưa chính xác, vui lòng báo qua Zalo <a href="{L.ZALO}">0935 498 866</a>.</p>')]),
     dict(slug="chinh-sach-bao-mat", title="Chính sách bảo mật", lead="Family Doctor tôn trọng quyền riêng tư của bạn đọc.",
          body=[("Dữ liệu chúng tôi thu thập", "<p>Website không yêu cầu đăng ký tài khoản và không thu thập thông tin cá nhân trên máy chủ.</p>"),
                ("Biểu mẫu hỏi bác sĩ", "<p>Biểu mẫu “Hỏi bác sĩ” chỉ soạn sẵn nội dung để bạn tự gửi qua Zalo. Câu hỏi chỉ được gửi khi bạn chủ động gửi trong ứng dụng Zalo và không được đăng công khai trên website.</p>"),
                ("Dữ liệu lưu trên thiết bị", "<p>Công cụ Nhật ký huyết áp lưu các lần đo trong bộ nhớ trình duyệt của chính bạn (localStorage). Dữ liệu không được gửi đi và có thể xóa bất cứ lúc nào bằng nút “Xóa nhật ký”.</p>"),
                ("Dịch vụ bên thứ ba", "<p>Website được lưu trữ trên GitHub Pages. Nhà cung cấp hạ tầng có thể ghi nhận thông tin kỹ thuật như địa chỉ IP theo chính sách của họ.</p>"),
+               ("Ủng hộ tự nguyện", "<p>Việc ủng hộ được thực hiện trực tiếp qua ứng dụng ngân hàng của bạn. Website không thu thập, không lưu và không nhìn thấy thông tin giao dịch của bạn.</p>"),
                ("Liên hệ", f'<p>Mọi câu hỏi về quyền riêng tư, vui lòng liên hệ qua Zalo <a href="{L.ZALO}">0935 498 866</a>.</p>')]),
     dict(slug="mien-tru-trach-nhiem", title="Miễn trừ trách nhiệm y khoa", lead="Thông tin trên Family Doctor nhằm mục đích giáo dục sức khỏe.",
          body=[("Không thay thế khám bệnh", "<p>Nội dung trên website không thay thế việc khám, chẩn đoán hoặc chỉ định điều trị của bác sĩ. Mỗi người bệnh cần được đánh giá riêng.</p>"),
@@ -246,6 +247,49 @@ def build_policies():
         d = g.ROOT / p["slug"]
         d.mkdir(exist_ok=True)
         (d / "index.html").write_text(page, encoding="utf-8")
+
+
+def build_donate():
+    d = L.DONATE
+    ic_ = lambda n: ic("../", n)
+    num_plain = d["number"].replace(" ", "")
+    rows = "".join(
+        f'<li><span class="k">{k}</span><span class="v">{E(v)}</span>{btn}</li>' for k, v, btn in [
+            ("Ngân hàng", d["bank"], ""),
+            ("Số tài khoản", d["number"], f'<button class="copy" type="button" data-copy="{num_plain}">{ic_("file-text")} Sao chép</button>'),
+            ("Nội dung gợi ý", d["note"], f'<button class="copy" type="button" data-copy="{E(d["note"])}">{ic_("file-text")} Sao chép</button>')])
+    body = f'''<section class="donate">
+  <figure class="qr"><img src="../assets/ung-ho-qr.png" width="654" height="738" alt="Mã QR VietQR chuyển khoản tới tài khoản {E(d['bank'])} {E(d['number'])}" decoding="async">
+    <figcaption>Quét bằng ứng dụng ngân hàng hoặc ví điện tử có hỗ trợ VietQR. Bạn tự nhập số tiền.</figcaption></figure>
+  <div>
+    <ul class="acct">{rows}</ul>
+    <p class="muted" style="margin-top:14px">Mã QR tĩnh: không gắn sẵn số tiền, bạn có thể ủng hộ bất kỳ mức nào bạn muốn.</p>
+  </div>
+</section>
+<section><h2>Vì sao có trang này?</h2>
+<p>Family Doctor là website kiến thức sức khỏe miễn phí, không quảng cáo thuốc. Mỗi bài viết cần thời gian tìm hiểu hướng dẫn chuyên ngành, viết lại cho dễ hiểu, minh họa và cập nhật. Nếu thấy nội dung hữu ích, đóng góp của bạn là động lực để tác giả dành thêm thời gian viết nhiều bài hay hơn phục vụ cộng đồng.</p></section>
+<section><h2>Điều bạn nên biết</h2><ul class="list">
+<li>Việc ủng hộ hoàn toàn <b>tự nguyện</b>. Mọi bài viết và công cụ vẫn miễn phí cho tất cả mọi người.</li>
+<li>Ủng hộ <b>không ảnh hưởng đến nội dung</b> và không mang lại ưu tiên tư vấn y khoa. Family Doctor không tư vấn riêng hay kê đơn.</li>
+<li>Khoản ủng hộ là quà tặng cá nhân gửi tác giả; trang này không cấp hóa đơn hay chứng từ.</li>
+<li>Website không thu thập thông tin giao dịch của bạn (xem <a href="../chinh-sach-bao-mat/">Chính sách bảo mật</a>).</li></ul></section>
+<div class="alert warn"><div><b>Cẩn trọng khi chuyển tiền</b>Chỉ dùng thông tin trên trang <b>bacsi115.com/ung-ho/</b>. Family Doctor không nhắn tin riêng, không gọi điện để xin chuyển tiền. Hãy kiểm tra kỹ thông tin trên ứng dụng ngân hàng trước khi xác nhận chuyển tiền.</div></div>
+<script>
+document.querySelectorAll(".copy").forEach(function(b){{b.addEventListener("click",function(){{
+  var t=b.dataset.copy,done=function(){{var o=b.innerHTML;b.textContent="Đã sao chép";setTimeout(function(){{b.innerHTML=o}},1800)}};
+  if(navigator.clipboard&&navigator.clipboard.writeText){{navigator.clipboard.writeText(t).then(done,function(){{window.prompt("Sao chép:",t)}})}}else{{window.prompt("Sao chép:",t)}}
+}})}});
+</script>'''
+    url = f"{SITE}/ung-ho/"
+    page = L.simple_page("../", url=url, title="Ủng hộ tác giả | Family Doctor",
+                         desc="Ủng hộ tự nguyện để tác giả có thêm động lực viết nhiều bài sức khỏe hay hơn phục vụ cộng đồng.",
+                         crumbs=[("Trang chủ", "../"), ("Ủng hộ tác giả", None)], h1="Ủng hộ tác giả",
+                         lead="Cảm ơn bạn đã đọc Family Doctor. Nếu bài viết hữu ích, bạn có thể đồng hành cùng tác giả.", body_html=body,
+                         ld=[L.ld_breadcrumb([("Trang chủ", SITE + "/"), ("Ủng hộ tác giả", url)])])
+    page = page.replace('<meta name="robots" content="index, follow, max-image-preview:large">', '<meta name="robots" content="noindex, follow">')
+    d_ = g.ROOT / "ung-ho"
+    d_.mkdir(exist_ok=True)
+    (d_ / "index.html").write_text(page, encoding="utf-8")
 
 
 def build_404():
@@ -274,6 +318,7 @@ if __name__ == "__main__":
     t.build_all_articles()
     build_hub()
     build_policies()
+    build_donate()
     build_404()
     build_index()
     build_sitemap()
