@@ -293,7 +293,6 @@ def article_page(a, *, url, seo_title, desc, crumbs, category, h1, sapo, publish
     {refs_html}
     {rel_html}
     {author_box}
-    {support}
     {disclaimer}
     {pager}
   </article>

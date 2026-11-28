@@ -256,11 +256,10 @@ def build_donate():
     rows = "".join(
         f'<li><span class="k">{k}</span><span class="v">{E(v)}</span>{btn}</li>' for k, v, btn in [
             ("Ngân hàng", d["bank"], ""),
-            ("Chủ tài khoản", d["name"], ""),
             ("Số tài khoản", d["number"], f'<button class="copy" type="button" data-copy="{num_plain}">{ic_("file-text")} Sao chép</button>'),
             ("Nội dung gợi ý", d["note"], f'<button class="copy" type="button" data-copy="{E(d["note"])}">{ic_("file-text")} Sao chép</button>')])
     body = f'''<section class="donate">
-  <figure class="qr"><img src="../assets/ung-ho-qr.png" width="654" height="738" alt="Mã QR VietQR chuyển khoản tới tài khoản {E(d['bank'])} {E(d['number'])}, chủ tài khoản {E(d['name'])}" decoding="async">
+  <figure class="qr"><img src="../assets/ung-ho-qr.png" width="654" height="738" alt="Mã QR VietQR chuyển khoản tới tài khoản {E(d['bank'])} {E(d['number'])}" decoding="async">
     <figcaption>Quét bằng ứng dụng ngân hàng hoặc ví điện tử có hỗ trợ VietQR. Bạn tự nhập số tiền.</figcaption></figure>
   <div>
     <ul class="acct">{rows}</ul>
@@ -274,7 +273,7 @@ def build_donate():
 <li>Ủng hộ <b>không ảnh hưởng đến nội dung</b> và không mang lại ưu tiên tư vấn y khoa. Family Doctor không tư vấn riêng hay kê đơn.</li>
 <li>Khoản ủng hộ là quà tặng cá nhân gửi tác giả; trang này không cấp hóa đơn hay chứng từ.</li>
 <li>Website không thu thập thông tin giao dịch của bạn (xem <a href="../chinh-sach-bao-mat/">Chính sách bảo mật</a>).</li></ul></section>
-<div class="alert warn"><div><b>Cẩn trọng khi chuyển tiền</b>Chỉ dùng thông tin trên trang <b>bacsi115.com/ung-ho/</b>. Family Doctor không nhắn tin riêng, không gọi điện để xin chuyển tiền. Hãy kiểm tra tên chủ tài khoản hiển thị trên ứng dụng ngân hàng trước khi xác nhận.</div></div>
+<div class="alert warn"><div><b>Cẩn trọng khi chuyển tiền</b>Chỉ dùng thông tin trên trang <b>bacsi115.com/ung-ho/</b>. Family Doctor không nhắn tin riêng, không gọi điện để xin chuyển tiền. Hãy kiểm tra kỹ thông tin trên ứng dụng ngân hàng trước khi xác nhận chuyển tiền.</div></div>
 <script>
 document.querySelectorAll(".copy").forEach(function(b){{b.addEventListener("click",function(){{
   var t=b.dataset.copy,done=function(){{var o=b.innerHTML;b.textContent="Đã sao chép";setTimeout(function(){{b.innerHTML=o}},1800)}};
