@@ -498,3 +498,27 @@ a.hero-note:hover{border-color:var(--primary)}
 /* Chế độ tối: chữ trên nút chính đủ tương phản */
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn:not(.ghost):not(.light),:root:not([data-theme="light"]) .ib.solid,:root:not([data-theme="light"]) .logo-mark{color:#0D1719}}
 :root[data-theme="dark"] .btn:not(.ghost):not(.light),:root[data-theme="dark"] .ib.solid,:root[data-theme="dark"] .logo-mark{color:#0D1719}
+
+/* Khu vực ủng hộ tác giả */
+.support{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;margin:0 0 4px;padding:16px 18px;border:1px solid rgba(255,255,255,.16);border-radius:var(--r);background:rgba(255,255,255,.05)}
+.support p{flex:1 1 320px;color:#D5E1E5;font-size:.9rem;line-height:1.6}
+.support p b{color:#fff}
+.support .ib{background:rgba(255,255,255,.12);color:#fff;width:40px;height:40px}
+.site-footer .btn.light{color:var(--primary-700)}
+.site-footer .btn.light:hover{color:var(--primary-700);text-decoration:none}
+.support-mini{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border:1px dashed color-mix(in srgb,var(--primary) 35%,var(--border));border-radius:var(--r);background:var(--surface);font-size:.92rem;line-height:1.65}
+.support-mini .i{color:var(--primary);margin-top:.25em}
+.donate{display:grid;gap:24px;align-items:start}
+@media (min-width:820px){.donate{grid-template-columns:minmax(0,340px) 1fr;gap:36px}}
+.donate .qr{margin:0;background:#fff;border:1px solid var(--border);border-radius:var(--r-lg);padding:12px;max-width:380px}
+.donate .qr img{display:block;width:100%;height:auto;border-radius:10px}
+.donate .qr figcaption{font-size:.84rem;color:#475569;margin-top:8px;text-align:center;line-height:1.5}
+.acct{list-style:none;margin:0;padding:0;border:1px solid var(--border);border-radius:var(--r-lg);background:var(--surface);overflow:hidden}
+.acct li{display:grid;grid-template-columns:130px 1fr auto;gap:4px 12px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--border)}
+.acct li:last-child{border-bottom:0}
+.acct .k{font-size:.82rem;color:var(--muted)}
+.acct .v{font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.copy{display:inline-flex;align-items:center;gap:6px;min-height:36px;border:1px solid var(--border);background:var(--surface);color:var(--primary);border-radius:10px;padding:4px 12px;font-size:.84rem;font-weight:600;cursor:pointer}
+.copy:hover{border-color:var(--primary)}
+@media (max-width:520px){.acct li{grid-template-columns:1fr auto}.acct .k{grid-column:1/-1}}
+.article section.donate{display:grid;flex-direction:initial}

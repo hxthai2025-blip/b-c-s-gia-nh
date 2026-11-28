@@ -26,6 +26,9 @@ AUTHOR = dict(name="BS. Thái Hoàng", role="Bác sĩ phụ trách nội dung Fa
               dept="Khoa Ngoại tổng hợp", org="Bệnh viện Nhân dân 115",
               verified=["Khoa Ngoại tổng hợp, Bệnh viện Nhân dân 115"])  # do chủ site cung cấp; học hàm, học vị, chứng chỉ chưa có dữ liệu
 AUTHOR_AFFIL = AUTHOR["dept"] + ", " + AUTHOR["org"]
+
+# Tài khoản nhận ủng hộ tự nguyện (do chủ site cung cấp; mã QR đã giải mã và đối chiếu: Techcombank, 3501668888)
+DONATE = dict(bank="Techcombank", name="HOANG XUAN THAI", number="3501 6688 88", note="Ung ho Family Doctor")
 REVIEWER = None  # dict(name=..., role=...) khi có người duyệt chuyên môn thật
 
 FONT_LINK = f'<link rel="stylesheet" href="{{a}}assets/fonts/fonts.css">'
@@ -194,8 +197,10 @@ def footer(a="", progress=False, script=True):
         <li><a href="{a}chinh-sach-bien-tap/">Chính sách biên tập</a></li>
         <li><a href="{a}chinh-sach-bao-mat/">Chính sách bảo mật</a></li>
         <li><a href="{a}mien-tru-trach-nhiem/">Miễn trừ trách nhiệm y khoa</a></li>
+        <li><a href="{a}ung-ho/">Ủng hộ tác giả</a></li>
         <li><a href="{ZALO}">Liên hệ qua Zalo</a></li></ul></div>
     </div>
+    <div class="support"><span class="ib">{ic(a, "heart")}</span><p><b>Đồng hành cùng Family Doctor.</b> Website miễn phí và không quảng cáo thuốc. Nếu bài viết hữu ích, bạn có thể ủng hộ để tác giả có thêm động lực viết nhiều bài hay hơn phục vụ cộng đồng.</p><a class="btn light sm" href="{a}ung-ho/">{ic(a, "heart")} Ủng hộ tác giả</a></div>
     <p class="foot-disc">{ic(a, "alert-triangle")}<span><b>Lưu ý y khoa:</b> Thông tin trên {BRAND} chỉ nhằm mục đích giáo dục sức khỏe, không thay thế khám, chẩn đoán và điều trị của bác sĩ. Khi có dấu hiệu nguy hiểm, gọi <b>115</b> hoặc đến cơ sở y tế gần nhất.</span></p>
     <div class="foot-bottom"><span>© 2026 {BRAND} · Bacsi115.com</span><span>{TAGLINE}</span></div>
   </div>
@@ -261,6 +266,8 @@ def article_page(a, *, url, seo_title, desc, crumbs, category, h1, sapo, publish
                   f'<p>{E(AUTHOR["role"])}.</p>'
                   + (f'<ul class="list" style="margin-top:8px">{verified}</ul>' if verified else '')
                   + f'<p><a href="{a}kien-thuc-tieu-hoa/">Xem các bài viết</a> · <a href="{ZALO}">Liên hệ qua Zalo</a></p></div></section>')
+    support = (f'<aside class="support-mini">{ic(a, "heart")}<p>Bài viết hữu ích với bạn? Website miễn phí, không quảng cáo thuốc. '
+               f'<a href="{a}ung-ho/">Ủng hộ tác giả</a> để có thêm động lực viết bài phục vụ cộng đồng (không bắt buộc).</p></aside>')
     disclaimer = (f'<p class="disclaimer-box"><b>Miễn trừ trách nhiệm:</b> Bài viết cung cấp thông tin giáo dục sức khỏe, không thay thế khám, chẩn đoán hoặc chỉ định điều trị của bác sĩ. '
                   f'Không tự ý dùng, ngừng hay đổi liều thuốc. Khi có dấu hiệu nguy hiểm, gọi 115. <a href="{a}mien-tru-trach-nhiem/">Đọc đầy đủ</a>.</p>')
     page = head(a, url, seo_title, desc, og_image, "article", ld)
@@ -286,6 +293,7 @@ def article_page(a, *, url, seo_title, desc, crumbs, category, h1, sapo, publish
     {refs_html}
     {rel_html}
     {author_box}
+    {support}
     {disclaimer}
     {pager}
   </article>
